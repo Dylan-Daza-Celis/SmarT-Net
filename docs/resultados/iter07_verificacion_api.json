@@ -1,0 +1,16 @@
+{
+    "mttr":  "No calculable",
+    "action_records":  1,
+    "incident_id":  "a61067e9-8cb9-47e0-ab2a-ea3840deb043",
+    "assignment_records":  1,
+    "state_records":  6,
+    "mttd":  "No calculable",
+    "review_signals":  1,
+    "kind":  "synthetic_api_smoke",
+    "status":  "Cerrado",
+    "score_before":  73,
+    "needs_review":  true,
+    "score_after":  73,
+    "note":  "Automated synthetic HTTP verification only, not human response measurements",
+    "assigned":  true
+}

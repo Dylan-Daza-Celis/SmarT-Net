@@ -6,6 +6,8 @@ La **iteración 05** incorpora evaluación experimental reproducible: datasets s
 
 La **iteración 06** añade LogisticRegression y RandomForest experimentales, pipelines scikit-learn, test aislado por grupos y comparación con weighted-v2. **Weighted-v2 sigue siendo el motor operativo predeterminado**; no se activan modelos ML en producción ni se alteran scores históricos.
 
+La **iteración 07** agrega responsables, máquina de estados, revisiones optimistas, acciones tipificadas, línea temporal y métricas operativas documentales. Los eventos recibidos para casos cerrados generan señales de revisión y conservan su riesgo.
+
 ## Arranque
 
 Requiere Docker Compose v2 y puertos locales 5173 y 8000 disponibles.
@@ -30,7 +32,17 @@ La API ejecuta `alembic upgrade head` antes de Uvicorn. Bootstrap crea solo el p
 | Cambiar estado y registrar acciones | Sí | Sí | No |
 | Crear usuarios, cambiar rol, contraseña o desactivar | Sí | No | No |
 
-Importar `examples/eventos_demo.json`: 4 eventos y 4 incidentes, porque las IP de origen son distintas; repetir detecta 4 duplicados. El detalle muestra factores de riesgo, parámetros, eventos, historial y acciones. Los filtros combinan prioridad, tipo y estado. Los roles con escritura pueden cambiar entre Nuevo, Asignado, En análisis, En respuesta, Resuelto y Cerrado, con justificación obligatoria. Se permiten saltos y reaperturas. Repetir el estado actual devuelve 409. Autor, fecha UTC, estado previo y justificación se guardan en una transacción.
+Importar `examples/eventos_demo.json`: 4 eventos y 4 incidentes; repetir detecta 4 duplicados. El detalle muestra riesgo, eventos, responsable, primeros/últimos timestamps y timeline. Los filtros combinan responsable, prioridad, tipo y estado. Desde iteración 07, la asignación inicial mueve Nuevo a Asignado y los estados siguen la máquina de trabajo; los saltos libres de versiones anteriores quedan sustituidos por transiciones y reaperturas explícitas. Se registran autor, UTC y justificación en una transacción.
+
+## Gestión avanzada de incidentes (iteración 07)
+
+Flujo normal: **Nuevo → Asignado → En análisis → En respuesta → Resuelto → Cerrado**. El administrador asigna a escritores activos; un analista puede tomar para sí un caso sin responsable y transferir uno propio. Para retirar desde trabajo activo debe volver primero a Asignado; retirar desde Asignado lo devuelve a Nuevo. Se permiten retrocesos y reaperturas documentados; reabrir Cerrado exige administrador y responsable activo. Observador conserva solo lectura.
+
+**Cambio necesario de contrato:** PATCH `/api/incidents/{id}/status` y el nuevo PATCH `/assignment` exigen `expected_revision`, obtenido al consultar el detalle. Ausente: 428; obsoleto: 409. Recargar y revisar antes de reintentar. No puede desactivarse/degradarse un responsable con incidentes abiertos sin reasignarlos. Los estados heredados se conservan sin inventar asignaciones o tiempos.
+
+Las acciones agregan categoría y fecha declarada/registrada; los comentarios anteriores y el cuerpo `{"description":"..."}` permanecen compatibles. No ejecutan comandos. Un evento nuevo correlacionado con Cerrado se conserva con señal de revisión: no cambia estado, score ni evaluaciones. Reconocer una señal anexa un registro, sin borrarla.
+
+Los intervalos de asignación, inicio de respuesta y resolución se basan en transacciones registradas. MTTD/MTTR requieren evidencia operacional documental revisada por administrador: nunca se infieren desde event_timestamp, received_at o un cambio de estado. Sin datos válidos se presenta **No calculable** y motivo. [Reglas, fórmulas, permisos, migración y resultados](docs/GESTION_AVANZADA_INCIDENTES.md).
 
 ## Suricata EVE JSON (iteración 04)
 
@@ -52,7 +64,7 @@ Algoritmo, fórmulas, campos ausentes, límites, eventos tardíos, migración 00
 
 ## Migraciones sin borrar datos
 
-Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0006`, que agrega únicamente ml_runs a `0005` para guardar modelos numéricos y resultados sin eliminar ni modificar datos, usuarios, evidencias o experimentos existentes. Los incidentes previos conservan su estado y parámetros; no se inventa procedencia retroactiva. No cambiar credenciales durante la actualización.
+Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0007`, que agrega metadata de ciclo de vida y tablas de asignaciones, señales, reconocimientos y evidencia temporal sin eliminar o recrear tablas existentes. Los incidentes previos conservan estado, eventos, parámetros y evaluaciones; no se inventa procedencia retroactiva ni se modifican modelos/experimentos. No cambiar credenciales durante la actualización.
 
 Fuera de Docker, definir DATABASE_URL y JWT_SECRET en el entorno; desde backend ejecutar `python -m alembic upgrade head`, `python -m app.bootstrap` y `python -m uvicorn app.main:app`. La API ya no crea tablas al arrancar.
 
@@ -71,7 +83,7 @@ npm run build
 Pop-Location
 ```
 
-SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 06: **65 pruebas aprobadas en SQLite y 65 en PostgreSQL 16**, comprobaciones finales específicas de ML en ambas, build TypeScript/Vite correcto y Compose aislado en `0006` con entrenamiento e inferencia por API. Permanece una advertencia de deprecación de Starlette/AnyIO. [Validación actual](docs/APRENDIZAJE_AUTOMATICO.md). Se conservan los resultados de [iteración 05 (54 por base)](docs/EVALUACION_EXPERIMENTAL.md) y [04 (38 por base)](docs/INTEGRACION_SURICATA.md) como evidencia histórica.
+SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 07: **82 pruebas aprobadas en SQLite y 82 en PostgreSQL 16**, build TypeScript/Vite y Compose en `0007`, con comprobación HTTP de cierre y señal de revisión conservando riesgo. Permanece una advertencia de deprecación de Starlette/AnyIO. [Validación actual](docs/GESTION_AVANZADA_INCIDENTES.md). Se mantienen como evidencia histórica [06 (65 por base)](docs/APRENDIZAJE_AUTOMATICO.md), [05 (54)](docs/EVALUACION_EXPERIMENTAL.md) y [04 (38)](docs/INTEGRACION_SURICATA.md).
 
 ## Evaluación experimental (iteración 05)
 
@@ -93,8 +105,8 @@ Resultado del laboratorio guardado: macro-F1 test LR **0.5656**, RF **0.7086**, 
 
 Solo health, login y documentación OpenAPI son públicos; los endpoints de datos requieren Bearer. El frontend guarda el token en memoria: recargar exige iniciar sesión. El backend consulta rol y activación en cada petición. Cerrar sesión borra el token local; una copia sigue válida hasta expirar. No hay refresh tokens, revocación individual, MFA, recuperación de contraseña ni limitación de intentos de login. La gestión administrativa de usuarios se ofrece por API/OpenAPI.
 
-Las ventanas fijas pueden separar eventos cercanos a ambos lados de un límite y agrupar episodios distintos dentro de una misma ventana; los puertos y firmas no forman parte de la clave. El contexto desconocido usa un prior neutral 50 declarado como política, sin inventar datos observados. Las acciones son registros de texto, no ejecutan comandos en equipos. Asignado es un estado, sin usuario responsable. La interfaz apunta a localhost. Configurar HTTPS y controles de exposición antes de un despliegue externo.
+Las ventanas fijas pueden separar eventos cercanos a ambos lados de un límite y agrupar episodios distintos dentro de una ventana; puertos y firmas no forman parte de la clave. El contexto desconocido usa un prior neutral 50, sin inventar observaciones. Las métricas de tiempo requieren soporte documental y no acreditan rendimiento humano. El bloqueo de escrituras es global y los históricos grandes requieren optimización. La interfaz apunta a localhost; configurar HTTPS y controles de exposición antes de un despliegue externo.
 
 .env y __pycache__ permanecen fuera del índice; .env.example contiene únicamente campos secretos vacíos y el ancho de ventana. Se retiró del ejemplo un valor con apariencia de secreto JWT. Si se utilizó o compartió, debe rotarse: retirarlo del commit actual no elimina su exposición anterior. No se modificaron .env ni contraseñas existentes.
 
-El estado actual está en este README, [la antología actualizada](docs/ANTologia_implementacion.md) y [el aprendizaje automático experimental](docs/APRENDIZAJE_AUTOMATICO.md). Los documentos anteriores conservan sus especificaciones y resultados históricos; no se sustituyen por la evidencia de la nueva iteración.
+El estado actual está en este README, [la antología](docs/ANTologia_implementacion.md) y [la gestión avanzada](docs/GESTION_AVANZADA_INCIDENTES.md). Los documentos anteriores conservan especificaciones y resultados históricos; las reglas de ciclo de vida nuevas prevalecen sobre sus antiguos saltos libres y ausencia de responsable.

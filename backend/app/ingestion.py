@@ -6,8 +6,9 @@ import json
 
 from sqlalchemy import select, text
 from .correlation import correlate, WINDOW_SECONDS, VERSION as CORRELATION_VERSION
-from .models import Event, EventEvidence, Incident, IncidentHistory, RiskEvaluation
+from .models import Event, EventEvidence, Incident, IncidentHistory, RiskEvaluation, IncidentReviewSignal
 from .risk import evaluate, parameters
+from .lifecycle import mutation_lock, now, actor, VERSION as LIFECYCLE_VERSION
 from .schemas import EventIn
 
 
@@ -24,10 +25,8 @@ def ingest(records, author_id, session_factory):
     created, duplicates = 0, 0
     affected = set()
     with session_factory.begin() as db:
-        if db.bind.dialect.name == "postgresql":
-            db.execute(text("SELECT pg_advisory_xact_lock(739031503)"))
-        elif db.bind.dialect.name == "sqlite":
-            db.execute(text("BEGIN IMMEDIATE"))
+        mutation_lock(db)
+        actor(db,author_id)
         for record in records:
             item = record.event
             raw = item.model_dump(mode="json")
@@ -42,16 +41,18 @@ def ingest(records, author_id, session_factory):
                 inc = db.scalar(select(Incident).where(
                     Incident.correlation_key == key, Incident.window_start == start,
                     Incident.window_seconds == WINDOW_SECONDS,
-                    Incident.correlation_version == CORRELATION_VERSION))
+                    Incident.correlation_version == CORRELATION_VERSION).with_for_update())
                 if inc is None:
+                    timestamp=now()
                     inc = Incident(correlation_key=key, event_type=item.event_type,
+                        created_at=timestamp,lifecycle_started_at=timestamp,cycle_number=1,
                         source_ip=attributes[1], destination_ip=attributes[2],
                         correlation_version=CORRELATION_VERSION, window_start=start,
                         window_seconds=WINDOW_SECONDS, risk_parameters=json.dumps(parameters()))
                     db.add(inc)
                     db.flush()
                     db.add(IncidentHistory(incident_id=inc.id, author_id=author_id,
-                        status="Nuevo", justification="Creado por importación de eventos"))
+                        status="Nuevo", created_at=timestamp,policy_version=LIFECYCLE_VERSION,cycle_number=1, justification="Creado por importación de eventos"))
                 ev = Event(fingerprint=fp, source=item.source,
                     event_timestamp=item.event_timestamp.astimezone(timezone.utc),
                     source_ip=item.source_ip, destination_ip=item.destination_ip,
@@ -64,6 +65,9 @@ def ingest(records, author_id, session_factory):
                 db.add(ev)
                 db.flush()
                 event_id = ev.id
+                if inc.status=="Cerrado":
+                    db.add(IncidentReviewSignal(incident_id=inc.id,event_id=ev.id,author_id=author_id,
+                        reason="new_event_after_closure: risk and state preserved; review required",created_at=now()))
                 created += 1
                 affected.add(inc.id)
             if record.evidence is not None:
@@ -71,6 +75,9 @@ def ingest(records, author_id, session_factory):
         db.flush()
         for inc_id in affected:
             inc = db.get(Incident, inc_id)
+            inc.revision+=1
+            if inc.status=="Cerrado":
+                continue
             events = db.scalars(select(Event).where(Event.incident_id == inc_id)).all()
             explanation = evaluate(events, json.loads(inc.risk_parameters))
             inc.score, inc.priority = explanation["score"], explanation["priority"]

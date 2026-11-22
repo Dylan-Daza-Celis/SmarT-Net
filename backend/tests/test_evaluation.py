@@ -199,5 +199,7 @@ def test_additive_0005_migration(api):
         before={t:db.execute(text(f"SELECT * FROM {t}")).mappings().all() for t in tables}
     command.upgrade(config,'head');command.upgrade(config,'head')
     with session() as db:
-        for table in tables: assert db.execute(text(f"SELECT * FROM {table}")).mappings().all()==before[table]
-        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0006'
+        for table in tables:
+            rows=db.execute(text(f"SELECT * FROM {table}")).mappings().all()
+            assert [{k:r[k] for k in before[table][0]} for r in rows]==before[table] if before[table] else rows==[]
+        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0007'

@@ -6,7 +6,7 @@ import json
 from fastapi import FastAPI, HTTPException, Request, Query
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, AwareDatetime
 from sqlalchemy import select, func
 from sqlalchemy.exc import IntegrityError
 
@@ -14,20 +14,20 @@ from .models import Event, Incident, User, IncidentHistory, ResponseAction, Risk
 from .database import Session
 from .schemas import EventIn, BatchIn
 from .ingestion import ingest, ImportRecord
-from . import eve_import
+from . import eve_import, lifecycle
 from .security import current_user, writers, administrators, password_hasher, issue_token
 from fastapi import Depends
 from typing import Literal
 from argon2.exceptions import VerificationError, InvalidHashError
 
-app = FastAPI(title="SmartIR-Net API", version="0.6.0", description="Gestión de incidentes con autenticación y roles")
+app = FastAPI(title="SmartIR-Net API", version="0.7.0", description="Gestión de incidentes con autenticación y roles")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"])
 
-def serialize(inc: Incident, count: int | None = None):
-    return {"source_ip": inc.source_ip, "correlation_version": inc.correlation_version or "legacy",
+def serialize(inc: Incident, db, count: int | None = None):
+    return {**lifecycle.summary(db,inc), "source_ip": inc.source_ip, "correlation_version": inc.correlation_version or "legacy",
             "window_start": inc.window_start.isoformat() if inc.window_start else None,
             "window_seconds": inc.window_seconds,
-            "id": inc.id, "event_type": inc.event_type, "destination_ip": inc.destination_ip, "status": inc.status, "score": inc.score, "priority": inc.priority, "explanation": json.loads(inc.explanation or "{}"), "event_count": count if count is not None else len(inc.events), "created_at": inc.created_at.isoformat()}
+            "id": inc.id, "event_type": inc.event_type, "destination_ip": inc.destination_ip, "status": inc.status, "score": inc.score, "priority": inc.priority, "explanation": json.loads(inc.explanation or "{}"), "event_count": count if count is not None else len(inc.events), "created_at": lifecycle.iso(inc.created_at)}
 
 @app.get("/health")
 def health():
@@ -40,16 +40,18 @@ def import_events(batch: BatchIn, user: User = Depends(writers)):
 @app.get("/api/incidents")
 def list_incidents(user: User = Depends(current_user)):
     with Session() as db:
+        lifecycle.read_snapshot(db)
         incidents = db.scalars(select(Incident).order_by(Incident.score.desc(), Incident.created_at.desc())).all()
-        return [serialize(i) for i in incidents]
+        return [serialize(i,db) for i in incidents]
 
 @app.get("/api/incidents/{incident_id}")
 def get_incident(incident_id: str, user: User = Depends(current_user)):
     with Session() as db:
+        lifecycle.read_snapshot(db)
         inc = db.get(Incident, incident_id)
         if not inc:
             raise HTTPException(status_code=404, detail="Incidente no encontrado")
-        result = serialize(inc)
+        result = serialize(inc,db)
         result["events"] = [{"id": e.id, "source": e.source, "event_timestamp": e.event_timestamp.isoformat(), "source_ip": e.source_ip, "message": e.message, "severity": e.severity, "asset_criticality": e.asset_criticality, "asset_criticality_observed": e.asset_criticality_observed, "adapter_metadata": json.loads(e.adapter_metadata) if e.adapter_metadata else None} for e in inc.events]
         return result
 
@@ -80,13 +82,16 @@ class UserPatch(BaseModel):
     active: bool | None = None
     password: str | None = Field(default=None, min_length=12, max_length=128)
 
-class StatusIn(BaseModel):
+class StatusIn(lifecycle.LifecycleInput):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    expected_revision: int | None = Field(default=None, ge=0, strict=True)
     status: Status
     justification: str = Field(min_length=1, max_length=4000)
 
-class ActionIn(BaseModel):
+class ActionIn(lifecycle.LifecycleInput):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    category: Literal["comentario","contencion","erradicacion","recuperacion","verificacion"] = "comentario"
+    performed_at: AwareDatetime | None = None
     description: str = Field(min_length=1, max_length=4000)
 
 def user_out(user):
@@ -131,11 +136,16 @@ def create_user(data: UserIn, user: User = Depends(administrators)):
 @app.patch("/api/users/{user_id}")
 def update_user(user_id: str, data: UserPatch, user: User = Depends(administrators)):
     with Session.begin() as db:
+        lifecycle.mutation_lock(db)
+        lifecycle.actor(db,user.id,admin=True)
         target = db.get(User, user_id)
         if target is None:
             raise HTTPException(404, "Usuario no encontrado")
         if user.id == user_id and (data.active is False or data.role not in (None, "administrador")):
             raise HTTPException(409, "No puede retirar su propio acceso administrativo")
+        if data.active is False or data.role == "observador":
+            if db.scalar(select(Incident.id).where(Incident.assigned_to_id==user_id,Incident.status!="Cerrado").limit(1)):
+                raise HTTPException(409,"Reasigne los incidentes abiertos antes de retirar este responsable activo")
         for field in ("role", "active"):
             if getattr(data, field) is not None:
                 setattr(target, field, getattr(data, field))
@@ -147,15 +157,12 @@ def update_user(user_id: str, data: UserPatch, user: User = Depends(administrato
 @app.patch("/api/incidents/{incident_id}/status")
 def change_status(incident_id: str, data: StatusIn, user: User = Depends(writers)):
     with Session.begin() as db:
-        inc = db.scalar(select(Incident).where(Incident.id == incident_id).with_for_update())
-        if inc is None:
-            raise HTTPException(404, "Incidente no encontrado")
-        if inc.status == data.status:
-            raise HTTPException(409, "El incidente ya tiene ese estado")
-        db.add(IncidentHistory(incident_id=inc.id, author_id=user.id, previous_status=inc.status, status=data.status, justification=data.justification))
-        inc.status = data.status
+        lifecycle.mutation_lock(db)
+        actor=lifecycle.actor(db,user.id)
+        inc=lifecycle.incident(db,incident_id,data.expected_revision)
+        lifecycle.transition(db,inc,actor,data.status,data.justification)
         db.flush()
-        return serialize(inc)
+        return serialize(inc,db)
 
 @app.get("/api/incidents/{incident_id}/history")
 def history(incident_id: str, user: User = Depends(current_user)):
@@ -163,17 +170,29 @@ def history(incident_id: str, user: User = Depends(current_user)):
         if db.get(Incident, incident_id) is None:
             raise HTTPException(404, "Incidente no encontrado")
         rows = db.execute(select(IncidentHistory, User.username).join(User, User.id == IncidentHistory.author_id).where(IncidentHistory.incident_id == incident_id).order_by(IncidentHistory.created_at, IncidentHistory.id)).all()
-        return [{"id": h.id, "author_id": h.author_id, "author": name, "previous_status": h.previous_status, "status": h.status, "justification": h.justification, "created_at": h.created_at.isoformat()} for h, name in rows]
+        return [{"id": h.id, "author_id": h.author_id, "author": name, "previous_status": h.previous_status, "status": h.status, "justification": h.justification, "created_at": lifecycle.iso(h.created_at)} for h, name in rows]
 
 @app.post("/api/incidents/{incident_id}/actions", status_code=201)
 def add_action(incident_id: str, data: ActionIn, user: User = Depends(writers)):
     with Session.begin() as db:
-        if db.get(Incident, incident_id) is None:
-            raise HTTPException(404, "Incidente no encontrado")
-        action = ResponseAction(incident_id=incident_id, author_id=user.id, description=data.description)
-        db.add(action)
-        db.flush()
-        return {"id": action.id, "incident_id": incident_id, "author_id": user.id, "description": action.description, "created_at": action.created_at.isoformat()}
+        lifecycle.mutation_lock(db)
+        actor=lifecycle.actor(db,user.id)
+        inc=db.get(Incident,incident_id)
+        if inc is None:raise HTTPException(404,"Incidente no encontrado")
+        if data.category!="comentario":
+            lifecycle.owner_or_admin(inc,actor)
+            lifecycle.eligible(db,inc.assigned_to_id)
+            allowed=("En respuesta","Resuelto") if data.category=="verificacion" else ("En respuesta",)
+            if inc.status not in allowed:raise HTTPException(409,"La categoria requiere un estado de respuesta compatible")
+        timestamp=lifecycle.now()
+        if data.performed_at and data.performed_at>timestamp:raise HTTPException(422,"La accion no puede tener fecha futura")
+        action=ResponseAction(incident_id=incident_id,author_id=actor.id,description=data.description,
+            category=data.category,performed_at=lifecycle.utc(data.performed_at) if data.performed_at else timestamp,
+            date_basis="declared" if data.performed_at else "recorded_at",created_at=timestamp)
+        db.add(action);inc.revision+=1;db.flush()
+        return {"id":action.id,"incident_id":inc.id,"author_id":actor.id,"description":action.description,
+            "category":action.category,"performed_at":lifecycle.iso(action.performed_at),
+            "date_basis":action.date_basis,"created_at":lifecycle.iso(action.created_at),"revision":inc.revision}
 
 @app.get("/api/incidents/{incident_id}/actions")
 def actions(incident_id: str, user: User = Depends(current_user)):
@@ -181,7 +200,7 @@ def actions(incident_id: str, user: User = Depends(current_user)):
         if db.get(Incident, incident_id) is None:
             raise HTTPException(404, "Incidente no encontrado")
         rows = db.execute(select(ResponseAction, User.username).join(User, User.id == ResponseAction.author_id).where(ResponseAction.incident_id == incident_id).order_by(ResponseAction.created_at, ResponseAction.id)).all()
-        return [{"id": a.id, "incident_id": a.incident_id, "author_id": a.author_id, "author": name, "description": a.description, "created_at": a.created_at.isoformat()} for a, name in rows]
+        return [{"id": a.id, "incident_id": a.incident_id, "author_id": a.author_id, "author": name, "description": a.description, "category": a.category or "legacy_unclassified", "performed_at": lifecycle.iso(a.performed_at), "date_basis": a.date_basis, "created_at": lifecycle.iso(a.created_at)} for a, name in rows]
 
 
 @app.get("/api/incidents/{incident_id}/evaluations")
@@ -240,3 +259,6 @@ app.include_router(evaluation_router)
 
 from .ml_api import router as ml_router
 app.include_router(ml_router)
+
+from .lifecycle_api import router as lifecycle_router
+app.include_router(lifecycle_router)

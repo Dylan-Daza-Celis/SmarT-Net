@@ -54,6 +54,10 @@ class Incident(Base):
     priority: Mapped[str] = mapped_column(String(16), default="Baja")
     explanation: Mapped[str] = mapped_column(Text, default="")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    assigned_to_id: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
+    revision: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    cycle_number: Mapped[int] = mapped_column(Integer, default=1, server_default="0")
+    lifecycle_started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     events: Mapped[list[Event]] = relationship()
 
 class RiskEvaluation(Base):
@@ -87,6 +91,8 @@ class IncidentHistory(Base):
     status: Mapped[str] = mapped_column(String(24))
     justification: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    policy_version: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    cycle_number: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 class ResponseAction(Base):
     __tablename__ = "response_actions"
@@ -95,6 +101,51 @@ class ResponseAction(Base):
     author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     description: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    category: Mapped[str | None] = mapped_column(String(24), nullable=True)
+    performed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    date_basis: Mapped[str | None] = mapped_column(String(24), nullable=True)
+
+class AssignmentHistory(Base):
+    __tablename__ = "assignment_history"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    incident_id: Mapped[str] = mapped_column(ForeignKey("incidents.id"), index=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    previous_user_id: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    assigned_user_id: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    justification: Mapped[str] = mapped_column(Text)
+    cycle_number: Mapped[int] = mapped_column(Integer)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+class IncidentReviewSignal(Base):
+    __tablename__ = "incident_review_signals"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    incident_id: Mapped[str] = mapped_column(ForeignKey("incidents.id"), index=True)
+    event_id: Mapped[str] = mapped_column(ForeignKey("events.id"), unique=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    reason: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+class ReviewAcknowledgement(Base):
+    __tablename__ = "review_acknowledgements"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    signal_id: Mapped[str] = mapped_column(ForeignKey("incident_review_signals.id"), unique=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    justification: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+class IncidentTimeEvidence(Base):
+    __tablename__ = "incident_time_evidence"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    incident_id: Mapped[str] = mapped_column(ForeignKey("incidents.id"), index=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    cycle_number: Mapped[int] = mapped_column(Integer)
+    source_kind: Mapped[str] = mapped_column(String(24))
+    evidence_reference: Mapped[str] = mapped_column(Text)
+    review_note: Mapped[str] = mapped_column(Text)
+    occurred_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    detected_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    response_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 class EvaluationDataset(Base):
     __tablename__ = "evaluation_datasets"
