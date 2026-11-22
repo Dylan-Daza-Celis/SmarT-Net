@@ -1,5 +1,7 @@
 # Autenticación y respuesta a incidentes
 
+> Evidencia histórica de la iteración de autenticación. La correlación, riesgo, cantidad de incidentes del ejemplo y validaciones actuales se describen en [CORRELACION_Y_RIESGO.md](CORRELACION_Y_RIESGO.md), iteración 03. JWT, roles y permisos se conservan.
+
 Validación: 21 de noviembre de 2026, America/Mexico_City.
 
 ## Diseño

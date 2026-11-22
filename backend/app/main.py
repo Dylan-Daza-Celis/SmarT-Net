@@ -7,12 +7,14 @@ from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, ConfigDict
-from sqlalchemy import select, func
+from pydantic import BaseModel, Field, ConfigDict, AwareDatetime, field_validator
+from sqlalchemy import select, func, text
 from sqlalchemy.exc import IntegrityError
 
-from .models import Event, Incident, User, IncidentHistory, ResponseAction
+from .models import Event, Incident, User, IncidentHistory, ResponseAction, RiskEvaluation
 from .database import Session
+from .correlation import correlate, normalize_ip, WINDOW_SECONDS, VERSION as CORRELATION_VERSION
+from .risk import evaluate, parameters
 from .security import current_user, writers, administrators, password_hasher, issue_token
 from fastapi import Depends
 from typing import Literal
@@ -21,7 +23,7 @@ from argon2.exceptions import VerificationError, InvalidHashError
 class EventIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
     source: str = Field(min_length=1, max_length=100)
-    event_timestamp: datetime
+    event_timestamp: AwareDatetime
     source_ip: str | None = None
     destination_ip: str | None = None
     event_type: str = Field(min_length=1, max_length=60)
@@ -29,27 +31,24 @@ class EventIn(BaseModel):
     asset_criticality: int = Field(default=50, ge=0, le=100)
     message: str = Field(default="", max_length=2000)
 
+    @field_validator("source_ip", "destination_ip")
+    @classmethod
+    def valid_ip(cls, value):
+        # Validate without changing input serialization: preserve existing fingerprints.
+        normalize_ip(value)
+        return value
+
 class BatchIn(BaseModel):
     events: list[EventIn] = Field(min_length=1, max_length=1000)
 
 app = FastAPI(title="SmartIR-Net API", version="0.1.0", description="Gestión de incidentes con autenticación y roles")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"])
 
-ATTACK_WEIGHT = {"acceso_no_autorizado": 75, "malware": 90, "dos": 80, "escaneo": 45, "uso_indebido": 55, "exfiltracion": 100}
-
-def score_incident(events: list[Event]):
-    max_severity = max(e.severity for e in events)
-    max_asset = max(e.asset_criticality for e in events)
-    recurrence = min(100, len(events) * 20)
-    attack = ATTACK_WEIGHT.get(events[0].event_type, 40)
-    context = 50  # neutral provisional; reemplazar por contexto documentado
-    score = round(0.35 * max_severity + 0.25 * max_asset + 0.15 * recurrence + 0.15 * attack + 0.10 * context)
-    priority = "Crítica" if score >= 75 else "Alta" if score >= 50 else "Media" if score >= 25 else "Baja"
-    reasons = {"severidad": max_severity, "criticidad_activo": max_asset, "recurrencia": recurrence, "tipo_ataque": attack, "contexto": context, "eventos": len(events)}
-    return score, priority, json.dumps(reasons, ensure_ascii=False)
-
 def serialize(inc: Incident, count: int | None = None):
-    return {"id": inc.id, "event_type": inc.event_type, "destination_ip": inc.destination_ip, "status": inc.status, "score": inc.score, "priority": inc.priority, "explanation": json.loads(inc.explanation or "{}"), "event_count": count if count is not None else len(inc.events), "created_at": inc.created_at.isoformat()}
+    return {"source_ip": inc.source_ip, "correlation_version": inc.correlation_version or "legacy",
+            "window_start": inc.window_start.isoformat() if inc.window_start else None,
+            "window_seconds": inc.window_seconds,
+            "id": inc.id, "event_type": inc.event_type, "destination_ip": inc.destination_ip, "status": inc.status, "score": inc.score, "priority": inc.priority, "explanation": json.loads(inc.explanation or "{}"), "event_count": count if count is not None else len(inc.events), "created_at": inc.created_at.isoformat()}
 
 @app.get("/health")
 def health():
@@ -60,18 +59,27 @@ def import_events(batch: BatchIn, user: User = Depends(writers)):
     created, duplicates = 0, 0
     affected = set()
     with Session.begin() as db:
+        # Serialize imports across workers, including fingerprint checks and scoring.
+        if db.bind.dialect.name == "postgresql":
+            db.execute(text("SELECT pg_advisory_xact_lock(739031503)"))
+        elif db.bind.dialect.name == "sqlite":
+            db.execute(text("BEGIN IMMEDIATE"))
         for item in batch.events:
             raw = item.model_dump(mode="json")
             fp = hashlib.sha256(json.dumps(raw, sort_keys=True).encode()).hexdigest()
             if db.scalar(select(Event.id).where(Event.fingerprint == fp)):
                 duplicates += 1
                 continue
-            # Correlación MVP: mismo tipo y destino; no implica correlación temporal.
-            # Se sustituirá por ventanas temporales configurables en la siguiente versión.
-            key = f"{item.event_type}|{item.destination_ip or 'sin-destino'}"
-            inc = db.scalar(select(Incident).where(Incident.correlation_key == key))
+            key, start, attributes = correlate(item)
+            inc = db.scalar(select(Incident).where(
+                Incident.correlation_key == key, Incident.window_start == start,
+                Incident.window_seconds == WINDOW_SECONDS,
+                Incident.correlation_version == CORRELATION_VERSION))
             if inc is None:
-                inc = Incident(correlation_key=key, event_type=item.event_type, destination_ip=item.destination_ip)
+                inc = Incident(correlation_key=key, event_type=item.event_type,
+                    source_ip=attributes[1], destination_ip=attributes[2],
+                    correlation_version=CORRELATION_VERSION, window_start=start,
+                    window_seconds=WINDOW_SECONDS, risk_parameters=json.dumps(parameters()))
                 db.add(inc)
                 db.flush()
                 db.add(IncidentHistory(incident_id=inc.id, author_id=user.id, status="Nuevo", justification="Creado por importación de eventos"))
@@ -86,7 +94,11 @@ def import_events(batch: BatchIn, user: User = Depends(writers)):
         for inc_id in affected:
             inc = db.get(Incident, inc_id)
             evs = db.scalars(select(Event).where(Event.incident_id == inc_id)).all()
-            inc.score, inc.priority, inc.explanation = score_incident(evs)
+            explanation = evaluate(evs, json.loads(inc.risk_parameters))
+            inc.score, inc.priority = explanation["score"], explanation["priority"]
+            inc.explanation = json.dumps(explanation, ensure_ascii=False)
+            db.add(RiskEvaluation(incident_id=inc.id, algorithm_version=explanation["algorithm_version"],
+                explanation=inc.explanation, score=inc.score, priority=inc.priority, event_count=len(evs)))
     return {"imported": created, "duplicates": duplicates, "incidents_updated": len(affected)}
 
 @app.get("/api/incidents")
@@ -234,3 +246,14 @@ def actions(incident_id: str, user: User = Depends(current_user)):
             raise HTTPException(404, "Incidente no encontrado")
         rows = db.execute(select(ResponseAction, User.username).join(User, User.id == ResponseAction.author_id).where(ResponseAction.incident_id == incident_id).order_by(ResponseAction.created_at, ResponseAction.id)).all()
         return [{"id": a.id, "incident_id": a.incident_id, "author_id": a.author_id, "author": name, "description": a.description, "created_at": a.created_at.isoformat()} for a, name in rows]
+
+
+@app.get("/api/incidents/{incident_id}/evaluations")
+def evaluations(incident_id: str, user: User = Depends(current_user)):
+    with Session() as db:
+        if db.get(Incident, incident_id) is None:
+            raise HTTPException(404, "Incident not found")
+        rows = db.scalars(select(RiskEvaluation).where(RiskEvaluation.incident_id == incident_id).order_by(RiskEvaluation.created_at, RiskEvaluation.id)).all()
+        return [{"id": row.id, "algorithm_version": row.algorithm_version, "score": row.score,
+                 "priority": row.priority, "event_count": row.event_count,
+                 "explanation": json.loads(row.explanation or "{}"), "created_at": row.created_at.isoformat()} for row in rows]

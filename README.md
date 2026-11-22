@@ -1,6 +1,6 @@
 # SmartIR-Net
 
-Gestión de incidentes con FastAPI, SQLAlchemy, PostgreSQL y React/TypeScript. Incluye Argon2id, JWT de 15 minutos, permisos en backend, acciones de respuesta e historial de estados.
+Gestión de incidentes con FastAPI, SQLAlchemy, PostgreSQL y React/TypeScript. Incluye Argon2id, JWT de 15 minutos, permisos en backend, acciones de respuesta e historial de estados. La iteración 03 agrega correlación temporal UTC, evaluaciones de riesgo versionadas y filtros de incidentes.
 
 ## Arranque
 
@@ -26,7 +26,15 @@ La API ejecuta `alembic upgrade head` antes de Uvicorn. Bootstrap crea solo el p
 | Cambiar estado y registrar acciones | Sí | Sí | No |
 | Crear usuarios, cambiar rol, contraseña o desactivar | Sí | No | No |
 
-Importar `examples/eventos_demo.json`: 4 eventos y 3 incidentes; repetir detecta 4 duplicados. El detalle muestra eventos, historial y acciones. Los roles con escritura pueden cambiar entre Nuevo, Asignado, En análisis, En respuesta, Resuelto y Cerrado, con justificación obligatoria. Se permiten saltos y reaperturas. Repetir el estado actual devuelve 409. Autor, fecha UTC, estado previo y justificación se guardan en una transacción.
+Importar `examples/eventos_demo.json`: 4 eventos y 4 incidentes, porque las IP de origen son distintas; repetir detecta 4 duplicados. El detalle muestra factores de riesgo, parámetros, eventos, historial y acciones. Los filtros combinan prioridad, tipo y estado. Los roles con escritura pueden cambiar entre Nuevo, Asignado, En análisis, En respuesta, Resuelto y Cerrado, con justificación obligatoria. Se permiten saltos y reaperturas. Repetir el estado actual devuelve 409. Autor, fecha UTC, estado previo y justificación se guardan en una transacción.
+
+## Correlación y riesgo (iteración 03)
+
+Definir opcionalmente `CORRELATION_WINDOW_SECONDS=900` en `.env`. Las ventanas fijas UTC son `[inicio, fin)`, alineadas al epoch Unix; se agrupa por tipo, IP de origen e IP de destino. Un evento tardío usa su fecha de evento y puede actualizar una ventana anterior. Cambiar el ancho no reagrupa datos previos. Los incidentes heredados permanecen separados, con sus eventos y riesgo intactos.
+
+Se mantienen los pesos 35/25/15/15/10 como parámetros iniciales de ingeniería. La explicación devuelve valores, contribuciones, política de contexto desconocido, versión y parámetros congelados por incidente. Cada lote nuevo agrega una evaluación consultable mediante `GET /api/incidents/{id}/evaluations`. No se recalculan silenciosamente evaluaciones históricas por cambios de configuración.
+
+Algoritmo, fórmulas, campos ausentes, límites, eventos tardíos, migración 0003 y resultados: [CORRELACION_Y_RIESGO.md](docs/CORRELACION_Y_RIESGO.md).
 
 ## Migraciones sin borrar datos
 
@@ -49,14 +57,14 @@ npm run build
 Pop-Location
 ```
 
-SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Consultar [documentación técnica y resultados reales](docs/AUTENTICACION_Y_RESPUESTA.md).
+SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 03: 14 pruebas aprobadas tanto en SQLite como en PostgreSQL 16; build TypeScript/Vite correcto y arranque Compose aislado verificado. Una advertencia de deprecación de Starlette/AnyIO permanece. Consultar [resultados y fallos corregidos](docs/CORRELACION_Y_RIESGO.md) y [documentación de autenticación](docs/AUTENTICACION_Y_RESPUESTA.md).
 
 ## Alcance
 
 Solo health, login y documentación OpenAPI son públicos; los endpoints de datos requieren Bearer. El frontend guarda el token en memoria: recargar exige iniciar sesión. El backend consulta rol y activación en cada petición. Cerrar sesión borra el token local; una copia sigue válida hasta expirar. No hay refresh tokens, revocación individual, MFA, recuperación de contraseña ni limitación de intentos de login. La gestión administrativa de usuarios se ofrece por API/OpenAPI.
 
-Se conserva la correlación por tipo y destino sin ventana temporal, y el scoring original con ponderaciones de ingeniería aún no validadas. Las acciones son registros de texto, no ejecutan comandos en equipos. Asignado es un estado, sin usuario responsable. La interfaz apunta a localhost. Configurar HTTPS y controles de exposición antes de un despliegue externo.
+Las ventanas fijas pueden separar eventos cercanos a ambos lados de un límite. El contexto desconocido usa un prior neutral 50 declarado como política, sin inventar datos observados. Las acciones son registros de texto, no ejecutan comandos en equipos. Asignado es un estado, sin usuario responsable. La interfaz apunta a localhost. Configurar HTTPS y controles de exposición antes de un despliegue externo.
 
-.env y __pycache__ fueron retirados del índice; .env.example tiene campos vacíos. El .env inspeccionado contenía un marcador de laboratorio. Si alguna credencial real fue publicada, debe rotarse: retirarla del commit actual no la elimina del historial.
+.env y __pycache__ permanecen fuera del índice; .env.example contiene únicamente campos secretos vacíos y el ancho de ventana. Se retiró del ejemplo un valor con apariencia de secreto JWT. Si se utilizó o compartió, debe rotarse: retirarlo del commit actual no elimina su exposición anterior. No se modificaron .env ni contraseñas existentes.
 
 Los documentos previos de contexto en docs describen el prototipo anterior. Este README y AUTENTICACION_Y_RESPUESTA.md documentan la implementación actual.

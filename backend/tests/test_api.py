@@ -70,7 +70,7 @@ def test_import_deduplication_and_validation(api, headers, batch):
     client, _, _ = api
     h = headers("analista")
     response = client.post("/api/events/import",json=batch,headers=h)
-    assert response.json() == {"imported":4,"duplicates":0,"incidents_updated":3}
+    assert response.json() == {"imported":4,"duplicates":0,"incidents_updated":4}
     assert client.post("/api/events/import",json=batch,headers=h).json() == {"imported":0,"duplicates":4,"incidents_updated":0}
     assert client.get("/api/stats",headers=h).json()["events"] == 4
     assert client.post("/api/events/import",json={"events":[]},headers=h).status_code == 422
@@ -104,6 +104,7 @@ def test_status_audit_and_actions(api, headers, batch):
     assert client.patch("/api/incidents/missing/status",json={"status":"Cerrado","justification":"Motivo"},headers=h).status_code == 404
 
 
+@pytest.mark.parametrize("api", ["0002"], indirect=True)
 def test_migration_preserves_legacy_data(api):
     _, session, config = api
     # Base con tablas originales, sin control Alembic ni tablas nuevas.
@@ -117,4 +118,4 @@ def test_migration_preserves_legacy_data(api):
     with session() as db:
         assert db.execute(text("SELECT status FROM incidents WHERE id='legacy'")).scalar() == "Nuevo"
         assert db.execute(text("SELECT incident_id FROM events WHERE id='old-event'")).scalar() == "legacy"
-        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0002"
+        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0003"

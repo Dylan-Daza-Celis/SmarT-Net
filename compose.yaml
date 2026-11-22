@@ -16,6 +16,7 @@ services:
     build: ./backend
     environment:
       DATABASE_URL: postgresql+psycopg://smartir:${DB_PASSWORD:?Define DB_PASSWORD en .env}@db:5432/smartir
+      CORRELATION_WINDOW_SECONDS: ${CORRELATION_WINDOW_SECONDS:-900}
       JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en .env}
     ports:
       - "127.0.0.1:8000:8000"

@@ -16,7 +16,7 @@ from app import database, security, main
 from app.models import User
 
 @pytest.fixture
-def api(tmp_path, monkeypatch):
+def api(tmp_path, monkeypatch, request):
     # TEST_DATABASE_URL debe apuntar únicamente a una BD PostgreSQL desechable.
     url = os.environ.get("TEST_DATABASE_URL", "sqlite:///" + str(tmp_path / "test.db"))
     engine = create_engine(url, connect_args={"check_same_thread": False} if url.startswith("sqlite") else {})
@@ -39,7 +39,7 @@ def api(tmp_path, monkeypatch):
     for module in (database, security, main):
         monkeypatch.setattr(module, "Session", session)
     config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
-    command.upgrade(config, "head")
+    command.upgrade(config, getattr(request, "param", "head"))
     with session.begin() as db:
         for role in ("administrador", "analista", "observador"):
             db.add(User(username=role, role=role, password_hash=security.password_hasher.hash("test-password-123")))
