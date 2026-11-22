@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: smartir
+      POSTGRES_USER: smartir
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-demo_cambiar_antes_de_exponer}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smartir -d smartir"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://smartir:${DB_PASSWORD:-demo_cambiar_antes_de_exponer}@db:5432/smartir
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+  web:
+    build: ./frontend
+    ports:
+      - "127.0.0.1:5173:5173"
+    depends_on:
+      - api
+volumes:
+  postgres_data:
