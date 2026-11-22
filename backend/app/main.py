@@ -1,47 +1,26 @@
 """SmartIR-Net: prototipo inicial de ingestión, correlación y riesgo.
 Uso exclusivo en laboratorios autorizados. Autenticación y permisos en backend.
 """
-import hashlib
 import json
-from datetime import datetime, timezone
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Query
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, ConfigDict, AwareDatetime, field_validator
-from sqlalchemy import select, func, text
+from pydantic import BaseModel, Field, ConfigDict
+from sqlalchemy import select, func
 from sqlalchemy.exc import IntegrityError
 
-from .models import Event, Incident, User, IncidentHistory, ResponseAction, RiskEvaluation
+from .models import Event, Incident, User, IncidentHistory, ResponseAction, RiskEvaluation, EventEvidence
 from .database import Session
-from .correlation import correlate, normalize_ip, WINDOW_SECONDS, VERSION as CORRELATION_VERSION
-from .risk import evaluate, parameters
+from .schemas import EventIn, BatchIn
+from .ingestion import ingest, ImportRecord
+from . import eve_import
 from .security import current_user, writers, administrators, password_hasher, issue_token
 from fastapi import Depends
 from typing import Literal
 from argon2.exceptions import VerificationError, InvalidHashError
 
-class EventIn(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    source: str = Field(min_length=1, max_length=100)
-    event_timestamp: AwareDatetime
-    source_ip: str | None = None
-    destination_ip: str | None = None
-    event_type: str = Field(min_length=1, max_length=60)
-    severity: int = Field(ge=0, le=100)
-    asset_criticality: int = Field(default=50, ge=0, le=100)
-    message: str = Field(default="", max_length=2000)
-
-    @field_validator("source_ip", "destination_ip")
-    @classmethod
-    def valid_ip(cls, value):
-        # Validate without changing input serialization: preserve existing fingerprints.
-        normalize_ip(value)
-        return value
-
-class BatchIn(BaseModel):
-    events: list[EventIn] = Field(min_length=1, max_length=1000)
-
-app = FastAPI(title="SmartIR-Net API", version="0.1.0", description="Gestión de incidentes con autenticación y roles")
+app = FastAPI(title="SmartIR-Net API", version="0.4.0", description="Gestión de incidentes con autenticación y roles")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"])
 
 def serialize(inc: Incident, count: int | None = None):
@@ -56,50 +35,7 @@ def health():
 
 @app.post("/api/events/import")
 def import_events(batch: BatchIn, user: User = Depends(writers)):
-    created, duplicates = 0, 0
-    affected = set()
-    with Session.begin() as db:
-        # Serialize imports across workers, including fingerprint checks and scoring.
-        if db.bind.dialect.name == "postgresql":
-            db.execute(text("SELECT pg_advisory_xact_lock(739031503)"))
-        elif db.bind.dialect.name == "sqlite":
-            db.execute(text("BEGIN IMMEDIATE"))
-        for item in batch.events:
-            raw = item.model_dump(mode="json")
-            fp = hashlib.sha256(json.dumps(raw, sort_keys=True).encode()).hexdigest()
-            if db.scalar(select(Event.id).where(Event.fingerprint == fp)):
-                duplicates += 1
-                continue
-            key, start, attributes = correlate(item)
-            inc = db.scalar(select(Incident).where(
-                Incident.correlation_key == key, Incident.window_start == start,
-                Incident.window_seconds == WINDOW_SECONDS,
-                Incident.correlation_version == CORRELATION_VERSION))
-            if inc is None:
-                inc = Incident(correlation_key=key, event_type=item.event_type,
-                    source_ip=attributes[1], destination_ip=attributes[2],
-                    correlation_version=CORRELATION_VERSION, window_start=start,
-                    window_seconds=WINDOW_SECONDS, risk_parameters=json.dumps(parameters()))
-                db.add(inc)
-                db.flush()
-                db.add(IncidentHistory(incident_id=inc.id, author_id=user.id, status="Nuevo", justification="Creado por importación de eventos"))
-            if item.event_timestamp.tzinfo is None:
-                raise HTTPException(422, "event_timestamp requiere zona horaria")
-            timestamp = item.event_timestamp.astimezone(timezone.utc)
-            ev = Event(fingerprint=fp, source=item.source, event_timestamp=timestamp, source_ip=item.source_ip, destination_ip=item.destination_ip, event_type=item.event_type, severity=item.severity, asset_criticality=item.asset_criticality, message=item.message, raw_event=json.dumps(raw, ensure_ascii=False), incident_id=inc.id)
-            db.add(ev)
-            created += 1
-            affected.add(inc.id)
-        db.flush()
-        for inc_id in affected:
-            inc = db.get(Incident, inc_id)
-            evs = db.scalars(select(Event).where(Event.incident_id == inc_id)).all()
-            explanation = evaluate(evs, json.loads(inc.risk_parameters))
-            inc.score, inc.priority = explanation["score"], explanation["priority"]
-            inc.explanation = json.dumps(explanation, ensure_ascii=False)
-            db.add(RiskEvaluation(incident_id=inc.id, algorithm_version=explanation["algorithm_version"],
-                explanation=inc.explanation, score=inc.score, priority=inc.priority, event_count=len(evs)))
-    return {"imported": created, "duplicates": duplicates, "incidents_updated": len(affected)}
+    return ingest([ImportRecord(event=item) for item in batch.events], user.id, Session)
 
 @app.get("/api/incidents")
 def list_incidents(user: User = Depends(current_user)):
@@ -114,7 +50,7 @@ def get_incident(incident_id: str, user: User = Depends(current_user)):
         if not inc:
             raise HTTPException(status_code=404, detail="Incidente no encontrado")
         result = serialize(inc)
-        result["events"] = [{"id": e.id, "source": e.source, "event_timestamp": e.event_timestamp.isoformat(), "source_ip": e.source_ip, "message": e.message, "severity": e.severity} for e in inc.events]
+        result["events"] = [{"id": e.id, "source": e.source, "event_timestamp": e.event_timestamp.isoformat(), "source_ip": e.source_ip, "message": e.message, "severity": e.severity, "asset_criticality": e.asset_criticality, "asset_criticality_observed": e.asset_criticality_observed, "adapter_metadata": json.loads(e.adapter_metadata) if e.adapter_metadata else None} for e in inc.events]
         return result
 
 @app.get("/api/stats")
@@ -257,3 +193,44 @@ def evaluations(incident_id: str, user: User = Depends(current_user)):
         return [{"id": row.id, "algorithm_version": row.algorithm_version, "score": row.score,
                  "priority": row.priority, "event_count": row.event_count,
                  "explanation": json.loads(row.explanation or "{}"), "created_at": row.created_at.isoformat()} for row in rows]
+
+
+@app.post("/api/events/import/eve", responses={413: {"description": "Import limit; partial report"}})
+async def import_eve(request: Request, filename: str = Query(default="eve.json", min_length=1, max_length=255, pattern=r"^[^\x00-\x1f]+$"),
+                     sensor_id: str = Query(default="suricata", min_length=1, max_length=80, pattern=r"^[a-zA-Z0-9_.:-]+$"),
+                     user: User = Depends(writers)):
+    # Raw file body avoids multipart spooling before application size validation.
+    content_type = request.headers.get("content-type", "").split(";", 1)[0].lower()
+    if content_type not in ("application/x-ndjson", "application/jsonl", "application/octet-stream", "application/json", "text/plain"):
+        raise HTTPException(415, "Send a UTF-8 JSON Lines file as the request body")
+    report = await eve_import.import_stream(request.stream(), author_id=user.id, sensor_id=sensor_id,
+                                           filename=filename, session_factory=Session)
+    return JSONResponse(report, status_code=200 if report["complete"] else 413)
+
+
+@app.get("/api/events/{event_id}")
+def event_detail(event_id: str, user: User = Depends(current_user)):
+    with Session() as db:
+        event = db.get(Event, event_id)
+        if event is None:
+            raise HTTPException(404, "Event not found")
+        return {"id": event.id, "incident_id": event.incident_id, "source": event.source,
+                "event_timestamp": event.event_timestamp.isoformat(), "event_type": event.event_type,
+                "source_ip": event.source_ip, "destination_ip": event.destination_ip,
+                "severity": event.severity, "asset_criticality": event.asset_criticality,
+                "asset_criticality_observed": event.asset_criticality_observed,
+                "adapter_metadata": json.loads(event.adapter_metadata) if event.adapter_metadata else None,
+                "raw_event": event.raw_event, "fingerprint": event.fingerprint}
+
+
+@app.get("/api/events/{event_id}/evidence")
+def event_evidence(event_id: str, offset: int = Query(default=0, ge=0), limit: int = Query(default=50, ge=1, le=100),
+                   user: User = Depends(current_user)):
+    with Session() as db:
+        if db.get(Event, event_id) is None:
+            raise HTTPException(404, "Event not found")
+        records = db.scalars(select(EventEvidence).where(EventEvidence.event_id == event_id)
+            .order_by(EventEvidence.created_at, EventEvidence.id).offset(offset).limit(limit)).all()
+        return [{"id": e.id, "author_id": e.author_id, "import_id": e.import_id, "filename": e.filename,
+                 "sensor_id": e.sensor_id, "line_number": e.line_number, "raw_line": e.raw_line,
+                 "raw_sha256": e.raw_sha256, "created_at": e.created_at.isoformat()} for e in records]

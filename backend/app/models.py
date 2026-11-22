@@ -20,7 +20,22 @@ class Event(Base):
     asset_criticality: Mapped[int] = mapped_column(Integer)
     message: Mapped[str] = mapped_column(Text)
     raw_event: Mapped[str] = mapped_column(Text)
+    asset_criticality_observed: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    adapter_metadata: Mapped[str | None] = mapped_column(Text, nullable=True)
     incident_id: Mapped[str] = mapped_column(ForeignKey("incidents.id"), index=True)
+
+class EventEvidence(Base):
+    __tablename__ = "event_evidence"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    event_id: Mapped[str] = mapped_column(ForeignKey("events.id"), index=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    import_id: Mapped[str] = mapped_column(String(36), index=True)
+    filename: Mapped[str] = mapped_column(String(255))
+    sensor_id: Mapped[str] = mapped_column(String(100))
+    line_number: Mapped[int] = mapped_column(Integer)
+    raw_line: Mapped[str] = mapped_column(Text)
+    raw_sha256: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
 class Incident(Base):
     __tablename__ = "incidents"

@@ -118,4 +118,4 @@ def test_migration_preserves_legacy_data(api):
     with session() as db:
         assert db.execute(text("SELECT status FROM incidents WHERE id='legacy'")).scalar() == "Nuevo"
         assert db.execute(text("SELECT incident_id FROM events WHERE id='old-event'")).scalar() == "legacy"
-        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0003"
+        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0004"
