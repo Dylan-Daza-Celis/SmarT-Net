@@ -202,4 +202,4 @@ def test_additive_0005_migration(api):
         for table in tables:
             rows=db.execute(text(f"SELECT * FROM {table}")).mappings().all()
             assert [{k:r[k] for k in before[table][0]} for r in rows]==before[table] if before[table] else rows==[]
-        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0008'
+        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0009'

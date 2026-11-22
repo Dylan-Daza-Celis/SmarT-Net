@@ -1,0 +1,358 @@
+{
+  "generated_at": "2026-11-22T21:45:12.628886+00:00",
+  "data_kind": "synthetic EVE file replay, no traffic capture",
+  "dialect": "sqlite",
+  "transport": "real TCP loopback, independent Uvicorn and agent processes",
+  "python": "3.11.15",
+  "os": "Windows-10-10.0.26300-SP0",
+  "seed": 202611,
+  "poll_seconds": 0.1,
+  "batch_lines": 3,
+  "events": 12,
+  "evidence_appearances": 25,
+  "incidents": 6,
+  "migration": "0009",
+  "phases": [
+    {
+      "phase": "initial_six_incomplete_wait",
+      "seconds": 1.937999999994645
+    },
+    {
+      "phase": "restart_remaining_three",
+      "seconds": 1.625
+    },
+    {
+      "phase": "duplicate_invalid_unsupported_audit",
+      "seconds": 0.1879999999946449
+    },
+    {
+      "phase": "real_connection_failure",
+      "seconds": 2.5
+    },
+    {
+      "phase": "recovery_and_rotated_three",
+      "seconds": 0.28100000001722947
+    }
+  ],
+  "batches": [
+    {
+      "seq": 1,
+      "id": "9e9d34dd-be72-4775-9b79-909c1718575f",
+      "source_id": "b364c11e-4ec7-4c90-8ab5-1fedba581c3c",
+      "start": 0,
+      "end": 904,
+      "start_line": 1,
+      "end_line": 3,
+      "sha256": "2eb0d7fb8c97d4394639c791541f582918c6b4a9606430900af5c020b5140a15",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 904, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"42acb12e-0d7c-4453-9dc6-80255ed99ed0\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 2,
+      "id": "d3b4861b-1d70-44dd-8a8a-3aa0ee117132",
+      "source_id": "b364c11e-4ec7-4c90-8ab5-1fedba581c3c",
+      "start": 904,
+      "end": 1809,
+      "start_line": 4,
+      "end_line": 6,
+      "sha256": "7ce1917098fbda52dfb5953f0b5ca777457d4387fad62e769d83d594e58fd201",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 905, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"1085065d-25a9-40bd-a4eb-3492bef60e56\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 3,
+      "id": "bd7f6c26-e6e6-4418-9ae9-4bcf21d52437",
+      "source_id": "b364c11e-4ec7-4c90-8ab5-1fedba581c3c",
+      "start": 1809,
+      "end": 2712,
+      "start_line": 7,
+      "end_line": 9,
+      "sha256": "406c68f622a27d1679c3c252e8963f07cad3d7bf178dff91ef9127451694e20f",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 903, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"b2f70ed8-4e4a-4741-b1ed-d0b0842389fd\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 4,
+      "id": "f21112cc-145c-48ba-b190-447617f08eaf",
+      "source_id": "b364c11e-4ec7-4c90-8ab5-1fedba581c3c",
+      "start": 2712,
+      "end": 3045,
+      "start_line": 10,
+      "end_line": 12,
+      "sha256": "52680b96c3406a1d84cc2af6f71a2b5d1f0f80da7e4c39b78df2308ccc2c8fbd",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 333, \"complete\": true, \"discard_reasons\": {\"invalid_json_or_timestamp\": 1, \"unsupported_event_type\": 1}, \"discarded\": 2, \"duplicates\": 1, \"errors\": [{\"code\": \"invalid_json_or_timestamp\", \"fields\": [], \"line\": 2}], \"errors_omitted\": 0, \"import_id\": \"3c1af732-239f-4527-99e3-4c5722d4b842\", \"imported\": 0, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 5,
+      "id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "source_id": "6d9d3c99-7b66-4b7f-a8c7-5b8a6f9c2433",
+      "start": 0,
+      "end": 907,
+      "start_line": 1,
+      "end_line": 3,
+      "sha256": "8168fa03e05af6d5cafd8a09656a8b5a23acee606d60557348012ccc9fc993f9",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 3,
+      "report": "{\"batches\": 1, \"bytes_received\": 907, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"1561f49c-8c52-4870-9bb2-1fb31209feea\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    }
+  ],
+  "audit": [
+    {
+      "seq": 1,
+      "code": "initialized",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 2,
+      "code": "source_opened",
+      "batch_id": null,
+      "details": "{\"previous\": null, \"source_id\": \"b364c11e-4ec7-4c90-8ab5-1fedba581c3c\"}"
+    },
+    {
+      "seq": 3,
+      "code": "spooled",
+      "batch_id": "9e9d34dd-be72-4775-9b79-909c1718575f",
+      "details": "{\"end\": 904, \"lines\": 3, \"source_id\": \"b364c11e-4ec7-4c90-8ab5-1fedba581c3c\", \"start\": 0}"
+    },
+    {
+      "seq": 4,
+      "code": "attempt",
+      "batch_id": "9e9d34dd-be72-4775-9b79-909c1718575f",
+      "details": "{}"
+    },
+    {
+      "seq": 5,
+      "code": "jwt_obtain",
+      "batch_id": "9e9d34dd-be72-4775-9b79-909c1718575f",
+      "details": "{}"
+    },
+    {
+      "seq": 6,
+      "code": "eve_request_started",
+      "batch_id": "9e9d34dd-be72-4775-9b79-909c1718575f",
+      "details": "{}"
+    },
+    {
+      "seq": 7,
+      "code": "accepted",
+      "batch_id": "9e9d34dd-be72-4775-9b79-909c1718575f",
+      "details": "{\"actor_id\": \"dc16ae74-7ec7-4808-98da-0959681caaff\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    },
+    {
+      "seq": 8,
+      "code": "spooled",
+      "batch_id": "d3b4861b-1d70-44dd-8a8a-3aa0ee117132",
+      "details": "{\"end\": 1809, \"lines\": 3, \"source_id\": \"b364c11e-4ec7-4c90-8ab5-1fedba581c3c\", \"start\": 904}"
+    },
+    {
+      "seq": 9,
+      "code": "attempt",
+      "batch_id": "d3b4861b-1d70-44dd-8a8a-3aa0ee117132",
+      "details": "{}"
+    },
+    {
+      "seq": 10,
+      "code": "eve_request_started",
+      "batch_id": "d3b4861b-1d70-44dd-8a8a-3aa0ee117132",
+      "details": "{}"
+    },
+    {
+      "seq": 11,
+      "code": "accepted",
+      "batch_id": "d3b4861b-1d70-44dd-8a8a-3aa0ee117132",
+      "details": "{\"actor_id\": \"dc16ae74-7ec7-4808-98da-0959681caaff\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    },
+    {
+      "seq": 12,
+      "code": "waiting_for_newline",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 13,
+      "code": "spooled",
+      "batch_id": "bd7f6c26-e6e6-4418-9ae9-4bcf21d52437",
+      "details": "{\"end\": 2712, \"lines\": 3, \"source_id\": \"b364c11e-4ec7-4c90-8ab5-1fedba581c3c\", \"start\": 1809}"
+    },
+    {
+      "seq": 14,
+      "code": "attempt",
+      "batch_id": "bd7f6c26-e6e6-4418-9ae9-4bcf21d52437",
+      "details": "{}"
+    },
+    {
+      "seq": 15,
+      "code": "jwt_obtain",
+      "batch_id": "bd7f6c26-e6e6-4418-9ae9-4bcf21d52437",
+      "details": "{}"
+    },
+    {
+      "seq": 16,
+      "code": "eve_request_started",
+      "batch_id": "bd7f6c26-e6e6-4418-9ae9-4bcf21d52437",
+      "details": "{}"
+    },
+    {
+      "seq": 17,
+      "code": "accepted",
+      "batch_id": "bd7f6c26-e6e6-4418-9ae9-4bcf21d52437",
+      "details": "{\"actor_id\": \"dc16ae74-7ec7-4808-98da-0959681caaff\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    },
+    {
+      "seq": 18,
+      "code": "waiting_for_append",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 19,
+      "code": "spooled",
+      "batch_id": "f21112cc-145c-48ba-b190-447617f08eaf",
+      "details": "{\"end\": 3045, \"lines\": 3, \"source_id\": \"b364c11e-4ec7-4c90-8ab5-1fedba581c3c\", \"start\": 2712}"
+    },
+    {
+      "seq": 20,
+      "code": "attempt",
+      "batch_id": "f21112cc-145c-48ba-b190-447617f08eaf",
+      "details": "{}"
+    },
+    {
+      "seq": 21,
+      "code": "eve_request_started",
+      "batch_id": "f21112cc-145c-48ba-b190-447617f08eaf",
+      "details": "{}"
+    },
+    {
+      "seq": 22,
+      "code": "accepted_with_quarantine",
+      "batch_id": "f21112cc-145c-48ba-b190-447617f08eaf",
+      "details": "{\"actor_id\": \"dc16ae74-7ec7-4808-98da-0959681caaff\", \"discarded\": 2, \"duplicates\": 1, \"imported\": 0}"
+    },
+    {
+      "seq": 23,
+      "code": "waiting_for_append",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 24,
+      "code": "rotation",
+      "batch_id": null,
+      "details": "{\"previous\": \"b364c11e-4ec7-4c90-8ab5-1fedba581c3c\", \"source_id\": \"6d9d3c99-7b66-4b7f-a8c7-5b8a6f9c2433\"}"
+    },
+    {
+      "seq": 25,
+      "code": "spooled",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{\"end\": 907, \"lines\": 3, \"source_id\": \"6d9d3c99-7b66-4b7f-a8c7-5b8a6f9c2433\", \"start\": 0}"
+    },
+    {
+      "seq": 26,
+      "code": "attempt",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{}"
+    },
+    {
+      "seq": 27,
+      "code": "eve_request_started",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{}"
+    },
+    {
+      "seq": 28,
+      "code": "network_error",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{\"retry_seconds\": 1.1500238368478668}"
+    },
+    {
+      "seq": 29,
+      "code": "attempt",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{}"
+    },
+    {
+      "seq": 30,
+      "code": "eve_request_started",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{}"
+    },
+    {
+      "seq": 31,
+      "code": "network_error",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{\"retry_seconds\": 2.188702811769226}"
+    },
+    {
+      "seq": 32,
+      "code": "attempt",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{}"
+    },
+    {
+      "seq": 33,
+      "code": "eve_request_started",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{}"
+    },
+    {
+      "seq": 34,
+      "code": "accepted",
+      "batch_id": "feca4a13-940f-4997-a13d-d8111cd76097",
+      "details": "{\"actor_id\": \"dc16ae74-7ec7-4808-98da-0959681caaff\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    }
+  ],
+  "offsets": [
+    {
+      "id": "b364c11e-4ec7-4c90-8ab5-1fedba581c3c",
+      "offset": 3045,
+      "line": 12,
+      "current": 0
+    },
+    {
+      "id": "6d9d3c99-7b66-4b7f-a8c7-5b8a6f9c2433",
+      "offset": 907,
+      "line": 3,
+      "current": 1
+    }
+  ],
+  "quarantined_batches": 1,
+  "duplicate_repeat": {
+    "import_id": "d2e581cc-9486-4bce-ac85-73ad1d9deee0",
+    "imported": 0,
+    "duplicates": 12,
+    "discarded": 0,
+    "processed": 12,
+    "batches": 1,
+    "bytes_received": 3619,
+    "unknown": 0,
+    "errors": [],
+    "errors_omitted": 0,
+    "discard_reasons": {},
+    "complete": true
+  },
+  "logs_checked_no_credentials_or_event_bodies": true,
+  "second_reader_rejected": true,
+  "source_sha256": "772ebded59d134d98ac5e4f0158d6f354232eb8217c0f1c2cdac396c845e6e1d",
+  "agent_source_sha256": {
+    "agent\\smartir_agent\\config.py": "4f836e3e03e02bb19cabd4ec78b55701e83d4d44ef0cd3f8d16c525c300dfdcb",
+    "agent\\smartir_agent\\runner.py": "bfc64828d8f1b0c013650d513be91789a213dd8d18613f51a97bf005e4245421",
+    "agent\\smartir_agent\\store.py": "3f5285a739b9bdba3e4a199db2c540634773d5c8441ff055fc332b5076501b11",
+    "agent\\smartir_agent\\synthetic.py": "7974d94e1d35e06b5fc12289abfed13c91c3def2e1658e1603c452e150797974",
+    "agent\\smartir_agent\\tailer.py": "2cac0b2cf773ff68b0c5262e518a493084d2dd065627bb850d413616cfb1579b",
+    "agent\\smartir_agent\\transport.py": "425bc7f0b5a4f9dcc9fd1cc203b8654faf35ef134fa55dc30dccfa30390adf8d",
+    "agent\\smartir_agent\\__init__.py": "3f02d4411c1d71d434a588baf535dea30b3d6cb5782370c71bff2c522c8b7da2",
+    "agent\\smartir_agent\\__main__.py": "973691788194d92e8ef461b9717af230555e514554cdc1a19db664ed7754626a"
+  },
+  "total_seconds": 32.488389100006316
+}

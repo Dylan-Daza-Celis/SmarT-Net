@@ -36,7 +36,7 @@ async def import_stream(chunks, *, author_id, sensor_id, filename, session_facto
     async def flush():
         if not pending:
             return
-        result = await run_in_threadpool(ingest, pending, author_id, session_factory)
+        result = await run_in_threadpool(ingest, pending, author_id, session_factory, eve_service=True)
         report["imported"] += result["imported"]
         report["duplicates"] += result["duplicates"]
         report["batches"] += 1

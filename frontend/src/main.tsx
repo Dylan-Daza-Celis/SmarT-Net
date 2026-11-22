@@ -6,7 +6,7 @@ import MachineLearning from './MachineLearning';
 import IncidentLifecycle from './IncidentLifecycle';
 import AnalyticsDashboard from './AnalyticsDashboard';
 import {API} from './api';
-type User = {id:string; username:string; role:'administrador'|'analista'|'observador'};
+type User = {id:string; username:string; role:'administrador'|'analista'|'observador'; eve_only?:boolean};
 type ImportReport = {imported:number;duplicates:number;discarded?:number;unknown?:number;batches?:number;complete?:boolean;errors?:{line:number|null;code:string;fields:string[]}[];errors_omitted?:number};
 type EventView = {id:string;source:string;message:string;asset_criticality:number;asset_criticality_observed:boolean|null;adapter_metadata:Record<string,unknown>|null};
 type Incident = {id:string; created_at:string; revision:number; assigned_to_id:string|null; assignee:{id:string;username:string;active:boolean}|null; needs_review:boolean; event_type:string; destination_ip:string|null; status:string; score:number; priority:string; event_count:number; explanation:{algorithm_version?:string; factors?:Record<string,{value:number;weight:number;contribution:number;observed:boolean;basis?:string}>; context?:{known:boolean;policy:string}}; events_offset:number; events_limit:number; events?:EventView[]};
@@ -25,7 +25,7 @@ function App(){
   if(!r.ok){if(r.status===401 && access)logout();const body=await r.json().catch(()=>({detail:'API no disponible'}));throw new Error((typeof body.detail==='string'?body.detail:JSON.stringify(body.detail))+(r.status===429?' Retry-After: '+(r.headers.get('Retry-After')??'?')+' s':''))}
   return r.json();
  }
- async function login(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');try{const data=await request('/api/auth/login',{method:'POST',body:JSON.stringify({username,password})},'');const me=await request('/api/auth/me',{},data.access_token);setUser(me);setToken(data.access_token);setPassword('')}catch(e){setError(String(e))}finally{setBusy(false)}}
+ async function login(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');try{const data=await request('/api/auth/login',{method:'POST',body:JSON.stringify({username,password})},'');const me=await request('/api/auth/me',{},data.access_token);if(me.eve_only){setPassword('');throw new Error('Cuenta exclusiva del agente EVE; no dispone de acceso interactivo.')}setUser(me);setToken(data.access_token);setPassword('')}catch(e){setError(String(e))}finally{setBusy(false)}}
  async function load(){setRefreshKey(n=>n+1)}
  async function download(path:string){const r=await fetch(API+path,{headers:{Authorization:`Bearer ${token}`}});if(!r.ok){if(r.status===401)logout();throw new Error('No se pudo descargar: '+r.status)}const url=URL.createObjectURL(await r.blob());const a=document.createElement('a');a.href=url;a.download=r.headers.get('Content-Disposition')?.match(/filename="([^"]+)"/)?.[1]??'smartir-report';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
  useEffect(()=>{if(token)void load()},[token]);

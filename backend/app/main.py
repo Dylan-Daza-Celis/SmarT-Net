@@ -102,11 +102,13 @@ class UserIn(SafeInput):
     username: str = Field(min_length=1, max_length=100, pattern=r"^[a-zA-Z0-9_.@-]+$")
     password: str = Field(min_length=12, max_length=128)
     role: Role
+    eve_only: bool = Field(default=False, strict=True)
 
 class UserPatch(SafeInput):
     model_config = ConfigDict(extra="forbid")
     role: Role | None = None
     active: bool | None = None
+    eve_only: bool | None = Field(default=None, strict=True)
     password: str | None = Field(default=None, min_length=12, max_length=128)
 
 class StatusIn(lifecycle.LifecycleInput):
@@ -123,7 +125,7 @@ class ActionIn(lifecycle.LifecycleInput):
     description: str = Field(min_length=1, max_length=4000)
 
 def user_out(user):
-    return {"id": user.id, "username": user.username, "role": user.role, "active": user.active}
+    return {"id": user.id, "username": user.username, "role": user.role, "active": user.active, "eve_only": user.eve_only}
 
 @app.post("/api/auth/login")
 def login(data: LoginIn, request: Request):
@@ -152,9 +154,11 @@ def list_users(user: User = Depends(administrators)):
 
 @app.post("/api/users", status_code=201)
 def create_user(data: UserIn, user: User = Depends(password_admin)):
+    if data.eve_only and data.role != 'analista':
+        raise HTTPException(422, 'Una cuenta solo EVE requiere rol analista')
     try:
         with Session.begin() as db:
-            created = User(username=data.username, password_hash=password_hasher.hash(data.password), role=data.role)
+            created = User(username=data.username, password_hash=password_hasher.hash(data.password), role=data.role, eve_only=data.eve_only)
             lifecycle.mutation_lock(db)
             lifecycle.actor(db,user.id,admin=True)
             db.add(created)
@@ -175,10 +179,12 @@ def update_user(user_id: str, data: UserPatch, user: User = Depends(password_adm
             raise HTTPException(404, "Usuario no encontrado")
         if user.id == user_id and (data.active is False or data.role not in (None, "administrador")):
             raise HTTPException(409, "No puede retirar su propio acceso administrativo")
-        if data.active is False or data.role == "observador":
+        if (target.eve_only if data.eve_only is None else data.eve_only) and (data.role or target.role) != 'analista':
+            raise HTTPException(422, 'Una cuenta solo EVE requiere rol analista')
+        if data.active is False or data.role == "observador" or data.eve_only is True:
             if db.scalar(select(Incident.id).where(Incident.assigned_to_id==user_id,Incident.status!="Cerrado").limit(1)):
                 raise HTTPException(409,"Reasigne los incidentes abiertos antes de retirar este responsable activo")
-        for field in ("role", "active"):
+        for field in ("role", "active", "eve_only"):
             if getattr(data, field) is not None:
                 setattr(target, field, getattr(data, field))
         if data.password is not None:

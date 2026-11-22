@@ -1,8 +1,9 @@
+param([string]$ExpectedHead = '0009')
 $ErrorActionPreference = 'Stop'
 $taskRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 Set-Location -LiteralPath $taskRoot
-$project = 'smartir-iter10-' + [guid]::NewGuid().ToString('N').Substring(0,8)
-$evidence = Join-Path $taskRoot "docs/resultados/iter10_compose_$project.json"
+$project = 'smartir-iter11-base-' + [guid]::NewGuid().ToString('N').Substring(0,8)
+$evidence = Join-Path $taskRoot "docs/resultados/iter11_compose_base_$project.json"
 # Ephemeral values for a NEW empty volume only. Never read or edit the user's .env.
 $priorDb = $env:DB_PASSWORD
 $priorJwt = $env:JWT_SECRET
@@ -23,11 +24,11 @@ try {
     if ($health.status -ne 'ok') { throw 'Isolated /health failed' }
     $web = Invoke-WebRequest 'http://127.0.0.1:55180/' -UseBasicParsing
     $migration = (& docker @arguments exec -T api python -m alembic current 2>&1 | Out-String)
-    if ($LASTEXITCODE -ne 0 -or $migration -notmatch '0008') { throw 'Unexpected migration' }
+    if ($LASTEXITCODE -ne 0 -or $migration -notmatch [regex]::Escape($ExpectedHead)) { throw 'Unexpected migration' }
     $pg = (& docker @arguments exec -T db psql -U smartir -d smartir -Atc 'SHOW server_version' | Out-String).Trim()
     if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL version check failed' }
     [ordered]@{generated_at=[DateTimeOffset]::UtcNow.ToString('o');project=$project;health=$health;web_http=$web.StatusCode;
-        migration='0008';postgresql=$pg;data_kind='empty isolated test volume';browser_tested_in_this_compose=$false;
+        migration=$ExpectedHead;postgresql=$pg;data_kind='empty isolated test volume';browser_tested_in_this_compose=$false;
         scope='startup, migration, health and web HTTP only; independent browser/API journey uses isolated runner';
         original_services_modified=$false;volumes_removed=$false} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $evidence -Encoding utf8
     Write-Output "Evidence: $evidence"

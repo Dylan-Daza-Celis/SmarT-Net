@@ -52,11 +52,13 @@ def read_snapshot(db):
     elif db.bind.dialect.name=="sqlite":db.execute(text("BEGIN"))
 
 
-def actor(db,actor_id,admin=False):
+def actor(db,actor_id,admin=False,allow_eve_service=False):
     user=db.get(User,actor_id)
     if user is None or not user.active:raise HTTPException(401,"Usuario inactivo")
     if user.role not in (("administrador",) if admin else ("administrador","analista")):
         raise HTTPException(403,"Permisos insuficientes")
+    if user.eve_only and not allow_eve_service:
+        raise HTTPException(403,'Cuenta de servicio restringida a importación EVE')
     return user
 
 
@@ -70,7 +72,7 @@ def incident(db,incident_id,expected_revision):
 
 def eligible(db,user_id):
     user=db.get(User,user_id) if user_id else None
-    if user is None or not user.active or user.role not in ("administrador","analista"):
+    if user is None or not user.active or user.eve_only or user.role not in ("administrador","analista"):
         raise HTTPException(409,"El responsable debe ser un administrador o analista activo")
     return user
 

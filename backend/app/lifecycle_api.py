@@ -52,7 +52,7 @@ class AckIn(service.LifecycleInput):
 def assignees(user:User=Depends(current_user)):
     with database.Session() as db:
         return [{"id":u.id,"username":u.username,"role":u.role} for u in db.scalars(select(User).where(
-            User.active.is_(True),User.role.in_(["administrador","analista"])).order_by(User.username)).all()]
+            User.active.is_(True),User.eve_only.is_(False),User.role.in_(["administrador","analista"])).order_by(User.username)).all()]
 
 
 @router.patch("/api/incidents/{incident_id}/assignment")

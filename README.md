@@ -1,5 +1,11 @@
 # SmartIR-Net
 
+La **iteración 11** incorpora un agente Python independiente de seguimiento EVE JSONL: lectura incremental, outbox/checkpoints durables, exclusión de lector, rotación documentada, reintentos con Retry-After y entrega al menos una vez con deduplicación en servidor. Usa cuentas persistentes **solo EVE** (`eve_only=true`, rol analista), sin acceso a incidentes/ML/reportes. La migración aditiva **0009** agrega esa restricción; no modifica algoritmos ni evaluaciones. [Arquitectura, configuración, laboratorio, resultados y límites](docs/MONITOREO_CONTINUO_SURICATA.md).
+
+Validación11: **164 pruebas aprobadas en SQLite y164 en PostgreSQL 16.16**, agente real por TCP en Windows, perfil Docker/Linux con UID 10001, reinicios/rotación/caída de API y build React. Todos los archivos fueron sintéticos y las bases aisladas; no hubo captura de tráfico. No se muestra conectividad del agente en React porque no existe heartbeat remoto verificable. Los resultados10 siguientes se conservan como históricos; el head vigente del código es0009, no0008.
+
+El perfil opcional está en `compose.agent.yaml`; no altera los tres servicios de `compose.yaml` ni monta rutas personales por defecto. Requiere cuenta nueva restringida y configuración local antes de activarlo. El agente rechaza cuentas con permisos excesivos, HTTP remoto, redirecciones y TLS sin verificar. [Evidencias11](docs/resultados/README_ITER11.md).
+
 La **iteración 10** consolida la validación: **126 pruebas aprobadas en SQLite y126 en PostgreSQL 16**, recorrido HTTP completo con reinicio y conservación de datos, Chromium real con tres roles, build React y Compose aislado con Alembic 0008. El benchmark TCP de320 solicitudes obtuvo114 éxitos y206 rechazos429 esperados, sin503 ni errores inesperados; no demuestra capacidad de producción ni mejora de MTTD/MTTR. No se modificaron algoritmos/backend, migraciones históricas, secretos ni datos operativos.
 
 Documentación vigente: [validación y matriz requisito→prueba→evidencia](docs/VALIDACION_INTEGRAL.md), [guía de usuario](docs/GUIA_USUARIO.md), [despliegue y recuperación segura](docs/GUIA_DESPLIEGUE.md), [antología en revisión](docs/ANTologia_implementacion.md) y [cinco prácticas Packet Tracer diseñadas](docs/PRACTICAS_PACKET_TRACER.md). Las prácticas todavía **no están implementadas ni validadas** y no se incluyen `.pkt` ni capturas ficticias.
@@ -68,7 +74,7 @@ Listados legacy agregan offset/limit: incidentes 100 por defecto, datasets/exper
 
 FastAPI/Starlette/PyJWT y herramientas de desarrollo se actualizaron con regresiones; Scikit-learn/NumPy/SciPy, algoritmos y modelos históricos permanecen iguales. npm audit y pip-audit reportaron **0 avisos** en la consulta final; esto no certifica que la aplicación esté libre de vulnerabilidades. Las versiones, hallazgos iniciales y exportaciones están documentados.
 
-En el benchmark pareado de 10.000 eventos: SQLite **28.95 → 9.08 s**, PostgreSQL 16 **101.71 → 14.89 s**, con cero errores y hashes semánticos coincidentes. Son ejecuciones ASGI sintéticas en host compartido, sin TCP HTTP; varias latencias de dashboard/exportación empeoraron y también se reportan. **Throughput no es MTTD/MTTR ni eficacia de respuesta humana.** Los scripts usan únicamente bases nuevas aisladas; no reciben la URL habitual del usuario ni ejecutan limpieza de tablas existentes. No se necesita migración 0009; head sigue en 0008.
+En el benchmark pareado de 10.000 eventos: SQLite **28.95 → 9.08 s**, PostgreSQL 16 **101.71 → 14.89 s**, con cero errores y hashes semánticos coincidentes. Son ejecuciones ASGI sintéticas en host compartido, sin TCP HTTP; varias latencias de dashboard/exportación empeoraron y también se reportan. **Throughput no es MTTD/MTTR ni eficacia de respuesta humana.** Los scripts usan únicamente bases nuevas aisladas; no reciben la URL habitual del usuario ni ejecutan limpieza de tablas existentes. La iteración09 no necesitó migración0009 y mantuvo head 0008; la0009 actual corresponde a cuentas restringidas de11.
 
 ## Gestión avanzada de incidentes (iteración 07)
 
@@ -100,7 +106,7 @@ Algoritmo, fórmulas, campos ausentes, límites, eventos tardíos, migración 00
 
 ## Migraciones sin borrar datos
 
-Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0008`, que añade snapshots de reportes y auditoría/enlaces de reevaluación, además de índices de fechas. La 0007 conserva la gestión de ciclo de vida. Ninguna de estas migraciones elimina o recrea tablas existentes. Los incidentes previos conservan estado, eventos, parámetros y evaluaciones; no se inventa procedencia retroactiva ni se modifican modelos/experimentos. No cambiar credenciales durante la actualización.
+Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0009`, que agrega users.eve_only con default False para cuentas restringidas. La0008 añadió snapshots de reportes y auditoría/enlaces de reevaluación, además de índices;0007 conserva el ciclo de vida. Ninguna elimina o recrea tablas existentes. Los incidentes previos conservan estado, eventos, parámetros y evaluaciones; no se inventa procedencia retroactiva ni se modifican modelos/experimentos. No cambiar credenciales durante la actualización.
 
 Fuera de Docker, definir DATABASE_URL y JWT_SECRET en el entorno; desde backend ejecutar `python -m alembic upgrade head`, `python -m app.bootstrap` y `python -m uvicorn app.main:app`. La API ya no crea tablas al arrancar.
 
@@ -117,7 +123,7 @@ Las instrucciones y cifras posteriores de iteraciones anteriores son históricas
 powershell -NoProfile -File validation/compose_smoke.ps1
 ```
 
-React centraliza ahora `VITE_API_URL`, con default `http://localhost:8000`; un valor vacío permite proxy same-origin de prueba. No amplía CORS automáticamente. Playwright es solo dependencia de desarrollo; sus credenciales viven en procesos efímeros, sin traces/HAR/storageState. npm ci debe terminar antes de abrir Vite para evitar bloqueo de esbuild en Windows. Sin cambios de esquema: **0008 sigue siendo head**, sin0009/0010 innecesarias.
+React centraliza `VITE_API_URL`, con default `http://localhost:8000`; un valor vacío permite proxy same-origin de prueba. No amplía CORS automáticamente. Playwright es solo dependencia de desarrollo; sus credenciales viven en procesos efímeros, sin traces/HAR/storageState. npm ci debe terminar antes de abrir Vite para evitar bloqueo de esbuild en Windows. La iteración10 conservó0008 sin migraciones nuevas;11 justifica0009 por el privilegio mínimo persistente.
 
 Desde la raíz, PowerShell:
 

@@ -1,0 +1,309 @@
+{
+  "generated_at": "2026-11-22T21:25:50.982412+00:00",
+  "data_kind": "synthetic EVE file replay, no traffic capture",
+  "dialect": "postgresql",
+  "transport": "real TCP loopback, independent Uvicorn and agent processes",
+  "python": "3.11.15",
+  "os": "Windows-10-10.0.26300-SP0",
+  "seed": 202611,
+  "poll_seconds": 0.1,
+  "batch_lines": 3,
+  "events": 12,
+  "evidence_appearances": 25,
+  "incidents": 6,
+  "migration": "0009",
+  "phases": [
+    {
+      "phase": "initial_six_incomplete_wait",
+      "seconds": 0.7660000000032596
+    },
+    {
+      "phase": "restart_remaining_three",
+      "seconds": 0.5779999999795109
+    },
+    {
+      "phase": "duplicate_invalid_unsupported_audit",
+      "seconds": 0.15600000001722947
+    },
+    {
+      "phase": "real_connection_failure",
+      "seconds": 2.437999999994645
+    },
+    {
+      "phase": "recovery_and_rotated_three",
+      "seconds": 2.140999999974156
+    }
+  ],
+  "batches": [
+    {
+      "seq": 1,
+      "id": "aae26838-603c-4f4b-8a16-accdb94d507e",
+      "source_id": "23f3a909-90d7-452c-9a7f-ae9c2bb4e61f",
+      "start": 0,
+      "end": 904,
+      "start_line": 1,
+      "end_line": 3,
+      "sha256": "2eb0d7fb8c97d4394639c791541f582918c6b4a9606430900af5c020b5140a15",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 904, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"5ebc9421-3a54-4a6d-88d6-d396f5901b3c\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 2,
+      "id": "d3066b40-c861-44c2-a64c-875ab9c5e12e",
+      "source_id": "23f3a909-90d7-452c-9a7f-ae9c2bb4e61f",
+      "start": 904,
+      "end": 1809,
+      "start_line": 4,
+      "end_line": 6,
+      "sha256": "7ce1917098fbda52dfb5953f0b5ca777457d4387fad62e769d83d594e58fd201",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 905, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"fa59158a-8d99-497d-bd6d-10e072476087\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 3,
+      "id": "a00bab0b-4cb3-4d1e-9845-23013f03e88a",
+      "source_id": "23f3a909-90d7-452c-9a7f-ae9c2bb4e61f",
+      "start": 1809,
+      "end": 2712,
+      "start_line": 7,
+      "end_line": 9,
+      "sha256": "406c68f622a27d1679c3c252e8963f07cad3d7bf178dff91ef9127451694e20f",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 903, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"6e3040d1-0828-494b-9899-0d572ccba9ad\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 4,
+      "id": "491d38d2-5b52-44fe-b555-c5c9fab3f2b2",
+      "source_id": "23f3a909-90d7-452c-9a7f-ae9c2bb4e61f",
+      "start": 2712,
+      "end": 3045,
+      "start_line": 10,
+      "end_line": 12,
+      "sha256": "52680b96c3406a1d84cc2af6f71a2b5d1f0f80da7e4c39b78df2308ccc2c8fbd",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 1,
+      "report": "{\"batches\": 1, \"bytes_received\": 333, \"complete\": true, \"discard_reasons\": {\"invalid_json_or_timestamp\": 1, \"unsupported_event_type\": 1}, \"discarded\": 2, \"duplicates\": 1, \"errors\": [{\"code\": \"invalid_json_or_timestamp\", \"fields\": [], \"line\": 2}], \"errors_omitted\": 0, \"import_id\": \"aceed794-b4a6-462f-8be2-aff77892bb18\", \"imported\": 0, \"processed\": 3, \"unknown\": 0}"
+    },
+    {
+      "seq": 5,
+      "id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "source_id": "843f188e-766f-431c-8644-68dd91cb99e5",
+      "start": 0,
+      "end": 907,
+      "start_line": 1,
+      "end_line": 3,
+      "sha256": "8168fa03e05af6d5cafd8a09656a8b5a23acee606d60557348012ccc9fc993f9",
+      "records": 3,
+      "status": "accepted",
+      "attempts": 3,
+      "report": "{\"batches\": 1, \"bytes_received\": 907, \"complete\": true, \"discard_reasons\": {}, \"discarded\": 0, \"duplicates\": 0, \"errors\": [], \"errors_omitted\": 0, \"import_id\": \"bbb47340-1c83-467f-a3bc-ae546a3c3afe\", \"imported\": 3, \"processed\": 3, \"unknown\": 0}"
+    }
+  ],
+  "audit": [
+    {
+      "seq": 1,
+      "code": "initialized",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 2,
+      "code": "source_opened",
+      "batch_id": null,
+      "details": "{\"previous\": null, \"source_id\": \"23f3a909-90d7-452c-9a7f-ae9c2bb4e61f\"}"
+    },
+    {
+      "seq": 3,
+      "code": "spooled",
+      "batch_id": "aae26838-603c-4f4b-8a16-accdb94d507e",
+      "details": "{\"end\": 904, \"lines\": 3, \"source_id\": \"23f3a909-90d7-452c-9a7f-ae9c2bb4e61f\", \"start\": 0}"
+    },
+    {
+      "seq": 4,
+      "code": "attempt",
+      "batch_id": "aae26838-603c-4f4b-8a16-accdb94d507e",
+      "details": "{}"
+    },
+    {
+      "seq": 5,
+      "code": "accepted",
+      "batch_id": "aae26838-603c-4f4b-8a16-accdb94d507e",
+      "details": "{\"actor_id\": \"9643393a-45f9-4b2b-9646-fbd91284fb9f\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    },
+    {
+      "seq": 6,
+      "code": "spooled",
+      "batch_id": "d3066b40-c861-44c2-a64c-875ab9c5e12e",
+      "details": "{\"end\": 1809, \"lines\": 3, \"source_id\": \"23f3a909-90d7-452c-9a7f-ae9c2bb4e61f\", \"start\": 904}"
+    },
+    {
+      "seq": 7,
+      "code": "attempt",
+      "batch_id": "d3066b40-c861-44c2-a64c-875ab9c5e12e",
+      "details": "{}"
+    },
+    {
+      "seq": 8,
+      "code": "accepted",
+      "batch_id": "d3066b40-c861-44c2-a64c-875ab9c5e12e",
+      "details": "{\"actor_id\": \"9643393a-45f9-4b2b-9646-fbd91284fb9f\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    },
+    {
+      "seq": 9,
+      "code": "waiting_for_newline",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 10,
+      "code": "spooled",
+      "batch_id": "a00bab0b-4cb3-4d1e-9845-23013f03e88a",
+      "details": "{\"end\": 2712, \"lines\": 3, \"source_id\": \"23f3a909-90d7-452c-9a7f-ae9c2bb4e61f\", \"start\": 1809}"
+    },
+    {
+      "seq": 11,
+      "code": "attempt",
+      "batch_id": "a00bab0b-4cb3-4d1e-9845-23013f03e88a",
+      "details": "{}"
+    },
+    {
+      "seq": 12,
+      "code": "accepted",
+      "batch_id": "a00bab0b-4cb3-4d1e-9845-23013f03e88a",
+      "details": "{\"actor_id\": \"9643393a-45f9-4b2b-9646-fbd91284fb9f\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    },
+    {
+      "seq": 13,
+      "code": "waiting_for_append",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 14,
+      "code": "spooled",
+      "batch_id": "491d38d2-5b52-44fe-b555-c5c9fab3f2b2",
+      "details": "{\"end\": 3045, \"lines\": 3, \"source_id\": \"23f3a909-90d7-452c-9a7f-ae9c2bb4e61f\", \"start\": 2712}"
+    },
+    {
+      "seq": 15,
+      "code": "attempt",
+      "batch_id": "491d38d2-5b52-44fe-b555-c5c9fab3f2b2",
+      "details": "{}"
+    },
+    {
+      "seq": 16,
+      "code": "accepted_with_quarantine",
+      "batch_id": "491d38d2-5b52-44fe-b555-c5c9fab3f2b2",
+      "details": "{\"actor_id\": \"9643393a-45f9-4b2b-9646-fbd91284fb9f\", \"discarded\": 2, \"duplicates\": 1, \"imported\": 0}"
+    },
+    {
+      "seq": 17,
+      "code": "waiting_for_append",
+      "batch_id": null,
+      "details": "{}"
+    },
+    {
+      "seq": 18,
+      "code": "rotation",
+      "batch_id": null,
+      "details": "{\"previous\": \"23f3a909-90d7-452c-9a7f-ae9c2bb4e61f\", \"source_id\": \"843f188e-766f-431c-8644-68dd91cb99e5\"}"
+    },
+    {
+      "seq": 19,
+      "code": "spooled",
+      "batch_id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "details": "{\"end\": 907, \"lines\": 3, \"source_id\": \"843f188e-766f-431c-8644-68dd91cb99e5\", \"start\": 0}"
+    },
+    {
+      "seq": 20,
+      "code": "attempt",
+      "batch_id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "details": "{}"
+    },
+    {
+      "seq": 21,
+      "code": "network_error",
+      "batch_id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "details": "{\"retry_seconds\": 1.0072080871835007}"
+    },
+    {
+      "seq": 22,
+      "code": "attempt",
+      "batch_id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "details": "{}"
+    },
+    {
+      "seq": 23,
+      "code": "network_error",
+      "batch_id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "details": "{\"retry_seconds\": 2.2233501825784243}"
+    },
+    {
+      "seq": 24,
+      "code": "attempt",
+      "batch_id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "details": "{}"
+    },
+    {
+      "seq": 25,
+      "code": "accepted",
+      "batch_id": "f7ef6e76-ba35-421e-b42d-36500bf6e651",
+      "details": "{\"actor_id\": \"9643393a-45f9-4b2b-9646-fbd91284fb9f\", \"discarded\": 0, \"duplicates\": 0, \"imported\": 3}"
+    },
+    {
+      "seq": 26,
+      "code": "waiting_for_append",
+      "batch_id": null,
+      "details": "{}"
+    }
+  ],
+  "offsets": [
+    {
+      "id": "23f3a909-90d7-452c-9a7f-ae9c2bb4e61f",
+      "offset": 3045,
+      "line": 12,
+      "current": 0
+    },
+    {
+      "id": "843f188e-766f-431c-8644-68dd91cb99e5",
+      "offset": 907,
+      "line": 3,
+      "current": 1
+    }
+  ],
+  "quarantined_batches": 1,
+  "duplicate_repeat": {
+    "import_id": "37dcb3e9-c3e8-4c03-a953-28f8dbb86bc7",
+    "imported": 0,
+    "duplicates": 12,
+    "discarded": 0,
+    "processed": 12,
+    "batches": 1,
+    "bytes_received": 3619,
+    "unknown": 0,
+    "errors": [],
+    "errors_omitted": 0,
+    "discard_reasons": {},
+    "complete": true
+  },
+  "logs_checked_no_credentials_or_event_bodies": true,
+  "source_sha256": "772ebded59d134d98ac5e4f0158d6f354232eb8217c0f1c2cdac396c845e6e1d",
+  "agent_source_sha256": {
+    "agent\\smartir_agent\\config.py": "4f836e3e03e02bb19cabd4ec78b55701e83d4d44ef0cd3f8d16c525c300dfdcb",
+    "agent\\smartir_agent\\runner.py": "1b1425fcb2c0514671a38294af6d4ee98f478a24786b0fe972e242009a39e7c8",
+    "agent\\smartir_agent\\store.py": "80802267ddee0b883f8db4ec219d0323dd48cd43502016454610326d29f20929",
+    "agent\\smartir_agent\\synthetic.py": "7974d94e1d35e06b5fc12289abfed13c91c3def2e1658e1603c452e150797974",
+    "agent\\smartir_agent\\tailer.py": "2cac0b2cf773ff68b0c5262e518a493084d2dd065627bb850d413616cfb1579b",
+    "agent\\smartir_agent\\transport.py": "0c17f4cb32c2afbe21a2cd0268974961ea6ce764ac8023db31b71ab13497784a",
+    "agent\\smartir_agent\\__init__.py": "3f02d4411c1d71d434a588baf535dea30b3d6cb5782370c71bff2c522c8b7da2",
+    "agent\\smartir_agent\\__main__.py": "973691788194d92e8ef461b9717af230555e514554cdc1a19db664ed7754626a"
+  },
+  "total_seconds": 16.427329099999042
+}

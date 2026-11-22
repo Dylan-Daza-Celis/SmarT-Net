@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 import jwt
 from argon2 import PasswordHasher
 from argon2.low_level import Type
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from .database import Session
 from .models import User
@@ -20,7 +20,7 @@ def issue_token(user):
     now = datetime.now(timezone.utc)
     return jwt.encode({"sub": user.id, "iat": now, "exp": now + timedelta(minutes=15), "iss": "smartir-net", "aud": "smartir-api"}, JWT_SECRET, algorithm="HS256")
 
-def current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer)):
+def current_user(request: Request, credentials: HTTPAuthorizationCredentials = Depends(bearer)):
     unauthorized = HTTPException(401, "Sesión inválida o expirada", headers={"WWW-Authenticate": "Bearer"})
     if credentials is None:
         raise unauthorized
@@ -36,6 +36,9 @@ def current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer)):
         user = db.get(User, payload["sub"])
         if user is None or not user.active:
             raise unauthorized
+        if user.eve_only and (user.role != 'analista' or (request.method, request.scope['path']) not in {
+                ('POST', '/api/events/import/eve'), ('GET', '/api/auth/me')}):
+            raise HTTPException(403, 'Cuenta de servicio restringida a importación EVE')
         return user
 
 def require_roles(*roles):

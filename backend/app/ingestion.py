@@ -22,7 +22,7 @@ class ImportRecord:
     evidence: dict | None = None
 
 
-def ingest(records, author_id, session_factory):
+def ingest(records, author_id, session_factory, *, eve_service=False):
     # Prepare exact historical fingerprints before entering the shared write transaction.
     prepared=[]
     for record in records:
@@ -36,7 +36,7 @@ def ingest(records, author_id, session_factory):
         for start in range(0,len(values),400): yield values[start:start+400]
     with session_factory.begin() as db:
         mutation_lock(db)
-        actor(db,author_id)
+        actor(db,author_id,allow_eve_service=eve_service)
         known={}
         for group in chunks({fp for _,_,fp in prepared}):
             known.update(db.execute(select(Event.fingerprint,Event.id).where(Event.fingerprint.in_(group))).all())

@@ -1,5 +1,7 @@
 # Guía de usuario — SmartIR-Net, iteración 10
 
+**Actualización11:** se mantiene el flujo interactivo y se añade la marca persistente eve_only para usuarios de servicio con rol analista. Esas cuentas solo autentican/consultan su propia identidad e importan EVE; no pueden usar esta interfaz, asumir responsabilidad, operar ni consultar otros datos. Los tres roles humanos conservan sus permisos. El agente no tiene badge de conexión porque no hay heartbeat remoto verificado. Ver [MONITOREO_CONTINUO_SURICATA](MONITOREO_CONTINUO_SURICATA.md) para el procedimiento independiente y la migración0009. Los resultados10 de esta guía son históricos.
+
 Prototipo académico local. Esta guía describe funciones comprobadas en el repositorio; no acredita detección IDS, eficacia de operadores ni un producto certificado. Para resultados y cobertura exacta consultar [VALIDACION_INTEGRAL](VALIDACION_INTEGRAL.md).
 
 ## Requisitos y acceso

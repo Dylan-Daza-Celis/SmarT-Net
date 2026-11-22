@@ -1,6 +1,6 @@
 # Guía de despliegue y conservación — iteración 10
 
-Ámbito: **prototipo local**, no receta de producción ni certificación de seguridad. Docker Desktop/Compose v2, PostgreSQL 16, API FastAPI/SQLAlchemy/Alembic y React/TypeScript con Vite. Las migraciones existentes llegan a0008; no se necesita0009/0010. No se reconstruyeron módulos operativos.
+Ámbito: **prototipo local**, no receta de producción ni certificación de seguridad. Docker Desktop/Compose, PostgreSQL16, API FastAPI/SQLAlchemy/Alembic y React/TypeScript con Vite. Actualización11: head0009 agrega únicamente users.eve_only/defaultFalse para el agente restringido. En10 no se necesitaron migraciones nuevas; sus resultados se conservan como históricos. Configuración opcional y validación actual en [MONITOREO_CONTINUO_SURICATA](MONITOREO_CONTINUO_SURICATA.md).
 
 ## Variables y requisitos
 
@@ -34,7 +34,7 @@ Invoke-RestMethod http://localhost:8000/health
 
 Para un volumen nuevo generar valores independientes con un gestor de secretos o `secrets.token_urlsafe(48)` y guardarlos solo localmente. Bootstrap solicita contraseña oculta y se niega si ya hay usuarios. **No ejecutar bootstrap como recuperación de una instalación existente**. Completar otros usuarios mediante API administrativa/OpenAPI.
 
-API ejecuta `alembic upgrade head` antes de Uvicorn; head esperado0008. `/health` es liveness y devuelve estado del proceso: **no consulta la base de datos**. Verificar también Alembic, estado healthy de db y una consulta autenticada para readiness. Frontend `http://localhost:5173`; API/docs localhost8000. PostgreSQL no publica puerto al host en Compose habitual. Puertos web/API enlazados a127.0.0.1.
+API ejecuta `alembic upgrade head` antes de Uvicorn; head esperado0009 en11. `/health` es liveness y devuelve estado del proceso: **no consulta la base de datos**. Verificar también Alembic, estado healthy de db y una consulta autenticada para readiness. Frontend `http://localhost:5173`; API/docs localhost8000. PostgreSQL no publica puerto al host en Compose habitual. Puertos web/API enlazados a127.0.0.1.
 
 Vite de Compose es servidor de desarrollo. CORS del backend permite localhost/127.0.0.1:5173, GET/POST/PATCH, Content-Type/Authorization. Otra URL VITE_API_URL no amplía CORS automáticamente. El arnés de navegador usa proxy same-origin en otro puerto hacia su propia API; no cambia la política operativa. No exponer Vite ni API HTTP a Internet.
 
@@ -43,10 +43,10 @@ Vite de Compose es servidor de desarrollo. CORS del backend permite localhost/12
 1. Identificar proyecto/volumen reales con `docker compose ps` y `docker volume ls`. No ejecutar down-v, prune, DROP, TRUNCATE, downgrade ni crear un volumen vacío para ocultar fallos.
 2. Programar pausa de escrituras y hacer respaldo consistente antes de actualizar. Conservar .env, contraseña de PostgreSQL, volumen, evidencias y modelos.
 3. Ensayar restauración/upgrade en **otra base temporal**, comprobar conteos/hashes y migraciones. Las pruebas automatizadas usan esquemas UUID propios y cubren datos legacy; no prueban una copia particular del usuario.
-4. Actualizar código y dependencias fijadas; `docker compose build`, `docker compose up -d`; comprobar Alembic 0008 y health/readiness. Aplicar solo upgrade aditivo. Si falla, detener escrituras, inspeccionar logs saneados y recuperar desde copia ensayada; no bajar esquema destructivamente.
+4. Actualizar código y dependencias fijadas; `docker compose build`, `docker compose up -d`; comprobar Alembic0009 y health/readiness. Aplicar solo upgrade aditivo. Si falla, detener escrituras, inspeccionar logs saneados y recuperar desde copia ensayada; no bajar esquema destructivamente.
 5. Verificar incidentes/evidencia, usuarios/roles, evaluaciones, experimentos, modelos y snapshots. Un reinicio no debe recalcular riesgos ni modificar históricos. Tokens en memoria del navegador no sobreviven recarga; persistencia de datos es independiente de sesión.
 
-Historial:0001 esquema previo,0002 auth/acciones,0003 temporal/riesgo,0004 evidencia EVE,0005 evaluación,0006 ML,0007 ciclo de vida,0008 reportes/reevaluación/índices. Los legacy mantienen estados/riesgos y tiempos desconocidos; asignaciones/tiempos no se fabrican. Ver [VALIDACION_INTEGRAL](VALIDACION_INTEGRAL.md) para pruebas de preservación.
+Historial:0001 esquema previo,0002 auth/acciones,0003 temporal/riesgo,0004 evidencia EVE,0005 evaluación,0006 ML,0007 ciclo de vida,0008 reportes/reevaluación/índices,0009 cuenta solo EVE. Los legacy mantienen estados/riesgos y tiempos desconocidos; asignaciones/tiempos no se fabrican. Ver [VALIDACION_INTEGRAL](VALIDACION_INTEGRAL.md) para las pruebas10 de preservación y el informe11 para el upgrade actual.
 
 ## Respaldo y restauración de prueba
 

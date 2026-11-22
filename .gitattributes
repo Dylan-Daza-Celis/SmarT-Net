@@ -2,3 +2,4 @@
 *.pdf binary
 *.png binary
 docs/resultados/iter10*.csv -text whitespace=cr-at-eol
+docs/resultados/iter11*.csv -text whitespace=cr-at-eol

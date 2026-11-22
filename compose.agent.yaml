@@ -1,0 +1,23 @@
+# Explicit overlay: docker compose -f compose.yaml -f compose.agent.yaml --profile eve-agent up -d
+# No user host directory is mounted by default. Empty agent_input is inert until populated explicitly.
+services:
+  eve-agent:
+    profiles: [eve-agent]
+    build: ./agent
+    network_mode: service:api
+    depends_on:
+      - api
+    env_file:
+      - path: .env.agent
+        required: false
+    volumes:
+      - agent_input:/input:ro
+      - agent_state:/state
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    init: true
+    restart: "no" # Permanent faults require explicit operator review; no restart loop.
+volumes:
+  agent_input:
+  agent_state:

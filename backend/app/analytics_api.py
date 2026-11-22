@@ -38,7 +38,7 @@ def options(offset: int = Query(0, ge=0, le=100000), limit: int = Query(100, ge=
     with database.Session() as db:
         lifecycle.read_snapshot(db)
         sources = db.scalars(select(Event.source).distinct().order_by(Event.source).offset(offset).limit(limit+1)).all()
-        visible = or_(and_(User.active.is_(True), User.role.in_(['administrador', 'analista'])),
+        visible = or_(and_(User.active.is_(True), User.eve_only.is_(False), User.role.in_(['administrador', 'analista'])),
             select(Incident.id).where(Incident.assigned_to_id == User.id).exists())
         users = db.execute(select(User.id, User.username, User.active).where(visible)
             .order_by(User.username).offset(offset).limit(limit+1)).mappings().all()

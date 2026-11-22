@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-11-22T21:28:12.095741+00:00",
+  "project": "smartir-iter11-35cc7f68",
+  "data_kind": "synthetic EVE file only; no capture",
+  "default_services": [
+    "db",
+    "api",
+    "web"
+  ],
+  "profile": "eve-agent",
+  "agent_os": "Linux Python3.12 container, unprivileged UID10001",
+  "host_source_mounts": false,
+  "health_http": 200,
+  "web_http": 200,
+  "migration": "0009",
+  "postgresql": "16.16",
+  "events": 12,
+  "event_evidence": 13,
+  "checkpoint": {
+    "accepted": 3,
+    "quarantined": 1,
+    "sources": 2
+  },
+  "restart_without_replay": true,
+  "rename_create_rotation": true,
+  "original_services_modified": false,
+  "volumes_removed": false,
+  "logs_checked_no_credentials_or_bodies": true
+}

@@ -11,3 +11,5 @@ dist/
 *.db
 .coverage
 .test-runs/
+.smartir-agent/
+.agent-secrets/

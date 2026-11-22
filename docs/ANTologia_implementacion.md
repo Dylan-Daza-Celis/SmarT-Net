@@ -1,6 +1,8 @@
-# Diseño e implementación de SmartIR-Net — estado acumulado hasta iteración 10
+# Diseño e implementación de SmartIR-Net — estado acumulado hasta iteración 11
 
 **Borrador técnico para revisión académica; no antología final aprobada.** La validación10 amplía la evidencia anterior con HTTP concurrente y Chromium reales. Las limitaciones temporales de capítulos previos se conservan como contexto histórico; consultar [VALIDACION_INTEGRAL.md](VALIDACION_INTEGRAL.md) para el estado vigente y su matriz de trazabilidad.
+
+Actualización11: agente desacoplado de lectura EVE y cuenta de mínimo privilegio, con migración aditiva0009. El estado actual de este módulo y la evidencia adicional están en [MONITOREO_CONTINUO_SURICATA.md](MONITOREO_CONTINUO_SURICATA.md). Los resultados10 y previos siguen siendo fotografías de sus versiones; no se sustituyen por cifras nuevas.
 
 Este capítulo describe la implementación actual. Las versiones anteriores y sus resultados de validación se conservan en el historial Git, AUTENTICACION_Y_RESPUESTA.md y CORRELACION_Y_RIESGO.md; sus limitaciones históricas no deben interpretarse como ausencia de componentes que ya se implementaron.
 
@@ -156,3 +158,34 @@ Se conserva el bosquejo histórico de prácticas, pero los IDs RPT/RF sin catál
 La verificación de resultados anteriores compara blobs Git normalizados para CRLF/LF de Windows y registra hashes de disco aparte; un colector preliminar confundió esas representaciones, se conserva y se aclara en el informe. No se reescribieron evidencias históricas. La BD del usuario no se inspeccionó ni modificó; la preservación exhaustiva y reinicios se demostraron en bases aisladas. No se publicaron secretos, dumps o datos reales.
 
 Pendientes: ensayo de restauración, implementaciones PT, otros navegadores/accesibilidad, carga sostenida/multiproceso/proxy, autenticación/defensa distribuidas de producción, validación con datos reales autorizados y ensayos humanos/estadísticos. Las ventanas fijas y los priors de criticidad/contexto conservan sus limitaciones; No calculable permanece como ausencia de evidencia, sin convertirse a cero. El cierre es técnico y provisional, no validación operacional ni aprobación final de esta antología.
+
+## Agente de seguimiento continuo EVE: iteración 11
+
+La nueva etapa añade un proceso Python desacoplado, `agent/smartir_agent`, que utiliza la API EVE existente. No incorpora captura ni un segundo motor de normalización/correlación/scoring. Sus únicas dependencias de ejecución son Python estándar y httpx fijado. FastAPI/PostgreSQL, React, JWT/RBAC, riesgo versionado y ML experimental permanecen en sus módulos anteriores; el inventario verifica que los algoritmos y53artefactos históricos no cambiaron.
+
+La restricción de cuenta `users.eve_only` se añadió mediante Alembic0009, booleano con defaultFalse para todos los usuarios previos. Se conserva la taxonomía de roles: una cuenta analista de servicio restringida solo puede autenticar, consultar su propia identidad e importar EVE. No puede consultar incidentes, operar estados, exportar, entrenar o administrar usuarios; tampoco ser responsable. La restricción se obtiene de BD en cada petición, con revalidación transaccional para mutaciones. Es persistente y no desaparece por perder una lista de configuración. La API de usuarios acepta el campo adicional; los clientes antiguos mantienen comportamiento por defecto. No se editaron migraciones históricas ni contraseñas existentes.
+
+El flujo del agente es archivo regular→lectura binaria de líneas completas→outbox SQLite local durable→JWT de privilegio mínimo→POST EVE→adaptador/fingerprint/evidencia/motor existentes→receipt verificado→commit de checkpoint y auditoría. Solo hay un lote pendiente y un lector con bloqueo del kernel. Guarda generación física, offsets, líneas, request SHA, intentos/deadline y reporte; el payload rechazado permanece en cuarentena local. API y checkpoint no comparten transacción: la semántica es **al menos una vez**, con replay exacto y deduplicación en servidor. Cada reenvío puede añadir otra evidencia aunque no otro Event.
+
+El cliente renueva JWT en memoria, ignora proxies de entorno, no sigue redirects, verifica TLS y rechaza HTTP remoto por defecto. El origen remoto HTTPS requiere configuración explícita. No imprime credenciales, tokens ni cuerpos. Windows requiere ACL adecuadas de los archivos privados; POSIX valida permisos del secreto/directorio. No se presenta el estado como cifrado o inmune a administradores del host.
+
+El lector espera LF y termina generaciones anteriores antes de una rotación inequívoca; soporta cadena numérica de archivos retenidos y detecta brechas observables. Truncamiento, reescritura detectada, generación desaparecida, crecimiento tardío retirado, línea excesiva o respuesta no verificable bloquean el avance. Un reset exige intervención explícita y registra posible pérdida; no fabrica recuperación. Retención append-only y límites locales son condiciones de operación, no garantías de cero pérdida si el productor borra bytes entre sondeos.
+
+| Componente11 | Implementación / evidencia |
+|---|---|
+|Configuración y transporte|Loopback/HTTPS, TLS obligatorio, secreto fuera de Git, renovación y códigos permanentes/transitorios |
+|Estado local y lectura|FULL-sync, application_id, checksum de outbox, bloqueo lector, generaciones/offsets y cuarentena |
+|Backend mínimo privilegio|eve_only, auth/me/usuarios, filtros de elegibilidad y actor revalidado; migración0009 |
+|Compose opcional|Overlay/perfil eve-agent;3servicios base intactos, sin host-source mounts, UID10001, raíz readonly y capacidades retiradas |
+|Pruebas/recorridos|38casos nuevos; procesos HTTP independientes Windows con SQLite/PG; Linux Docker con restart/rotación/cuarentena |
+|Documentación|MONITOREO_CONTINUO_SURICATA, índice de evidencias11, guías actualizadas y snapshot JUnit saneado |
+
+Resultados finales: **164pruebas aprobadas SQLite154.44s y164PostgreSQL16.16 223.91s**, sin fallos/omisiones; persiste advertencia TestClient/httpx. Se conserva la primera suite164/164 de114.67/153.48s y los recorridos intermedios. La repetición final incluye auditoría explícita de obtención/renovación JWT y solicitud iniciada, sin secretos. Los ensayos comparten host y no se interpretan esas duraciones como comparación de rendimiento. Build React/TypeScript correcto:442módulos,7.67s. Los recorridos TCP auditados capturaron12eventos sintéticos únicos en5lotes, dos generaciones y15registros no vacíos, incluida cuarentena de dos descartes; tras replay12duplicados quedaron25apariciones EVE. Hubo reinicio del proceso, rotación, API realmente detenida/reiniciada y rechazo de un segundo lector. Los casos401/403/413/429/503/renewal utilizan transporte controlado y están diferenciados de las pruebas TCP reales.
+
+El perfil Linux se probó con estado/input propios en proyectos Compose nuevos:12eventos,13evidencias,3lotes, una cuarentena, reinicio sin replay y rename/create. Se verificaron Linux/Python/UID mediante exec, Alembic0009 y health/web200; se detuvieron solo los proyectos de prueba, conservando sus volúmenes. La BD habitual no se migró ni se cargó; los servicios del usuario no se reconstruyeron. La validación base sin agente también se actualiza al head actual, sin reescribir evidencias10.
+
+Se separan metodológicamente **generación sintética EVE**, **seguimiento automatizado del archivo** y **captura real de tráfico por Suricata**. Solo las dos primeras se ejecutaron. El default de sondeo1s no implica tiempo real estricto: intervienen flush, procesamiento, red, cuota y backoff. No es MTTD/MTTR ni respuesta humana. No se añadieron estadísticas de eficacia IDS, F1 de ML o mejoras experimentales nuevas; las evaluaciones anteriores siguen congeladas. Tampoco se añadió un badge de conectividad React sin heartbeat remoto.
+
+Fallos reales se conservan en el informe: identidad vacía de DirEntry en Windows corregida con os.stat; mock de compresión que descomprimía antes de llegar al cliente corregido a stream crudo. Los intentos fallidos no se suman como éxitos. Fuente, schema de estado, límites, operación, comandos de laboratorio y artefactos: [MONITOREO_CONTINUO_SURICATA](MONITOREO_CONTINUO_SURICATA.md), [índice11](resultados/README_ITER11.md).
+
+Pendientes: sensor real autorizado y su modo concreto de rotación/flush, operación prolongada, archivado/capacidad del estado, DACL Windows exhaustivas, NFS/locks distribuidos, PKI/proxy remoto y supervisión/heartbeat. Las cinco prácticas Packet Tracer continúan diseñadas, sin implementación/capturas nuevas; no existe conector Syslog/IOS ni Suricata dentro de Packet Tracer. Esta antología sigue en revisión y no constituye aprobación final o certificación productiva.

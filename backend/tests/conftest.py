@@ -3,7 +3,8 @@ import sys
 from pathlib import Path
 from uuid import uuid4
 import pytest
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, Table, MetaData
+from datetime import datetime, timezone
 from sqlalchemy.orm import sessionmaker
 from alembic import command
 from alembic.config import Config
@@ -41,9 +42,12 @@ def api(tmp_path, monkeypatch, request):
     config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
     command.upgrade(config, getattr(request, "param", "head"))
     main.app.state.abuse.reset()
+    # Reflect only columns present at the requested historical migration.
+    users_table = Table('users', MetaData(), autoload_with=engine)
     with session.begin() as db:
         for role in ("administrador", "analista", "observador"):
-            db.add(User(username=role, role=role, password_hash=security.password_hasher.hash("test-password-123")))
+            db.execute(users_table.insert().values(id=str(uuid4()), username=role, role=role,
+                password_hash=security.password_hasher.hash("test-password-123"), active=True, created_at=datetime.now(timezone.utc)))
     try:
         with TestClient(main.app,base_url='http://localhost') as client:
             yield client, session, config

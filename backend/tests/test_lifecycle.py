@@ -274,7 +274,7 @@ def test_0007_preserves_legacy_states_and_ml_data(api,headers):
         for table in tables:
             rows=db.execute(text(f'SELECT * FROM {table}')).mappings().all()
             assert [{k:r[k] for k in before[table][0]} for r in rows]==before[table] if before[table] else rows==[]
-        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0008'
+        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0009'
     h=headers('administrador')
     life=client.get('/api/incidents/5/lifecycle',headers=h).json()
     assert life['lifecycle_legacy'] is True and all(v['value'] is None for v in life['metrics'].values())

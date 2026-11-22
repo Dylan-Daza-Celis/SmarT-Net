@@ -168,7 +168,7 @@ def test_migration_0004_preserves_all_data_and_legacy_fingerprint(api, headers):
             after=db.execute(text(f"SELECT * FROM {table}")).mappings().all()
             assert [{k:row[k] for k in rows[0].keys()} for row in after] == rows
         assert db.get(Event,"old").asset_criticality_observed is None
-        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0008"
+        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0009"
     h=headers("analista")
     assert client.post("/api/events/import",json={"events":[raw]},headers=h).json()["duplicates"] == 1
     assert client.get("/api/events/old/evidence",headers=h).json() == []
