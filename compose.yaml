@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: smartir
       POSTGRES_USER: smartir
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-demo_cambiar_antes_de_exponer}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Define DB_PASSWORD en .env}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -15,7 +15,8 @@ services:
   api:
     build: ./backend
     environment:
-      DATABASE_URL: postgresql+psycopg://smartir:${DB_PASSWORD:-demo_cambiar_antes_de_exponer}@db:5432/smartir
+      DATABASE_URL: postgresql+psycopg://smartir:${DB_PASSWORD:?Define DB_PASSWORD en .env}@db:5432/smartir
+      JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en .env}
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
