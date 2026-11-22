@@ -5,10 +5,11 @@ import json
 
 from fastapi import FastAPI, HTTPException, Request, Query
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, ConfigDict, AwareDatetime
-from sqlalchemy import select, func
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy import select, func, case
+from sqlalchemy.exc import IntegrityError, OperationalError
 
 from .models import Event, Incident, User, IncidentHistory, ResponseAction, RiskEvaluation, EventEvidence
 from .database import Session
@@ -19,12 +20,28 @@ from .security import current_user, writers, administrators, password_hasher, is
 from fastapi import Depends
 from typing import Literal
 from argon2.exceptions import VerificationError, InvalidHashError
+from .abuse import AbuseController, RequestGuard, importer, password_admin, analytics_reader
+from .analytics import review_exists
+from .risk_audit import pending_query
+from .validation import SafeInput
 
-app = FastAPI(title="SmartIR-Net API", version="0.8.0", description="Gestión de incidentes con autenticación y roles")
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"], expose_headers=["Content-Disposition", "X-Content-SHA256"])
+app = FastAPI(title="SmartIR-Net API", version="0.9.0", description="Gestión de incidentes con autenticación y roles")
+app.state.abuse = AbuseController()
+app.add_middleware(RequestGuard)
+app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"], expose_headers=["Content-Disposition", "X-Content-SHA256", "Retry-After"])
 
-def serialize(inc: Incident, db, count: int | None = None):
-    return {**lifecycle.summary(db,inc), "source_ip": inc.source_ip, "correlation_version": inc.correlation_version or "legacy",
+@app.exception_handler(RequestValidationError)
+async def invalid_request(request, exc):
+    return JSONResponse({'detail':[{'loc':e['loc'],'type':e['type'],'msg':'Entrada inválida'} for e in exc.errors()]},status_code=422)
+
+@app.exception_handler(OperationalError)
+async def database_error(request, exc):
+    transient=getattr(exc.orig,'sqlstate',None) in ('57014','55P03') or 'locked' in str(exc.orig).lower()
+    return JSONResponse({'detail':'Base de datos ocupada; reintente después' if transient else 'Error de almacenamiento'},
+        status_code=503 if transient else 500,headers={'Retry-After':'1'} if transient else {})
+
+def serialize(inc: Incident, db, count: int | None = None, metadata=None):
+    return {**(lifecycle.summary(db,inc) if metadata is None else metadata), "source_ip": inc.source_ip, "correlation_version": inc.correlation_version or "legacy",
             "window_start": inc.window_start.isoformat() if inc.window_start else None,
             "window_seconds": inc.window_seconds,
             "id": inc.id, "event_type": inc.event_type, "destination_ip": inc.destination_ip, "status": inc.status, "score": inc.score, "priority": inc.priority, "explanation": json.loads(inc.explanation or "{}"), "event_count": count if count is not None else len(inc.events), "created_at": lifecycle.iso(inc.created_at)}
@@ -34,49 +51,59 @@ def health():
     return {"status": "ok", "service": "smartir-net"}
 
 @app.post("/api/events/import")
-def import_events(batch: BatchIn, user: User = Depends(writers)):
+def import_events(batch: BatchIn, user: User = Depends(importer)):
     return ingest([ImportRecord(event=item) for item in batch.events], user.id, Session)
 
 @app.get("/api/incidents")
-def list_incidents(user: User = Depends(current_user)):
+def list_incidents(offset:int=Query(0,ge=0,le=100000),limit:int=Query(100,ge=1,le=1000),user: User = Depends(analytics_reader)):
     with Session() as db:
         lifecycle.read_snapshot(db)
-        incidents = db.scalars(select(Incident).order_by(Incident.score.desc(), Incident.created_at.desc())).all()
-        return [serialize(i,db) for i in incidents]
+        count=select(func.count()).select_from(Event).where(Event.incident_id==Incident.id).scalar_subquery()
+        rows=db.execute(select(Incident,count,User.username,User.active,User.role,review_exists(),pending_query(Incident.id).exists())
+            .outerjoin(User,User.id==Incident.assigned_to_id).order_by(Incident.score.desc(),Incident.created_at.desc(),Incident.id)
+            .offset(offset).limit(limit)).all()
+        return [serialize(i,db,n,{'revision':i.revision,'assigned_to_id':i.assigned_to_id,
+            'assignee':None if i.assigned_to_id is None else {'id':i.assigned_to_id,'username':name,'active':active,'role':role},
+            'needs_review':review,'risk_reevaluation_pending':pending,'lifecycle_legacy':i.lifecycle_started_at is None})
+            for i,n,name,active,role,review,pending in rows]
 
 @app.get("/api/incidents/{incident_id}")
-def get_incident(incident_id: str, user: User = Depends(current_user)):
+def get_incident(incident_id: str, events_offset:int=Query(0,ge=0,le=100000),events_limit:int=Query(100,ge=1,le=500),user: User = Depends(analytics_reader)):
     with Session() as db:
         lifecycle.read_snapshot(db)
         inc = db.get(Incident, incident_id)
         if not inc:
             raise HTTPException(status_code=404, detail="Incidente no encontrado")
-        result = serialize(inc,db)
-        result["events"] = [{"id": e.id, "source": e.source, "event_timestamp": e.event_timestamp.isoformat(), "source_ip": e.source_ip, "message": e.message, "severity": e.severity, "asset_criticality": e.asset_criticality, "asset_criticality_observed": e.asset_criticality_observed, "adapter_metadata": json.loads(e.adapter_metadata) if e.adapter_metadata else None} for e in inc.events]
+        count=db.scalar(select(func.count()).select_from(Event).where(Event.incident_id==inc.id))
+        result = serialize(inc,db,count)
+        events=db.scalars(select(Event).where(Event.incident_id==inc.id).order_by(Event.id).offset(events_offset).limit(events_limit)).all()
+        result.update(events_offset=events_offset,events_limit=events_limit)
+        result["events"] = [{"id": e.id, "source": e.source, "event_timestamp": e.event_timestamp.isoformat(), "source_ip": e.source_ip, "message": e.message, "severity": e.severity, "asset_criticality": e.asset_criticality, "asset_criticality_observed": e.asset_criticality_observed, "adapter_metadata": json.loads(e.adapter_metadata) if e.adapter_metadata else None} for e in events]
         return result
 
 @app.get("/api/stats")
-def stats(user: User = Depends(current_user)):
+def stats(user: User = Depends(analytics_reader)):
     with Session() as db:
         total_events = db.scalar(select(func.count()).select_from(Event))
-        incidents = db.scalars(select(Incident)).all()
-        return {"events": total_events, "incidents": len(incidents), "critical": sum(i.priority == "Crítica" for i in incidents), "high": sum(i.priority == "Alta" for i in incidents)}
+        total,critical,high=db.execute(select(func.count(),func.count(case((Incident.priority=='Crítica',1))),
+            func.count(case((Incident.priority=='Alta',1)))).select_from(Incident)).one()
+        return {"events": total_events, "incidents": total, "critical": critical, "high": high}
 
 
 Role = Literal["administrador", "analista", "observador"]
 Status = Literal["Nuevo", "Asignado", "En análisis", "En respuesta", "Resuelto", "Cerrado"]
 
-class LoginIn(BaseModel):
+class LoginIn(SafeInput):
     username: str = Field(min_length=1, max_length=100)
     password: str = Field(min_length=1, max_length=128)
 
-class UserIn(BaseModel):
+class UserIn(SafeInput):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=False)
     username: str = Field(min_length=1, max_length=100, pattern=r"^[a-zA-Z0-9_.@-]+$")
     password: str = Field(min_length=12, max_length=128)
     role: Role
 
-class UserPatch(BaseModel):
+class UserPatch(SafeInput):
     model_config = ConfigDict(extra="forbid")
     role: Role | None = None
     active: bool | None = None
@@ -99,18 +126,19 @@ def user_out(user):
     return {"id": user.id, "username": user.username, "role": user.role, "active": user.active}
 
 @app.post("/api/auth/login")
-def login(data: LoginIn):
+def login(data: LoginIn, request: Request):
     from .security import DUMMY_HASH
     with Session.begin() as db:
         user = db.scalar(select(User).where(User.username == data.username))
-        try:
-            password_hasher.verify(user.password_hash if user else DUMMY_HASH, data.password)
-        except (VerificationError, InvalidHashError):
-            raise HTTPException(401, "Credenciales inválidas", headers={"WWW-Authenticate": "Bearer"})
-        if user is None or not user.active:
-            raise HTTPException(401, "Credenciales inválidas")
-        if password_hasher.check_needs_rehash(user.password_hash):
-            user.password_hash = password_hasher.hash(data.password)
+        with request.app.state.abuse.work('password'):
+            try:
+                password_hasher.verify(user.password_hash if user else DUMMY_HASH, data.password)
+            except (VerificationError, InvalidHashError):
+                raise HTTPException(401, "Credenciales inválidas", headers={"WWW-Authenticate": "Bearer"})
+            if user is None or not user.active:
+                raise HTTPException(401, "Credenciales inválidas")
+            if password_hasher.check_needs_rehash(user.password_hash):
+                user.password_hash = password_hasher.hash(data.password)
         return {"access_token": issue_token(user), "token_type": "bearer", "expires_in": 900}
 
 @app.get("/api/auth/me")
@@ -123,10 +151,12 @@ def list_users(user: User = Depends(administrators)):
         return [user_out(u) for u in db.scalars(select(User).order_by(User.username)).all()]
 
 @app.post("/api/users", status_code=201)
-def create_user(data: UserIn, user: User = Depends(administrators)):
+def create_user(data: UserIn, user: User = Depends(password_admin)):
     try:
         with Session.begin() as db:
             created = User(username=data.username, password_hash=password_hasher.hash(data.password), role=data.role)
+            lifecycle.mutation_lock(db)
+            lifecycle.actor(db,user.id,admin=True)
             db.add(created)
             db.flush()
             result = user_out(created)
@@ -135,7 +165,8 @@ def create_user(data: UserIn, user: User = Depends(administrators)):
         raise HTTPException(409, "El usuario ya existe")
 
 @app.patch("/api/users/{user_id}")
-def update_user(user_id: str, data: UserPatch, user: User = Depends(administrators)):
+def update_user(user_id: str, data: UserPatch, user: User = Depends(password_admin)):
+    new_hash=password_hasher.hash(data.password) if data.password is not None else None
     with Session.begin() as db:
         lifecycle.mutation_lock(db)
         lifecycle.actor(db,user.id,admin=True)
@@ -151,7 +182,7 @@ def update_user(user_id: str, data: UserPatch, user: User = Depends(administrato
             if getattr(data, field) is not None:
                 setattr(target, field, getattr(data, field))
         if data.password is not None:
-            target.password_hash = password_hasher.hash(data.password)
+            target.password_hash = new_hash
         db.flush()
         return user_out(target)
 
@@ -217,7 +248,7 @@ def evaluations(incident_id: str, user: User = Depends(current_user)):
 @app.post("/api/events/import/eve", responses={413: {"description": "Import limit; partial report"}})
 async def import_eve(request: Request, filename: str = Query(default="eve.json", min_length=1, max_length=255, pattern=r"^[^\x00-\x1f]+$"),
                      sensor_id: str = Query(default="suricata", min_length=1, max_length=80, pattern=r"^[a-zA-Z0-9_.:-]+$"),
-                     user: User = Depends(writers)):
+                     user: User = Depends(importer)):
     # Raw file body avoids multipart spooling before application size validation.
     content_type = request.headers.get("content-type", "").split(";", 1)[0].lower()
     if content_type not in ("application/x-ndjson", "application/jsonl", "application/octet-stream", "application/json", "text/plain"):

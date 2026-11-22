@@ -38,12 +38,17 @@ def iso(value):
 
 def mutation_lock(db):
     # Same lock as ingestion: serializes close/import, assignment/user-role changes.
-    if db.bind.dialect.name=="postgresql":db.execute(text("SELECT pg_advisory_xact_lock(739031503)"))
+    if db.bind.dialect.name=="postgresql":
+        db.execute(text("SET LOCAL lock_timeout = '2s'"))
+        db.execute(text("SELECT pg_advisory_xact_lock(739031503)"))
     elif db.bind.dialect.name=="sqlite":db.execute(text("BEGIN IMMEDIATE"))
 
 
 def read_snapshot(db):
-    if db.bind.dialect.name=="postgresql":db.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"))
+    if db.bind.dialect.name=="postgresql":
+        db.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"))
+        db.execute(text("SET LOCAL statement_timeout = '15s'"))
+        db.execute(text("SET LOCAL lock_timeout = '2s'"))
     elif db.bind.dialect.name=="sqlite":db.execute(text("BEGIN"))
 
 

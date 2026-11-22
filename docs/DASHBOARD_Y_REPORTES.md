@@ -1,5 +1,7 @@
 # Iteración 08 — Dashboard analítico y reportes verificables
 
+Continuidad: los controles de abuso, paginación y publicación de snapshots de [iteración 09](SEGURIDAD_Y_RENDIMIENTO.md) sustituyen los límites previos correspondientes. Se conservan aquí metodología y resultados de 08.
+
 ## Arquitectura y alcance
 
 Se inspeccionaron modelos, main.py, ingestión, riesgo, lifecycle, métricas, evaluación/ML, pruebas y migraciones 0001–0007 antes de modificar el proyecto. Se conservan FastAPI, SQLAlchemy, PostgreSQL, Alembic, JWT/RBAC y React/TypeScript. No se reconstruye la aplicación ni se activa ML en el flujo operativo.
@@ -177,7 +179,7 @@ Cobertura nueva: agregaciones y sumas de denominadores, filtros combinados, tres
 
 `npm run build` final: TypeScript correcto, Vite **6.4.6**, **441 módulos**, **8.61s**, sin advertencia de chunks grandes tras separación (charts 437.62 kB, vendor 179.94 kB; tamaños sin gzip). Se ejecutaron npm install y npm ci (este último en build Docker); el proyecto conserva el lockfile.
 
-Compose aislado se construyó y arrancó con proyecto `smartir-iter08`, volumen propio y override de puertos 58008/55178. Se observaron tres servicios arriba, PostgreSQL healthy, /health correcto, web HTTP **200** y `alembic current`: **0008 (head)**. La comprobación fue HTTP directa; no se afirma navegación con la URL API fija del frontend en esos puertos alternativos. Se verificó el mismo hash del reporte guardado después de recrear la API. Al detener el proyecto, **API exit=0, OOMKilled=false; PostgreSQL exit=0**: el uso de exec resolvió en esta comprobación la parada forzada de 07. Se conservó `smartir-iter08_postgres_data`; los servicios originales `smartir-net-mvp` continuaron arriba y no se modificaron. El contenedor PostgreSQL de pytest se detuvo al finalizar las pruebas, sin eliminar volúmenes existentes.
+Compose aislado se construyó y arrancó con proyecto `smartir-iter08`, volumen propio y override de puertos 58008/55178. Se observaron tres servicios arriba, PostgreSQL healthy, /health correcto, web HTTP **200** y `alembic current`: **0008 (head)**. La comprobación fue HTTP directa; no se afirma navegación con la URL API fija del frontend en esos puertos alternativos. Se verificó el mismo hash del reporte guardado después de recrear la API. Al detener el proyecto, **API exit=0, OOMKilled=false; PostgreSQL exit=0**: el uso de exec resolvió en esta comprobación la parada forzada de 07. Se conservó `smartir-iter08_postgres_data`; los servicios originales `smartir-net-mvp` continuaron arriba y no se modificaron. Corrección de trazabilidad: el contenedor separado de pytest no se detuvo al cerrar 08 por un fallo del servicio de revisión de la herramienta; se reutilizó únicamente para esquemas nuevos de pruebas/benchmarks y se detuvo al finalizar 09, sin eliminar volúmenes existentes. Los resultados funcionales y la parada de Compose 08 anteriores permanecen comprobados.
 
 Fallos comprobados y corregidos:
 

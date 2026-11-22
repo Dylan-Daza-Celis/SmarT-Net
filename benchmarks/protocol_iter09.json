@@ -1,0 +1,31 @@
+{
+  "version": "synthetic-load-v1",
+  "declared_before_measurement": true,
+  "seed": 202609,
+  "sizes": [100, 1000, 10000],
+  "transport": "FastAPI TestClient ASGI in-process; no TCP or external targets",
+  "data_kind": "synthetic_only",
+  "events_per_incident": 10,
+  "correlation_window_seconds": 900,
+  "eve_records_per_request": 1000,
+  "eve_internal_batch_size": 100,
+  "dashboard_samples": 10,
+  "report_creation_samples": 3,
+  "downloads_per_format": 3,
+  "concurrency": 1,
+  "percentile_method": "linear interpolation at (n-1)*p; descriptive, small samples",
+  "acceptance": {
+    "unexpected_http_errors": 0,
+    "imported_equals_requested": true,
+    "reimport_duplicates_equals_requested": true,
+    "persisted_events_equals_requested": true,
+    "six_incident_types_present": true,
+    "before_after_semantic_identity": true,
+    "minimum_import_events_per_second": 20,
+    "maximum_dashboard_p95_seconds": 5,
+    "maximum_report_creation_p95_seconds": 10,
+    "maximum_export_p95_seconds": 10,
+    "maximum_observed_process_peak_rss_bytes": 2147483648
+  },
+  "scope": "Engineering budgets for this local prototype, not scientifically validated thresholds. Ingestion duration is neither MTTD nor MTTR. Missing resource observations stay null. No existing database is cleaned or reused."
+}

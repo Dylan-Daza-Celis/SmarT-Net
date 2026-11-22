@@ -40,11 +40,12 @@ def api(tmp_path, monkeypatch, request):
         monkeypatch.setattr(module, "Session", session)
     config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
     command.upgrade(config, getattr(request, "param", "head"))
+    main.app.state.abuse.reset()
     with session.begin() as db:
         for role in ("administrador", "analista", "observador"):
             db.add(User(username=role, role=role, password_hash=security.password_hasher.hash("test-password-123")))
     try:
-        with TestClient(main.app) as client:
+        with TestClient(main.app,base_url='http://localhost') as client:
             yield client, session, config
     finally:
         if engine.dialect.name == "postgresql":

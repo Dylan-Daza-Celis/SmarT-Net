@@ -24,8 +24,12 @@ def current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer)):
     unauthorized = HTTPException(401, "Sesión inválida o expirada", headers={"WWW-Authenticate": "Bearer"})
     if credentials is None:
         raise unauthorized
+    if len(credentials.credentials)>4096:
+        raise unauthorized
     try:
         payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=["HS256"], audience="smartir-api", issuer="smartir-net", options={"require": ["sub", "exp", "iat", "iss", "aud"]})
+        if not isinstance(payload['sub'],str) or not 1<=len(payload['sub'])<=36:
+            raise unauthorized
     except jwt.InvalidTokenError:
         raise unauthorized
     with Session() as db:

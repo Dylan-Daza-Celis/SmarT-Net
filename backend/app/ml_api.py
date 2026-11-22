@@ -1,6 +1,6 @@
 """Experimental ML endpoints; no artifact upload or operational scoring hook."""
 import json
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Query
 from fastapi.responses import Response
 from pydantic import ValidationError
 from sqlalchemy import select, text
@@ -13,6 +13,7 @@ from .experiments import save_dataset, snapshot, canonical, digest
 from .ml_data import LabIn, TrainIn, MLDatasetIn, laboratory, LAB_VERSION
 from .ml_engine import fit_compare, row, record_fingerprint, VERSION, FEATURES
 from .ml_artifact import probabilities
+from .abuse import researcher, research_exporter, publish_admin
 
 router=APIRouter(prefix="/api/ml",tags=["Experimental supervised learning"])
 
@@ -39,14 +40,16 @@ def save_ml_dataset(db,manifest,user_id,generator=None):
 
 
 @router.post("/datasets/laboratory",status_code=201)
-def generate(data:LabIn,user:User=Depends(administrators)):
+def generate(data:LabIn,user:User=Depends(researcher)):
     with database.Session.begin() as db:
-        return dataset_info(save_ml_dataset(db,laboratory(data.seed,data.groups),user.id,
+        result=dataset_info(save_ml_dataset(db,laboratory(data.seed,data.groups),user.id,
             {"version":LAB_VERSION,"seed":data.seed,"groups":data.groups}),True)
+        publish_admin(db,user.id)
+        return result
 
 
 @router.post("/datasets/import",status_code=201)
-async def import_dataset(request:Request,user:User=Depends(administrators)):
+async def import_dataset(request:Request,user:User=Depends(researcher)):
     body=bytearray()
     async for chunk in request.stream():
         if len(body)+len(chunk)>2*1024*1024:
@@ -57,7 +60,9 @@ async def import_dataset(request:Request,user:User=Depends(administrators)):
     except ValidationError:
         raise HTTPException(422,"Invalid authorized dataset, references, group map or annotation policy")
     with database.Session.begin() as db:
-        return dataset_info(save_ml_dataset(db,data,user.id),True)
+        result=dataset_info(save_ml_dataset(db,data,user.id),True)
+        publish_admin(db,user.id)
+        return result
 
 
 def get_run(db,run_id):
@@ -80,7 +85,7 @@ def info(run,researcher=False):
 
 
 @router.post("/train",status_code=201)
-def train(data:TrainIn,user:User=Depends(administrators)):
+def train(data:TrainIn,user:User=Depends(researcher)):
     with database.Session.begin() as db:
         dataset=get_dataset(db,str(data.dataset_id))
         manifest=json.loads(dataset.configuration).get("generator") or {}
@@ -95,14 +100,15 @@ def train(data:TrainIn,user:User=Depends(administrators)):
                       annotation_manifest=manifest,artifact_hash=digest(artifacts),application_version="0.6.0")
         run=MLRun(dataset_id=dataset.id,author_id=user.id,status="completed" if artifacts else "insufficient_data",
                   configuration=canonical(config),artifacts=canonical(artifacts),results=canonical(results))
+        publish_admin(db,user.id)
         db.add(run);db.flush()
         return info(run,True)
 
 
 @router.get("/versions")
-def versions(user:User=Depends(current_user)):
+def versions(offset:int=Query(0,ge=0,le=100000),limit:int=Query(20,ge=1,le=50),user:User=Depends(current_user)):
     with database.Session() as db:
-        return [info(r) for r in db.scalars(select(MLRun).order_by(MLRun.created_at.desc(),MLRun.id)).all()]
+        return [info(r) for r in db.scalars(select(MLRun).order_by(MLRun.created_at.desc(),MLRun.id).offset(offset).limit(limit)).all()]
 
 
 @router.get("/runs/{run_id}")
@@ -134,7 +140,7 @@ def predict(run_id:str,case:FeatureCase,algorithm:str="logistic",user:User=Depen
 
 
 @router.get("/runs/{run_id}/export")
-def export(run_id:str,user:User=Depends(administrators)):
+def export(run_id:str,user:User=Depends(research_exporter)):
     with database.Session() as db:
         run=get_run(db,run_id)
         cases,references=snapshot(db,run.dataset_id)

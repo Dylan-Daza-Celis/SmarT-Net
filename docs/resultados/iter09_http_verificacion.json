@@ -1,0 +1,28 @@
+{
+  "kind": "synthetic_http_validation_not_a_load_benchmark",
+  "generated_at": "2026-11-22T19:06:49.855988+00:00",
+  "imported": 100,
+  "duplicates": 100,
+  "observer_import_status": 403,
+  "invalid_host_status": 400,
+  "malformed_text_status": 422,
+  "validation_secret_reflected": false,
+  "login_rate_status": 429,
+  "retry_after_seconds": 56,
+  "server_header_present": false,
+  "security_headers": {
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "DENY",
+    "referrer-policy": "no-referrer",
+    "cache-control": "no-store"
+  },
+  "report_id": "791892fd-2ff4-46b7-9eb6-d06d8ca9d83f",
+  "content_sha256": "a5b9b7b6302923136237ff324af3ca6725ed7ffd719c10dcfdf434d7ce38d2a1",
+  "exports": {
+    "json": "application/json",
+    "csv": "text/csv; charset=utf-8",
+    "pdf": "application/pdf"
+  },
+  "mttd": "No calculable",
+  "mttr": "No calculable"
+}

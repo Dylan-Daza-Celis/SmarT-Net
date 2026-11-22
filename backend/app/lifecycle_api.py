@@ -9,6 +9,7 @@ from .models import User, Incident, AssignmentHistory, IncidentHistory, Response
 from .models import RiskReassessment
 import json
 from .security import current_user, writers, administrators
+from .abuse import analytics_reader
 
 router=APIRouter(tags=["Incident lifecycle"])
 
@@ -65,7 +66,7 @@ def assign(incident_id:str,data:AssignmentIn,user:User=Depends(writers)):
 
 
 @router.get("/api/incidents/{incident_id}/lifecycle")
-def lifecycle(incident_id:str,user:User=Depends(current_user)):
+def lifecycle(incident_id:str,user:User=Depends(analytics_reader)):
     with database.Session() as db:
         service.read_snapshot(db)
         inc=db.get(Incident,incident_id)
@@ -74,7 +75,7 @@ def lifecycle(incident_id:str,user:User=Depends(current_user)):
 
 
 @router.get("/api/incidents/{incident_id}/timeline")
-def timeline(incident_id:str,user:User=Depends(current_user)):
+def timeline(incident_id:str,user:User=Depends(analytics_reader)):
     with database.Session() as db:
         service.read_snapshot(db)
         if db.get(Incident,incident_id) is None:raise HTTPException(404,"Incidente no encontrado")
@@ -140,7 +141,7 @@ def acknowledge(incident_id:str,signal_id:str,data:AckIn,user:User=Depends(write
 
 
 @router.get("/api/operations/metrics")
-def metrics(user:User=Depends(current_user)):
+def metrics(user:User=Depends(analytics_reader)):
     with database.Session() as db:
         service.read_snapshot(db)
         incidents=db.scalars(select(Incident)).all()

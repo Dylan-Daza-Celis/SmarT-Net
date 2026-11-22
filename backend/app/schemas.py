@@ -1,8 +1,9 @@
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
 from .correlation import normalize_ip
+from .validation import SafeInput
 
 
-class EventIn(BaseModel):
+class EventIn(SafeInput):
     model_config = ConfigDict(extra="forbid")
     source: str = Field(min_length=1, max_length=100)
     event_timestamp: AwareDatetime

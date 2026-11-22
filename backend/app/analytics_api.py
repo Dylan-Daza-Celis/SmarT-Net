@@ -11,6 +11,7 @@ from .analytical_reports import csv_bytes, pdf_bytes
 from .models import User, Event, Incident, AnalyticsReport, MLRun, EvaluationDataset
 from .security import current_user, writers, administrators
 from .experiments import canonical, digest
+from .abuse import analytics_reader, report_writer, export_reader, research_exporter
 
 router = APIRouter(prefix='/api/analytics', tags=['Analytics and reports'])
 MAX_REPORT_ROWS = 2000
@@ -18,7 +19,7 @@ MAX_REPORT_BYTES = 5*1024*1024
 
 
 @router.get('/dashboard')
-def dashboard(q: Annotated[QueryFilters, Query()], user: User = Depends(current_user)):
+def dashboard(q: Annotated[QueryFilters, Query()], user: User = Depends(analytics_reader)):
     with database.Session() as db:
         lifecycle.read_snapshot(db)
         # Include first page in the SAME database snapshot as all charts/indicators.
@@ -26,7 +27,7 @@ def dashboard(q: Annotated[QueryFilters, Query()], user: User = Depends(current_
 
 
 @router.get('/incidents')
-def incidents(q: Annotated[QueryFilters, Query()], user: User = Depends(current_user)):
+def incidents(q: Annotated[QueryFilters, Query()], user: User = Depends(analytics_reader)):
     with database.Session() as db:
         lifecycle.read_snapshot(db)
         return analytics.incident_page(db, q, q.offset, q.limit)
@@ -46,10 +47,11 @@ def options(offset: int = Query(0, ge=0, le=100000), limit: int = Query(100, ge=
 
 
 @router.post('/reports', status_code=201)
-def create_report(q: Filters, user: User = Depends(writers)):
-    with database.Session.begin() as db:
-        # All operational mutations follow this lock; no unbounded export transactions.
-        lifecycle.mutation_lock(db); actor = lifecycle.actor(db, user.id)
+def create_report(q: Filters, user: User = Depends(report_writer)):
+    # Expensive aggregation uses an MVCC read snapshot, without the operational mutation lock.
+    with database.Session() as db:
+        lifecycle.read_snapshot(db)
+        lifecycle.actor(db, user.id)
         cohort, _ = analytics.cohorts(q)
         total = db.scalar(select(func.count()).select_from(cohort))
         if total > MAX_REPORT_ROWS:
@@ -61,6 +63,9 @@ def create_report(q: Filters, user: User = Depends(writers)):
         body = canonical(payload)
         if len(body.encode()) > MAX_REPORT_BYTES:
             raise HTTPException(413, 'Snapshot supera 5 MiB; reduzca filtros')
+    with database.Session.begin() as db:
+        # Recheck a role/deactivation change after computation; only the short INSERT is serialized.
+        lifecycle.mutation_lock(db); actor = lifecycle.actor(db, user.id)
         report = AnalyticsReport(id=payload['id'], author_id=actor.id, created_at=timestamp, payload=body, content_sha256=digest(payload))
         db.add(report)
         return {'id': report.id, 'created_at': payload['generated_at'], 'content_sha256': report.content_sha256, 'incidents': total}
@@ -77,12 +82,15 @@ def reports(offset: int = Query(0, ge=0, le=100000), limit: int = Query(20, ge=1
 
 
 @router.get('/reports/{report_id}')
-def export_report(report_id: str, format: Literal['json', 'csv', 'pdf'] = 'json', user: User = Depends(current_user)):
+def export_report(report_id: str, format: Literal['json', 'csv', 'pdf'] = 'json', user: User = Depends(export_reader)):
     with database.Session() as db:
         row = db.get(AnalyticsReport, report_id)
         if row is None: raise HTTPException(404, 'Reporte no encontrado')
-        payload = json.loads(row.payload)
-        if digest(payload) != row.content_sha256: raise HTTPException(409, 'Integridad del snapshot no verificable')
+        try:
+            payload = json.loads(row.payload)
+            valid=digest(payload)==row.content_sha256
+        except (ValueError,TypeError):valid=False
+        if not valid: raise HTTPException(409, 'Integridad del snapshot no verificable')
         if format == 'json': content, mime = canonical({'payload': payload, 'content_sha256': row.content_sha256}), 'application/json'
         elif format == 'csv': content, mime = csv_bytes(payload, row.content_sha256), 'text/csv'
         else: content, mime = pdf_bytes(payload, row.content_sha256), 'application/pdf'
@@ -91,7 +99,7 @@ def export_report(report_id: str, format: Literal['json', 'csv', 'pdf'] = 'json'
 
 
 @router.get('/comparisons')
-def comparisons(offset: int = Query(0, ge=0, le=100000), limit: int = Query(10, ge=1, le=20), user: User = Depends(administrators)):
+def comparisons(offset: int = Query(0, ge=0, le=100000), limit: int = Query(10, ge=1, le=20), user: User = Depends(research_exporter)):
     # Independent frozen experimental cohorts: NEVER filter/recalculate their stored metrics using incident attributes.
     with database.Session() as db:
         lifecycle.read_snapshot(db)

@@ -1,0 +1,448 @@
+{
+  "protocol": {
+    "version": "synthetic-load-v1",
+    "declared_before_measurement": true,
+    "seed": 202609,
+    "sizes": [
+      100,
+      1000,
+      10000
+    ],
+    "transport": "FastAPI TestClient ASGI in-process; no TCP or external targets",
+    "data_kind": "synthetic_only",
+    "events_per_incident": 10,
+    "correlation_window_seconds": 900,
+    "eve_records_per_request": 1000,
+    "eve_internal_batch_size": 100,
+    "dashboard_samples": 10,
+    "report_creation_samples": 3,
+    "downloads_per_format": 3,
+    "concurrency": 1,
+    "percentile_method": "linear interpolation at (n-1)*p; descriptive, small samples",
+    "acceptance": {
+      "unexpected_http_errors": 0,
+      "imported_equals_requested": true,
+      "reimport_duplicates_equals_requested": true,
+      "persisted_events_equals_requested": true,
+      "six_incident_types_present": true,
+      "before_after_semantic_identity": true,
+      "minimum_import_events_per_second": 20,
+      "maximum_dashboard_p95_seconds": 5,
+      "maximum_report_creation_p95_seconds": 10,
+      "maximum_export_p95_seconds": 10,
+      "maximum_observed_process_peak_rss_bytes": 2147483648
+    },
+    "scope": "Engineering budgets for this local prototype, not scientifically validated thresholds. Ingestion duration is neither MTTD nor MTTR. Missing resource observations stay null. No existing database is cleaned or reused."
+  },
+  "phase": "optimized",
+  "status": "completed",
+  "git_head": "71494b9f0863a8ab2f235ad11275361ba588276c",
+  "source_ref": null,
+  "backend_source_sha256": "3a48e856eeab8f1ee25dd1ace02c50796d43a8c299bd8ad8a305bc765e6cc979",
+  "environment": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "python": "3.11.15",
+    "fastapi": "0.165.0",
+    "sqlalchemy": "2.0.36",
+    "database": "postgresql-isolated-55438",
+    "resource_scope": "client+ASGI app in this Python process; PostgreSQL server resources not measured",
+    "http_network_included": false,
+    "postgres_loopback_io_included": true,
+    "correlation_window_seconds": 900,
+    "hardware": {
+      "cpu_model": "AMD Ryzen 5 5600H with Radeon Graphics",
+      "logical_cpus": 12,
+      "total_ram_bytes": 7883206656
+    },
+    "database_version": "PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit"
+  },
+  "scenarios": [
+    {
+      "events_requested": 100,
+      "seed": 202609,
+      "synthetic_sha256": "ff7c5203d8284015cd9bb2dc32d98875fa83e1715398917a60c132b6417240a5",
+      "request_records": 100,
+      "import_requests": 1,
+      "internal_batches": 1,
+      "imported": 100,
+      "duplicates": 100,
+      "persisted": 100,
+      "incidents": 10,
+      "semantic_sha256": "aaa23d244fc6de7ad0e94d35d87f20b895463c50531aae462cf938ca7d95ced4",
+      "risk_evaluations": 10,
+      "evidence_appearances": 200,
+      "fresh_import_seconds": 0.1351118000166025,
+      "events_per_second": 740.1278051784673,
+      "latencies_seconds": {
+        "import": {
+          "n": 1,
+          "total_seconds": 0.13379399999394082,
+          "p50": 0.13379399999394082,
+          "p95": 0.13379399999394082,
+          "p99": 0.13379399999394082
+        },
+        "duplicate_import": {
+          "n": 1,
+          "total_seconds": 0.051310400012880564,
+          "p50": 0.051310400012880564,
+          "p95": 0.051310400012880564,
+          "p99": 0.051310400012880564
+        },
+        "dashboard": {
+          "n": 10,
+          "total_seconds": 0.5563295999600086,
+          "p50": 0.0489658500009682,
+          "p95": 0.08256097499397579,
+          "p99": 0.09791155499522575
+        },
+        "report_creation": {
+          "n": 3,
+          "total_seconds": 0.18780719995265827,
+          "p50": 0.05824159999610856,
+          "p95": 0.0705506299767876,
+          "p99": 0.07164476597507019
+        },
+        "export_json": {
+          "n": 3,
+          "total_seconds": 0.03236669997568242,
+          "p50": 0.011029899993445724,
+          "p95": 0.0115467700001318,
+          "p99": 0.01159271400072612
+        },
+        "export_csv": {
+          "n": 3,
+          "total_seconds": 0.03456119998008944,
+          "p50": 0.011315199983073398,
+          "p95": 0.01195177001063712,
+          "p99": 0.012008354013087228
+        },
+        "export_pdf": {
+          "n": 3,
+          "total_seconds": 0.11817589998827316,
+          "p50": 0.039297299983445555,
+          "p95": 0.040004249996854924,
+          "p99": 0.04006708999804687
+        }
+      },
+      "errors": [],
+      "sql": {
+        "import": {
+          "statements": 14,
+          "seconds": 0.07689689999097027
+        },
+        "duplicate_import": {
+          "statements": 6,
+          "seconds": 0.02633990001049824
+        },
+        "dashboard": {
+          "statements": 150,
+          "seconds": 0.2940953996148892
+        },
+        "report_creation": {
+          "statements": 63,
+          "seconds": 0.11584490005043335
+        },
+        "export_json": {
+          "statements": 6,
+          "seconds": 0.010700499959057197
+        },
+        "export_csv": {
+          "statements": 6,
+          "seconds": 0.01117139999405481
+        },
+        "export_pdf": {
+          "statements": 15,
+          "seconds": 0.022339100018143654
+        }
+      },
+      "resources": {
+        "before": {
+          "cpu_process_seconds": 3.78125,
+          "rss_bytes": 177217536,
+          "peak_rss_bytes": 242659328
+        },
+        "after": {
+          "cpu_process_seconds": 4.34375,
+          "rss_bytes": 183205888,
+          "peak_rss_bytes": 242659328
+        },
+        "cpu_process_delta_seconds": 0.5625
+      },
+      "acceptance": {
+        "no_errors": true,
+        "import_count": true,
+        "duplicate_count": true,
+        "persisted_count": true,
+        "six_types": true,
+        "throughput": true,
+        "dashboard_p95": true,
+        "report_p95": true,
+        "export_json": true,
+        "export_csv": true,
+        "export_pdf": true,
+        "resource_budget": true
+      },
+      "passed": true,
+      "retained_schema": "bench_fe44a711cae14ed6a72e579d6fe4b510"
+    },
+    {
+      "events_requested": 1000,
+      "seed": 202609,
+      "synthetic_sha256": "887538ca2152cffaaca1672c976f8b6a39a7d9a67a27836ddfbc48df98ee0589",
+      "request_records": 1000,
+      "import_requests": 1,
+      "internal_batches": 10,
+      "imported": 1000,
+      "duplicates": 1000,
+      "persisted": 1000,
+      "incidents": 100,
+      "semantic_sha256": "58c546d7de14acfe2215297f0c710dc47bf4ef4da382a6826b01475390e126ba",
+      "risk_evaluations": 638,
+      "evidence_appearances": 2000,
+      "fresh_import_seconds": 1.5927058999950532,
+      "events_per_second": 627.8623065332438,
+      "latencies_seconds": {
+        "import": {
+          "n": 1,
+          "total_seconds": 1.5785739999846555,
+          "p50": 1.5785739999846555,
+          "p95": 1.5785739999846555,
+          "p99": 1.5785739999846555
+        },
+        "duplicate_import": {
+          "n": 1,
+          "total_seconds": 0.4562411999795586,
+          "p50": 0.4562411999795586,
+          "p95": 0.4562411999795586,
+          "p99": 0.4562411999795586
+        },
+        "dashboard": {
+          "n": 10,
+          "total_seconds": 0.7802046000142582,
+          "p50": 0.06694980000611395,
+          "p95": 0.12102837500424352,
+          "p99": 0.13955559500172968
+        },
+        "report_creation": {
+          "n": 3,
+          "total_seconds": 0.2393601999792736,
+          "p50": 0.08080820000031963,
+          "p95": 0.08308294998132623,
+          "p99": 0.08328514997963793
+        },
+        "export_json": {
+          "n": 3,
+          "total_seconds": 0.03700620000017807,
+          "p50": 0.011632499983534217,
+          "p95": 0.013833720007096418,
+          "p99": 0.014029384009190835
+        },
+        "export_csv": {
+          "n": 3,
+          "total_seconds": 0.036395100003574044,
+          "p50": 0.012346400006208569,
+          "p95": 0.01252396999625489,
+          "p99": 0.01253975399537012
+        },
+        "export_pdf": {
+          "n": 3,
+          "total_seconds": 0.39463560000876896,
+          "p50": 0.13031569999293424,
+          "p95": 0.13918457002437207,
+          "p99": 0.13997291402716655
+        }
+      },
+      "errors": [],
+      "sql": {
+        "import": {
+          "statements": 345,
+          "seconds": 0.9019472997752018
+        },
+        "duplicate_import": {
+          "statements": 51,
+          "seconds": 0.2811089000024367
+        },
+        "dashboard": {
+          "statements": 150,
+          "seconds": 0.4839080000529066
+        },
+        "report_creation": {
+          "statements": 63,
+          "seconds": 0.15790170000400394
+        },
+        "export_json": {
+          "statements": 6,
+          "seconds": 0.012881499947980046
+        },
+        "export_csv": {
+          "statements": 6,
+          "seconds": 0.011047200008761138
+        },
+        "export_pdf": {
+          "statements": 15,
+          "seconds": 0.039402700000209734
+        }
+      },
+      "resources": {
+        "before": {
+          "cpu_process_seconds": 4.890625,
+          "rss_bytes": 183201792,
+          "peak_rss_bytes": 250343424
+        },
+        "after": {
+          "cpu_process_seconds": 6.984375,
+          "rss_bytes": 188620800,
+          "peak_rss_bytes": 250343424
+        },
+        "cpu_process_delta_seconds": 2.09375
+      },
+      "acceptance": {
+        "no_errors": true,
+        "import_count": true,
+        "duplicate_count": true,
+        "persisted_count": true,
+        "six_types": true,
+        "throughput": true,
+        "dashboard_p95": true,
+        "report_p95": true,
+        "export_json": true,
+        "export_csv": true,
+        "export_pdf": true,
+        "resource_budget": true
+      },
+      "passed": true,
+      "retained_schema": "bench_52aebb92a0e4499dad9b9b4723315176"
+    },
+    {
+      "events_requested": 10000,
+      "seed": 202609,
+      "synthetic_sha256": "96be5b843392f91d99d7da911a39936b07d5b8e06de17beee5c2f8a415ad8bb2",
+      "request_records": 1000,
+      "import_requests": 10,
+      "internal_batches": 100,
+      "imported": 10000,
+      "duplicates": 10000,
+      "persisted": 10000,
+      "incidents": 1000,
+      "semantic_sha256": "500cabd78d8d14094e94ea2343bf0a455dbfbd969ffb073cb466772924ff183a",
+      "risk_evaluations": 6484,
+      "evidence_appearances": 20000,
+      "fresh_import_seconds": 14.889285100012785,
+      "events_per_second": 671.6239183297937,
+      "latencies_seconds": {
+        "import": {
+          "n": 10,
+          "total_seconds": 14.804569800093304,
+          "p50": 1.4414400000241585,
+          "p95": 1.6171819900060653,
+          "p99": 1.627359117998567
+        },
+        "duplicate_import": {
+          "n": 10,
+          "total_seconds": 4.099967000045581,
+          "p50": 0.3708555500052171,
+          "p95": 0.539229125001293,
+          "p99": 0.5735196649996215
+        },
+        "dashboard": {
+          "n": 10,
+          "total_seconds": 2.571277899958659,
+          "p50": 0.25138099999458063,
+          "p95": 0.2853370250071748,
+          "p99": 0.29996580501290737
+        },
+        "report_creation": {
+          "n": 3,
+          "total_seconds": 0.9344071000232361,
+          "p50": 0.3054746000270825,
+          "p95": 0.32813696000084747,
+          "p99": 0.33015139199851545
+        },
+        "export_json": {
+          "n": 3,
+          "total_seconds": 0.06778750001103617,
+          "p50": 0.019975300005171448,
+          "p95": 0.028128670010482894,
+          "p99": 0.028853414010955022
+        },
+        "export_csv": {
+          "n": 3,
+          "total_seconds": 0.10303369999746792,
+          "p50": 0.029581099981442094,
+          "p95": 0.04286312001058831,
+          "p99": 0.04404374401317909
+        },
+        "export_pdf": {
+          "n": 3,
+          "total_seconds": 3.14277029997902,
+          "p50": 1.0291499999875668,
+          "p95": 1.1521462499949848,
+          "p99": 1.1630792499956442
+        }
+      },
+      "errors": [],
+      "sql": {
+        "import": {
+          "statements": 3428,
+          "seconds": 9.24535389940138
+        },
+        "duplicate_import": {
+          "statements": 510,
+          "seconds": 2.2737756998685654
+        },
+        "dashboard": {
+          "statements": 150,
+          "seconds": 2.297677300113719
+        },
+        "report_creation": {
+          "statements": 63,
+          "seconds": 0.8017100998549722
+        },
+        "export_json": {
+          "statements": 6,
+          "seconds": 0.020516400021733716
+        },
+        "export_csv": {
+          "statements": 6,
+          "seconds": 0.019526999967638403
+        },
+        "export_pdf": {
+          "statements": 15,
+          "seconds": 0.22660479994374327
+        }
+      },
+      "resources": {
+        "before": {
+          "cpu_process_seconds": 7.359375,
+          "rss_bytes": 188825600,
+          "peak_rss_bytes": 255967232
+        },
+        "after": {
+          "cpu_process_seconds": 21.8125,
+          "rss_bytes": 203747328,
+          "peak_rss_bytes": 255967232
+        },
+        "cpu_process_delta_seconds": 14.453125
+      },
+      "acceptance": {
+        "no_errors": true,
+        "import_count": true,
+        "duplicate_count": true,
+        "persisted_count": true,
+        "six_types": true,
+        "throughput": true,
+        "dashboard_p95": true,
+        "report_p95": true,
+        "export_json": true,
+        "export_csv": true,
+        "export_pdf": true,
+        "resource_budget": true
+      },
+      "passed": true,
+      "retained_schema": "bench_79ea89d089ba4c269be0f8ad3d672d31"
+    }
+  ]
+}

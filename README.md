@@ -10,6 +10,8 @@ La **iteración 07** agrega responsables, máquina de estados, revisiones optimi
 
 La **iteración 08** incorpora dashboard analítico con Recharts, agregación SQL, filtros UTC comunes, paginación y snapshots inmutables exportables como CSV/JSON/PDF. Agrega reevaluación explícita y auditada tras reapertura y revisión obligatoria al registrar acciones. [Diseño, indicadores, procedimiento y evidencias](docs/DASHBOARD_Y_REPORTES.md).
 
+La **iteración 09** añade límites de solicitudes/admisión, respuestas sin valores sensibles, protección Host/proxy, cabeceras defensivas, paginación de históricos y actualizaciones de seguridad compatibles. Optimiza la ingestión por lotes y publica mediciones sintéticas reproducibles de 100/1000/10000 eventos, con igualdad semántica antes/después. [Auditoría interna, protocolo, resultados y límites](docs/SEGURIDAD_Y_RENDIMIENTO.md).
+
 ## Arranque
 
 Requiere Docker Compose v2 y puertos locales 5173 y 8000 disponibles.
@@ -51,6 +53,18 @@ Comprobar integridad del ejemplo **sintético generado por HTTP**, sin credencia
 ```
 
 **Cambio de contrato 08:** POST `/api/incidents/{id}/actions` exige ahora `expected_revision` además de descripción/categoría/fecha; ausente 428, obsoleta 409. El texto y las acciones históricas permanecen intactos. Tras reabrir Cerrado, POST `/api/incidents/{id}/reevaluate` exige revisión y justificación, responsabilidad/admin y nuevas señales de cierre. Reutiliza parámetros congelados, anexa evaluación y auditoría, y nunca reescribe las anteriores. Una importación posterior a reapertura conserva el score mientras esa evidencia esté pendiente de reevaluación. Reconocer una señal sigue siendo una operación separada.
+
+## Seguridad y rendimiento (iteración 09)
+
+Login tiene 20 solicitudes/IP/minuto; importación 30/usuario/minuto; investigación 12/administrador/minuto; reportes 10/escritor/minuto y exportaciones 30/usuario autorizado/minuto. Las plazas de operaciones costosas son acotadas y no bloquean esperando una cola global. Exceso: **429 y Retry-After**. Las cuotas son por proceso, se pierden al reiniciar y no son distribuidas. Se ignoran cabeceras de IP reenviada en el despliegue local; detrás de proxy debe configurarse explícitamente la confianza. Host predeterminado local; SMARTIR_ALLOWED_HOSTS permite otros nombres literales sin cambiar secretos.
+
+Se rechazan NUL/UTF-8 inválido y campos extra, sin normalizar cadenas válidas o alterar fingerprints. Errores 422 ya no reflejan valores del cuerpo. Se mantienen límites EVE/datasets y se acotan otros cuerpos/cabeceras. PostgreSQL limita espera de bloqueos y sentencias de lectura; un presupuesto agotado puede devolver 503/Retry-After. Se conservan JWT, Argon2id y autorización real en BD.
+
+Listados legacy agregan offset/limit: incidentes 100 por defecto, datasets/experimentos 50 y versiones ML 20. El detalle pagina eventos (100 por defecto, máximo 500), conservando event_count total. React permite recorrer eventos y cargar más catálogos. No se borran filas para cumplir límites.
+
+FastAPI/Starlette/PyJWT y herramientas de desarrollo se actualizaron con regresiones; Scikit-learn/NumPy/SciPy, algoritmos y modelos históricos permanecen iguales. npm audit y pip-audit reportaron **0 avisos** en la consulta final; esto no certifica que la aplicación esté libre de vulnerabilidades. Las versiones, hallazgos iniciales y exportaciones están documentados.
+
+En el benchmark pareado de 10.000 eventos: SQLite **28.95 → 9.08 s**, PostgreSQL 16 **101.71 → 14.89 s**, con cero errores y hashes semánticos coincidentes. Son ejecuciones ASGI sintéticas en host compartido, sin TCP HTTP; varias latencias de dashboard/exportación empeoraron y también se reportan. **Throughput no es MTTD/MTTR ni eficacia de respuesta humana.** Los scripts usan únicamente bases nuevas aisladas; no reciben la URL habitual del usuario ni ejecutan limpieza de tablas existentes. No se necesita migración 0009; head sigue en 0008.
 
 ## Gestión avanzada de incidentes (iteración 07)
 
@@ -101,7 +115,7 @@ npm run build
 Pop-Location
 ```
 
-SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 08: **106 pruebas aprobadas en SQLite y 106 en PostgreSQL 16**, build TypeScript/Vite y Compose en `0008`, reportes CSV/JSON/PDF verificados y reevaluación HTTP explícita. API/PostgreSQL de prueba se detuvieron con código 0 conservando el volumen. Permanece una advertencia de deprecación de Starlette/AnyIO; no se realizaron pruebas de navegador/carga. [Resultados, comandos, fallos corregidos y limitaciones](docs/DASHBOARD_Y_REPORTES.md). Se mantienen como evidencia histórica [07 (82 por base)](docs/GESTION_AVANZADA_INCIDENTES.md), [06 (65)](docs/APRENDIZAJE_AUTOMATICO.md), [05 (54)](docs/EVALUACION_EXPERIMENTAL.md) y [04 (38)](docs/INTEGRACION_SURICATA.md).
+SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina únicamente su esquema UUID aislado. Iteración 09: **124 aprobadas en SQLite y 124 en PostgreSQL 16**, build TypeScript/Vite y arranque/controles HTTP en Compose con head `0008`. Se conserva una advertencia de TestClient/httpx; no se realizaron pruebas de navegador ni carga TCP distribuida. [Comandos, benchmarks, resultados y fallos corregidos](docs/SEGURIDAD_Y_RENDIMIENTO.md). Evidencia histórica: [08 (106 por base)](docs/DASHBOARD_Y_REPORTES.md), [07 (82)](docs/GESTION_AVANZADA_INCIDENTES.md), [06 (65)](docs/APRENDIZAJE_AUTOMATICO.md), [05 (54)](docs/EVALUACION_EXPERIMENTAL.md) y [04 (38)](docs/INTEGRACION_SURICATA.md).
 
 ## Evaluación experimental (iteración 05)
 
@@ -121,10 +135,10 @@ Resultado del laboratorio guardado: macro-F1 test LR **0.5656**, RF **0.7086**, 
 
 ## Alcance
 
-Solo health, login y documentación OpenAPI son públicos; los endpoints de datos requieren Bearer. El frontend guarda el token en memoria: recargar exige iniciar sesión. El backend consulta rol y activación en cada petición. Cerrar sesión borra el token local; una copia sigue válida hasta expirar. No hay refresh tokens, revocación individual, MFA, recuperación de contraseña ni limitación de intentos de login. La gestión administrativa de usuarios se ofrece por API/OpenAPI.
+Solo health, login y documentación OpenAPI son públicos; los endpoints de datos requieren Bearer. El frontend guarda el token en memoria: recargar exige iniciar sesión. El backend consulta rol y activación en cada petición. Cerrar sesión borra el token local; una copia sigue válida hasta expirar. No hay refresh tokens, revocación individual, MFA o recuperación de contraseña. Login y operaciones costosas ahora tienen cuotas locales; no reemplazan protección de transporte ni limitación distribuida. La gestión administrativa de usuarios se ofrece por API/OpenAPI.
 
 Las ventanas fijas pueden separar eventos cercanos a ambos lados de un límite y agrupar episodios distintos dentro de una ventana; puertos y firmas no forman parte de la clave. El contexto desconocido usa un prior neutral 50, sin inventar observaciones. Las métricas de tiempo requieren soporte documental y no acreditan rendimiento humano. El bloqueo de escrituras es global y los históricos grandes requieren optimización. La interfaz apunta a localhost; configurar HTTPS y controles de exposición antes de un despliegue externo.
 
 .env y __pycache__ permanecen fuera del índice; .env.example contiene únicamente campos secretos vacíos y el ancho de ventana. Se retiró del ejemplo un valor con apariencia de secreto JWT. Si se utilizó o compartió, debe rotarse: retirarlo del commit actual no elimina su exposición anterior. No se modificaron .env ni contraseñas existentes.
 
-El estado actual está en este README, [la antología](docs/ANTologia_implementacion.md) y [dashboard/reportes](docs/DASHBOARD_Y_REPORTES.md). Los documentos anteriores conservan especificaciones y resultados históricos; las reglas actuales de revisión de acciones y reevaluación explícita prevalecen sobre contratos anteriores.
+El estado actual está en este README, [la antología](docs/ANTologia_implementacion.md) y [seguridad/rendimiento](docs/SEGURIDAD_Y_RENDIMIENTO.md). Los documentos anteriores conservan especificaciones y resultados históricos; las reglas actuales de paginación, límites, revisión de acciones y reevaluación explícita prevalecen sobre contratos anteriores.
