@@ -134,3 +134,14 @@ class Experiment(Base):
     rankings: Mapped[str] = mapped_column(Text)
     results: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+class MLRun(Base):
+    __tablename__ = "ml_runs"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"), index=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    status: Mapped[str] = mapped_column(String(30))
+    configuration: Mapped[str] = mapped_column(Text)
+    artifacts: Mapped[str] = mapped_column(Text)
+    results: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))

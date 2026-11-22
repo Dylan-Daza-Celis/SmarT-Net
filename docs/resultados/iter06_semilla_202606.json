@@ -1,0 +1,1267 @@
+{
+  "configuration": {
+    "annotation_manifest": {
+      "annotation_policy": "Benign authorized/no compromise=Baja; malicious contained/no compromise=Media; confirmed local nonessential compromise=Alta; essential outage or regulated exposure=Cr\u00edtica. No weighted scores used.",
+      "generator": {
+        "groups": 96,
+        "seed": 202606,
+        "version": "lab-outcomes-v1"
+      },
+      "group_membership_hash": "6f87947bfb081b9d9dff064e7eefa3d48ad36b177eb1537f641892953ac99937",
+      "label_source": "lab_outcomes",
+      "manifest_hash": "4ff510a41b21a034fa5630d4589663fd481f17e7215a784c4529cabe9cabdcfd",
+      "ml_protocol": "annotated-groups-v1"
+    },
+    "application_version": "0.6.0",
+    "artifact_hash": "1e563037a1708c0e3b9517e518f43bcbc8e419f04df2fa4e36d12ecbd2ef824e",
+    "budget": 10,
+    "cv_folds": 3,
+    "cv_summary": [
+      {
+        "group_disjoint": true,
+        "train_cases": 144,
+        "validation_cases": 72
+      },
+      {
+        "group_disjoint": true,
+        "train_cases": 144,
+        "validation_cases": 72
+      },
+      {
+        "group_disjoint": true,
+        "train_cases": 144,
+        "validation_cases": 72
+      }
+    ],
+    "data_kind": "synthetic",
+    "dataset_id": "50dcb7c7-4829-4739-880b-5d3e3ebc5c45",
+    "effective_budget": 10,
+    "feature_hash": "1fc0ae23dfee97480b10e339b31a779d45aaa39a135da063baf2f050ffa0fb18",
+    "feature_schema": "incident-aggregates-v1",
+    "features": [
+      "max_severity",
+      "max_asset_criticality",
+      "mean_severity",
+      "event_count",
+      "event_span_seconds",
+      "event_type"
+    ],
+    "forest_parameters": {
+      "bootstrap": true,
+      "ccp_alpha": 0.0,
+      "class_weight": "balanced",
+      "criterion": "gini",
+      "max_depth": 6,
+      "max_features": "sqrt",
+      "max_leaf_nodes": null,
+      "max_samples": null,
+      "min_impurity_decrease": 0.0,
+      "min_samples_leaf": 2,
+      "min_samples_split": 2,
+      "min_weight_fraction_leaf": 0.0,
+      "monotonic_cst": null,
+      "n_estimators": 100,
+      "n_jobs": 1,
+      "oob_score": false,
+      "random_state": 202606,
+      "verbose": 0,
+      "warm_start": false
+    },
+    "group_support": {
+      "Alta": 24,
+      "Baja": 24,
+      "Cr\u00edtica": 24,
+      "Media": 24
+    },
+    "logistic_parameters": {
+      "C": 1.0,
+      "class_weight": "balanced",
+      "dual": false,
+      "fit_intercept": true,
+      "intercept_scaling": 1,
+      "l1_ratio": null,
+      "max_iter": 2000,
+      "multi_class": "deprecated",
+      "n_jobs": null,
+      "penalty": "l2",
+      "random_state": 202606,
+      "solver": "lbfgs",
+      "tol": 0.0001,
+      "verbose": 0,
+      "warm_start": false
+    },
+    "metrics_version": "evaluation-metrics-v1",
+    "numpy": "2.2.3",
+    "partition": {
+      "test": [
+        "011525aa-2c2f-59dc-a32a-644f32eee136",
+        "02cdcbb7-9cb5-58fc-8038-40a1ce43b277",
+        "04f974ec-e207-5668-85ab-37660013eb9f",
+        "06d86670-c2e6-51d2-a718-f2b8ab107768",
+        "0b3f60dc-06e5-55a7-ad87-3119c9bd1c9f",
+        "0c78f430-aa52-5431-9b86-543cf3f5e4c8",
+        "0dfa971c-a208-5eef-85d7-e9f3e09a122c",
+        "1808f244-173e-5314-af84-236f6dadc29b",
+        "1c668ad9-aebd-5731-9bba-ec49625ff86a",
+        "1dde92c8-22d8-507c-b2cd-856fac777145",
+        "23150300-3ddf-5f9d-9852-2bf19c1b172f",
+        "24440baa-e11f-5d24-b952-c22acf46c9ae",
+        "2a86317a-909c-5426-b2d9-df225a85a17e",
+        "331e5aad-8213-5921-ae2c-b0d4e5e51bc0",
+        "349312e4-da35-5f23-adfb-8173e4e6c501",
+        "36d75cc3-249d-5c76-9ab5-e939f5d10f86",
+        "38def2c6-e5ca-5bc8-85a3-50f21d8a9712",
+        "391dde66-015f-50d7-8e00-b731f735ecb7",
+        "3c6c357f-3f1a-5778-bc58-b00602235779",
+        "43f43175-59ae-5ebf-930a-579463514a85",
+        "45137e93-3e77-59af-8a46-2a3acb389585",
+        "46aa7087-5cd3-5531-8682-6b8a81803ecf",
+        "4a39eccc-d4de-525c-8594-d2c2bdc32e16",
+        "4b486ef1-09ba-5cab-ad54-1b35dc8ebb4b",
+        "4de9728d-f11e-5f5d-84cc-4f0a2d1053d7",
+        "4e749e7f-e042-5e41-8926-018c6c1c67f0",
+        "4e8e01fa-2a24-5d37-ab2f-765b925c5ab8",
+        "4ff77717-460e-58ac-8206-1169c92a13f7",
+        "5735803b-9ed8-5526-b624-dcb0ee049934",
+        "5c13cde4-26dc-5776-adcc-65ba763a4e06",
+        "5ca31e26-d985-5341-b6f4-b4612dfb480e",
+        "5fbc68ad-49ec-5076-9c3f-f0bb5a5100a6",
+        "642db6ac-52bd-53c1-a77e-ce9d26cf2030",
+        "67d50966-8cdc-56c0-a5d6-67300a4a876a",
+        "6b1d9c0e-0e24-5948-b601-1e3c2a957c33",
+        "6c411919-a2a5-55f6-a953-20a07e9d1019",
+        "75712ea3-5e26-58c5-99d5-b30dd260f194",
+        "7b7b8734-2129-57f4-b78f-4ea26c52237b",
+        "7f6a9ec7-ddad-5581-96a1-d1411fbac149",
+        "8227a01f-d3e7-5b6d-8a6d-fc6d61c74bbb",
+        "84c6c84a-72ca-592f-8563-e0dad464d195",
+        "862d8e3c-b230-5c6b-8b42-fa0638f5d513",
+        "8644e89a-5939-5870-9707-ae34f6789c1a",
+        "883500d7-358c-5e54-b168-c309c91b6f6b",
+        "8ed13118-cea2-5300-ab15-8235ce6c4e78",
+        "96fd6390-a89a-5eb4-92d4-841dc42d60d6",
+        "999b309f-1c82-5d1b-99e9-49c256b31703",
+        "9a48b077-350f-5e90-b39b-413924cf79d5",
+        "9d7dd03a-8992-535b-906b-546dedb9f7f6",
+        "9d90eefb-99f7-5ff2-873b-823541f787a2",
+        "9de33844-bd70-5961-a03a-2c7b37591569",
+        "a11643c7-cfbe-5cfe-9a6a-951c010ed65b",
+        "a1b5ea87-10d6-5965-aa0b-8872986156ff",
+        "a6e987d8-d399-58d4-a6fd-45d2f8220d15",
+        "a7a5a095-3366-5dd3-a3c8-09b89254028d",
+        "a980a758-c427-5b73-9974-fb6c8928761e",
+        "a9c6bc04-d784-5836-9a9a-cc053fab7927",
+        "ae98e075-0fc8-5f75-a286-59acce6635e0",
+        "b3c23171-d0f7-5cb4-85dc-d9604b052298",
+        "bbf6733f-8eca-5e89-9eb9-2a2933abb7b1",
+        "c1d20e18-588c-50e9-ad8f-c8a3c8087a33",
+        "c9b92700-ca87-5efd-bdee-5ca6fdc22dd9",
+        "cf296a96-9658-598c-95de-fd934ed4d8d7",
+        "d8054e60-6e63-549e-b829-a85fa67615fd",
+        "dd819055-4018-50b3-a771-ca06bae190fa",
+        "e2cd794d-5e57-52ed-a5e4-26b8062b09d7",
+        "e4e2117a-92cb-503c-88ad-937cb0f0f06f",
+        "ef89c5cc-a014-5a5c-a9d1-adbedc7ba773",
+        "f0acaa82-34ac-5d97-8f6c-2d84df08340f",
+        "fab0537f-39c1-576e-b6ee-97a2f3aa5232",
+        "fbf39c2c-6b78-59f7-b19f-12b12b3e7b56",
+        "fd0521f6-13a5-5322-ba27-c3bf57d70e06"
+      ],
+      "test_groups": [
+        "035fd4fe-2196-517f-9163-3cfa36e7ff40",
+        "08c79f7c-429e-5d66-977d-f2cb9900bb3b",
+        "21249bcf-a255-54b7-b3b3-f64791d31f28",
+        "3a261c68-3685-5d06-972d-668cd4cf24af",
+        "44276d75-d703-59b1-b1bd-3fdf3e2f7805",
+        "56a2ef04-08d3-5c60-b849-ab3d8e0c0991",
+        "61a7c1b9-2359-56cf-aa40-b7bee18709c1",
+        "6373ce13-ff19-5e88-9269-1af1afdbbcd2",
+        "6f3cf88f-5fbc-5d31-a814-865e7db812f1",
+        "7bbf3687-bf43-5c78-be40-28d8f5270285",
+        "8bd4f074-28b4-58c4-bc39-ea696d6b0411",
+        "99ca77d7-7c34-5f51-b803-474fdc74367f",
+        "a40d4fde-b0a0-5773-820f-426644702fbc",
+        "a8138508-84aa-56d8-9bab-b8776c43ca8e",
+        "ad6dbe1d-8adc-59f3-b054-30416d3db8e1",
+        "b062283a-4b66-5847-8e85-9862038ad758",
+        "b68e7fbe-105d-5047-9678-b220a56a252f",
+        "c1c12d68-79a0-5f9b-ba72-0de0d8a407d7",
+        "c2dec2ac-d3b7-5b77-b300-c866d598d88d",
+        "c6714855-88da-513c-91fa-c0056b7b4b5f",
+        "dd826c2a-0cc3-5c71-a838-507d695ae5ff",
+        "e8a0bcd9-09b8-5f40-ad81-ed309bc52452",
+        "ef27b025-2cc5-5364-b4a1-52838df0f976",
+        "fbab1cbc-2b82-5853-8c45-5ece3f3f9424"
+      ],
+      "test_support": {
+        "Alta": 15,
+        "Baja": 15,
+        "Cr\u00edtica": 33,
+        "Media": 9
+      },
+      "train": [
+        "0031e6c4-e019-50db-8916-bea18d8d6703",
+        "02628b70-5a7d-5bbf-ab4e-3c37c5f4e93c",
+        "027f2eae-db68-50f3-9a90-02f3da8ff17c",
+        "0386c056-c4ad-58d9-bf0d-b05d56102c98",
+        "0455f964-fb48-50d9-bb5b-829950a2e3db",
+        "05cbb344-3535-5ad5-a815-3401c882780b",
+        "06577254-40aa-5881-b003-c74e5941555e",
+        "070fbd2f-6310-5b59-a3f4-4e47e9de3f9b",
+        "075eaa44-b724-52c5-8347-0c2dc231a17e",
+        "099ac583-eca1-5309-9b2f-3e56fee6f411",
+        "0e61c960-7e19-50e9-84d2-3c86e911059e",
+        "0eecfeb9-0e82-5379-8816-61e4d2ae4ef0",
+        "10b102c6-e0ce-528d-98bf-6c6d0393f1ed",
+        "11c25197-57e8-5374-a7ca-56899a294e72",
+        "16bb98c7-ab89-5d2f-aefe-cdad7fd1cfb4",
+        "175750a0-bcad-5e7e-99d1-da352e66ea32",
+        "1848b7b6-af4d-5c4f-be14-8a54c46880f7",
+        "18719b87-ef48-522e-84ca-9af49eadc7e7",
+        "19194202-34df-5ae3-897f-3f030fcfdb1a",
+        "1ad23c40-bedf-5301-b1bf-fa97f818346d",
+        "1b3d573f-94fd-551d-8fde-01fae1aff5af",
+        "1bf2e2b9-4de7-53ab-a3a4-bf5b651921fa",
+        "1d50996c-d8dc-5852-a73c-eadcc5b5dd68",
+        "1e08b002-17ea-582c-a022-3b05d8d131bc",
+        "1fef4fc4-e643-545d-a2c9-c9238cbbefd9",
+        "1ff12b14-0f88-57bb-abb1-40b2e81f54a7",
+        "201d6d1c-6a02-5053-8f25-bc389473c712",
+        "232807e2-3139-55da-af6e-eddb601fe230",
+        "2376b0a4-dac4-5f1f-9acb-69fc79f3060a",
+        "2402b792-91f7-5067-a37d-6a85dd02051f",
+        "25f08ede-6379-5075-b47e-798891708060",
+        "26e293ab-5913-54c1-bd3d-5836f5e9527f",
+        "294ea808-4a15-5138-ad1b-5c40f450a0ee",
+        "297d37da-6fdc-560b-ab56-7df055ce067f",
+        "29f7eeb2-06cf-53de-a96c-7c8eded311e8",
+        "2aa88e41-410d-5f74-8999-d7b1c5d00758",
+        "2c4beed2-7a6b-5952-90bb-54a120c97891",
+        "2cf62826-1d70-543c-a88d-ec01b51499e4",
+        "30a6b54a-9e41-5b17-bb04-73a0074b1435",
+        "31c602ff-6e8d-53ca-8889-b96bf3d74952",
+        "337f8aeb-1681-5747-bb0a-3933df593155",
+        "33c1e96a-0563-5a5b-9668-73557837e77b",
+        "34a9efec-249d-5f7e-ab70-00e918f66ab0",
+        "35639f65-59b4-521b-a4d5-f6470b628d65",
+        "358cb149-e390-57ac-9ac0-ea1e9fe1079c",
+        "3675c2e7-dac5-5376-baf1-4570d809601e",
+        "3695e16c-172a-50e8-a506-080c5ac9eed9",
+        "379512bc-db09-53af-b8e1-faad2a12321d",
+        "380e50ef-7542-57ed-a438-e263dd4c5f24",
+        "38440ec2-8202-5ca0-9ef5-c28b297a6313",
+        "38693fba-b900-5ff1-89cf-e2b1a9e76e43",
+        "387f6478-afb0-59da-bc2c-d6292d7aa54c",
+        "3b0c644b-8d0f-571d-a748-78566815a7ed",
+        "3f183175-7d6c-5775-92dc-31ea039f8940",
+        "40a72e3b-168c-5a41-a575-451d6306f753",
+        "40d8e4a8-87fe-5c29-89af-fde5ec915303",
+        "41896afd-0fac-5ec7-b30c-edde6658283a",
+        "41f53d2f-bb70-533f-b04b-a9e671008fc9",
+        "4419071f-49e2-5cd3-8627-a971f8c91dc3",
+        "44d25c49-e809-541b-ab37-190a6b5f7bee",
+        "465a5df3-e66c-5ca3-8b4e-ae8e37448ce2",
+        "4a850e44-58ac-5d8e-ae0a-ffe5d7f22131",
+        "4c05caf9-e627-5451-b800-94af77bbe3b5",
+        "4c16f1b2-e095-54e1-b4ae-80891bbaed76",
+        "4ddd3c3a-ef73-5621-8389-932d1618a1d6",
+        "4e74e966-1ebf-5e95-abe8-c0e2f751950a",
+        "4ea20be3-006d-5a66-b295-89e1b4eee7d7",
+        "4ef5ea6a-03af-5438-8c12-c4b6ae7be429",
+        "4f335ae1-db01-5b95-b4ac-a88641e1fb0d",
+        "50f249d9-9fbf-51b9-a0dd-36f7afaa9159",
+        "51707f8c-886b-5bc6-bd3a-13a2d190eb75",
+        "55e095c7-6a84-500b-8c71-d61e69b319a4",
+        "5d1dc267-e4f9-5eaa-a414-89cd28d448ca",
+        "5e5eabb4-618a-586d-9af8-d8fc99c81c75",
+        "5f21f7d7-fc96-58c7-afdc-a058b6323f88",
+        "5fec4e3e-1dbd-59d5-b748-e2fab70a642e",
+        "62abf5d3-2051-56a6-988f-0c9285164cb4",
+        "62dd2735-9994-5ee3-a546-2c568efe24ed",
+        "62e0ffd3-4bf6-5159-ba94-023ec4b33e03",
+        "63478021-4cd5-5dad-904a-3fd694019039",
+        "6536fd0d-399c-53b1-a488-1954d02feafb",
+        "6556eb8f-5834-5156-9657-10328b73c2ef",
+        "6585f214-d91e-54a0-9062-5e9aebeabcc2",
+        "67364850-7f84-5de8-b8d5-08d1ecbc7daf",
+        "68936ae8-7bc2-567f-981f-0476c38dac53",
+        "6941df46-010e-5bcb-b0d0-f972bd907104",
+        "6aa3eaaf-79c8-526e-b7ea-497369bda39a",
+        "6c2e3586-8985-555a-8f15-02ae0c4b79cf",
+        "6c4874f8-d41e-5f38-a568-6b0f4e5f219f",
+        "6dcdf561-ceaf-5a45-8dc7-c9814d1f5883",
+        "6e1e5437-64ca-5db6-b8ba-eec0e5e0b02f",
+        "6f44c2b3-a8e1-5103-af50-0ffe7e6b956b",
+        "721408ca-4cb4-5886-b764-a96834630159",
+        "727b919e-6aa0-51d2-bda8-283af48842ca",
+        "72e7557c-5cf5-56f5-9cca-6cdced9d6800",
+        "73055653-8580-5d76-9baa-d68e27558c46",
+        "738d33da-7c03-579f-bd22-abb8c7b9b3ee",
+        "74432ae0-53b0-5469-9160-7a42240d5ee4",
+        "7608d8fc-3c93-596e-9dee-92fe67a04f50",
+        "76d6654b-dc89-5382-a3f0-2ce56cee22e4",
+        "7acf6180-7495-543a-855e-eff839881cde",
+        "7c2f33c7-3f7a-51e7-8412-015fbaaa89d7",
+        "7de167a4-6a72-5357-8458-b8eb4e583f9d",
+        "7e155c76-4a47-5680-b2dc-e021722ea91d",
+        "7e1d47f8-6664-5fff-9603-abc0396a7e12",
+        "7f8fbcb9-4abf-53a8-b118-f28842e03486",
+        "7ff62dda-76f7-5e87-a065-b9fb18391f59",
+        "81cd562e-8a62-5c59-9330-11d3797e8e4d",
+        "82e126d2-0c29-5de5-91a6-129ab19c01d1",
+        "88957670-600e-50b9-90b2-f08279588258",
+        "88d2cc6c-4175-5bc5-9bf4-c3ca324b78fe",
+        "893d6926-f437-5ac3-8b4c-f0f13e244088",
+        "8ad16479-4c91-53b0-a2b7-1ecc660ea231",
+        "8b8a89a1-dc35-5690-8e4e-69403777aead",
+        "8c61d230-3717-59e4-9bc6-2416f905fec1",
+        "8fec543a-ff0e-575b-a8c7-34fb4a900703",
+        "91e463e3-6718-5bcc-91c0-a39a996c4b73",
+        "920e0d85-342f-5236-b210-33a70aba25f8",
+        "9217ae83-466e-5d47-b55d-08d2d1b05e1f",
+        "93e2808a-7c26-57c1-857c-d9764088f7a0",
+        "953a3d88-00a7-5675-bcfa-d6da7703cbbd",
+        "9631c262-ad84-5ca2-8b19-74f328a605de",
+        "98d64497-cc52-5677-9724-5a88f29fdc8f",
+        "9b64a0a6-2fc7-54e3-b135-469cf2813fb5",
+        "9d6d2f60-06ef-575e-9a06-55bcf994e52f",
+        "9de46ce0-742a-50bd-acd7-5b48a3829d5c",
+        "9ead7c39-d33e-5eb9-b5b0-20145c1263cb",
+        "9eae2cd3-77e8-55a0-ab72-579d9f81dfdc",
+        "a04857f1-309f-5877-8c9e-037a07f23351",
+        "a0f990ab-aa31-58e8-8e1f-c9c56eb5f3c4",
+        "a21e1afb-6821-5c60-ad4a-54f569189c2c",
+        "a2c896a2-e525-5a44-885a-209740ef349a",
+        "a3e12427-6fd1-503b-b2bf-954a399b7972",
+        "a4ab8f4d-9103-5298-bbb0-55e086596b59",
+        "a5b77bb1-d188-55e1-936c-96ebe00b9492",
+        "a65ef085-0fee-5117-84a1-7f429f269212",
+        "a662da28-c71d-520c-b239-f2c05142567b",
+        "a6e0aeb0-eddf-5c20-a43b-cf89c1c251c7",
+        "a7873c9b-4a7b-547a-b37a-d5e720b0d04d",
+        "a82f3e7f-caee-5add-9eaf-f91108e23ae3",
+        "a8bca096-e438-5fb8-9c1b-b99292d9c1dd",
+        "ab49d623-3ba5-53b1-83bb-f7c03086cdc2",
+        "ac5750b8-4af9-5a5b-9e90-0927ef55363e",
+        "ae05787b-bcce-529f-a098-1b0327a43e3e",
+        "ae348a6c-7a38-5a49-a0c1-a710ed0f47e1",
+        "aef95635-065e-5394-a91e-dc664a4e209b",
+        "af87ba02-b4db-5e3a-9e1d-082a0838ea42",
+        "b1fe8e99-63a8-515b-906d-010d7288f58d",
+        "b20e5a9e-2e49-5c43-a8ff-aca0a0a6be50",
+        "b24ff65f-e863-505d-985e-a8f9238166ad",
+        "b3c9a7e8-b811-5766-88f9-60ed24821921",
+        "b93c2463-0165-58c9-afde-d9ecc6fb74c2",
+        "ba79ecf8-ac9b-58ed-8e11-2a5195ad9284",
+        "bbb965e6-e6e2-5d23-ac8b-20452b1f3b10",
+        "bbc76b46-ad3a-51d5-80bc-b9fd922ce02f",
+        "bc7b8832-dd50-5943-a9e6-f11d9605557e",
+        "be6a1cde-d7dd-5465-bab3-a9cb2b2d484f",
+        "bf4da6bb-b955-580e-b1b6-8c2f16478e59",
+        "c0bdb563-bcc8-52c4-b473-072779430fa0",
+        "c12697ea-1fca-5b33-b361-07db68b7e443",
+        "c2439dd1-af2e-522d-98ad-574ce88c8413",
+        "c3da8067-2f70-5a27-b49b-f6a6be8f02cf",
+        "c6fc3f53-4dc6-5299-9734-c32c37888548",
+        "c773a476-1da7-5985-b183-7c3807ea3a34",
+        "c78d8fd0-e44a-5c39-ade4-aeb8cd63a760",
+        "ca773629-72e6-57bd-af04-15f8f1a7eedd",
+        "cb505141-509b-5d21-8d2a-7d560957fe13",
+        "cb8b1428-0282-5f1d-9679-534e951bf33e",
+        "cdbfffd2-25bc-501e-b834-435aa0336993",
+        "cdcd06fe-5aa6-5677-94a1-46205183a08a",
+        "ce255870-0c7c-5778-9f16-e1f41264a103",
+        "ce89d35a-7966-5f08-9bd1-436e961dcd92",
+        "d152ba47-14af-5cc5-8321-245341d261fb",
+        "d16ff06a-93ce-5c11-aaab-77d49296b380",
+        "d36803b4-319b-5bad-abb1-51670bc142e0",
+        "d4ca35d3-aa30-52ad-a246-0ffbb91ef6df",
+        "d50d0b24-c858-5abd-b78e-1569280ebc0f",
+        "d6e55e18-2569-51e5-a760-c5070b16c4ec",
+        "d728f6ec-5053-5854-b770-3002d4fbdc2b",
+        "d7d62b5b-c809-5fd5-8841-2d64b573ff7f",
+        "d89863df-dfbb-58ea-b99b-72ec4a1c9cd0",
+        "d8db0782-6ba3-55c4-b15b-a298472b8788",
+        "d8ef4478-b151-569a-9ef7-5fa79e877a74",
+        "d9719aab-d097-5fdb-a759-8016a07c02eb",
+        "d9ef4515-5566-54c9-a1bc-4a8289b448c8",
+        "db3b3fee-1a23-51c7-9a9d-f54c964dbbec",
+        "dbce46c4-3275-5164-a058-22622a31e49a",
+        "dd764d47-13d8-5cc7-a2ed-1474d5447af4",
+        "e01b7d03-81ca-58cb-93dc-6210fff9b17d",
+        "e1839001-e5e0-5203-860b-d1f3d97c9037",
+        "e1f3c6c6-fd73-507b-ac2c-f94e1b931d35",
+        "e3010e51-3931-5dcd-8397-d4cddd9e6508",
+        "e3ea4c88-5b85-502c-a9b3-9b4383ff4adf",
+        "e3efeae0-5f53-5df8-b416-2b5328b32b49",
+        "e4e2763d-e5e0-54f0-9888-5117b9a77e8c",
+        "e4e73064-bcb0-5408-95bf-3990818aad6c",
+        "e4f28432-0e7f-570a-9fa7-2999094e9f50",
+        "e5dee2d1-0c18-5063-9615-6beff6df3222",
+        "e9078b96-ae00-587e-9180-10e62d32454a",
+        "e9c16eea-6dca-5bee-981e-1684140c7f46",
+        "ea2c70e2-859e-5431-bcd4-c1a524ad200d",
+        "eb0b1aae-8e46-5813-8870-6f8cc621ada9",
+        "ebad73fe-c4d1-5574-8ff4-8a8568ce112a",
+        "ecd6c9bd-e5d7-50e6-8d22-a0b528ef4812",
+        "ef901772-506d-54b2-958c-fad1dd4eefd6",
+        "f0445325-0ef6-5fd8-b581-f561881c5339",
+        "f2ffe4c6-ce09-513d-9394-7ae3f31ab2f0",
+        "f5e4f2ff-d97d-5db3-9e46-7d598ec1b1a9",
+        "f5ec66b2-fd59-5f85-94f5-1ff32e46edcc",
+        "f8f6302c-552e-5db2-b354-9135848f33dc",
+        "f923de72-3b46-544a-8cc0-824c454843cb",
+        "f99086cf-f569-508d-b6d7-9b83d0aecc01",
+        "fad3d96a-6357-5ccd-b0e5-ff89989d64cf",
+        "faea6f5a-343e-5aef-aee6-633f4c5a8889",
+        "fb663ecc-6169-51ea-b5c7-8d4cc758d45a",
+        "ff3f6630-f17a-5eb4-bda2-c604ccc8bec2"
+      ],
+      "train_groups": [
+        "0326ee39-528e-545b-8576-98f48b403557",
+        "05e992ab-240d-5d0f-b55e-5aad6d1bf217",
+        "081d4ea8-d7fb-5561-adf6-64cafa8f203f",
+        "0f96e789-4e64-5817-ab77-13d43c58dcd5",
+        "13559622-522c-535d-8363-2c8070813e9b",
+        "13ade804-6f91-5bb0-baec-63d07e221bba",
+        "1a8513be-0a82-5cac-b057-2e5ecd5e5059",
+        "1aeeab7a-16f3-5720-8414-1f2817cc3bed",
+        "203ed502-f9c3-51cd-9e11-9c1d2f23f203",
+        "22efb490-d53c-5fe5-9bbe-d3e2e9829ae0",
+        "371d55df-3d4a-5c89-9188-5284305c06df",
+        "3eeb1946-b5d3-531a-8bea-d2f20358e452",
+        "4168c812-ec4e-512a-8acd-ae599873af27",
+        "41d08f7b-f6ce-54d5-bea3-9a914067b38f",
+        "4a508100-bc4c-5036-9050-8570d8c20912",
+        "55850000-0fe3-5c96-be10-704860dc4b47",
+        "5759f287-f0d8-5caf-9c00-ef2c344c82c8",
+        "580de9ec-e11a-52e2-bb1d-482c43f1a61b",
+        "5b640182-c27a-5030-8b33-cf5c27f94487",
+        "5cd60004-c736-574b-afe6-2b8294d9c276",
+        "5d3ec3be-e66a-5072-af70-6f6a4ffdf800",
+        "6732598a-5dbb-51de-856e-e47f20af1a8f",
+        "6987c5a4-73d5-50fd-9167-db44da354c43",
+        "6d1a4d76-da11-5ad3-9680-2814ea3ce951",
+        "738a94fd-52ea-55a4-af9e-358b13925796",
+        "73dff563-b8d9-58e7-8a37-17c9919d5bb3",
+        "75275063-265d-53c7-b6dd-8cfbe4203343",
+        "7cefd4c6-01f2-5b38-b814-caf036780bce",
+        "7f08f487-3596-59d8-a91d-b536b2198e38",
+        "88f456ad-ff2b-58f3-a72d-ed25918afe1b",
+        "8c5222ee-e80f-54ea-bd9a-e447f3daa950",
+        "904cf79b-6e69-5ad9-9d2d-1dd11d2a319c",
+        "9555ac31-667f-5f0f-9153-df0032dc310f",
+        "9d053a2a-42ad-5326-91c7-7e2baf955c49",
+        "9df473f2-9ac8-5f4c-b591-e7dfc2daa04b",
+        "a347acf6-6c7f-56e3-9ea2-e29795dc2b32",
+        "a348eed1-c0c6-53d0-ab90-4b477ce19248",
+        "a3a5c595-4db3-5783-a59c-d43ad245930c",
+        "a6792750-f0ef-516d-813a-4e6548e70aca",
+        "a6a0761c-0510-528d-9e42-c36e5fbba28c",
+        "a928edb8-e622-57b2-9289-e3a8dbde503d",
+        "aa17f5cd-d6ae-5933-9105-5e3b01f2ecff",
+        "aa6a450e-383f-52bf-82ff-8c948830e727",
+        "acbec6bc-43bf-55d4-9c58-0d4e3287a99d",
+        "afc0aebd-52b2-5574-ad04-69620c710051",
+        "afd51257-4a06-517c-aee8-5bf061f79841",
+        "b4896d4f-d3d2-5170-a234-cd14b08e8674",
+        "b6587ec7-b883-5f85-a247-9587648fd286",
+        "b70190d0-ada8-5fb5-aa4e-f5116af0afcf",
+        "b8850711-45f7-5431-8b26-c4728097b727",
+        "bec6df85-12b2-5936-80c6-15aef6b3c8f2",
+        "bfec18b5-cf37-566b-a7e8-b2c8886b46a9",
+        "bfef8f0b-a99b-5902-83bb-06d695c99def",
+        "c29d8695-b2d9-5f9d-a763-522355431ffe",
+        "c5728825-38fd-5543-904a-d27d9ea4b300",
+        "c5a08a6d-56fc-5c37-b155-3a9b9542960a",
+        "c613b221-ebbf-54a0-8856-892fa9cf50df",
+        "cf2105a1-5df1-54de-a433-cafb1913d6df",
+        "cf29df2c-eb07-5d86-a7a4-03beae0b460f",
+        "da3ddd31-c362-52b8-bfb5-beecdb2076df",
+        "e0c31f45-afb9-5bd9-b9ce-bb4f8c98e5ac",
+        "e26cb2a9-54c7-5d99-807f-e40282531114",
+        "e6eb8c88-19f7-5125-b410-2b6493937cf0",
+        "e7457644-1618-5dd3-9815-bc603fe30400",
+        "ecdf554f-7a93-59fe-9bac-c16c3446cdd3",
+        "ee853d1d-3ec8-5a45-8f85-eeaa21cc285d",
+        "f271b750-ac87-5cca-9ce2-99b5b124f1e2",
+        "f802bc5c-62c0-525f-9310-0293b50e1c0f",
+        "fb7199df-467e-5977-800e-1ecd55dd8508",
+        "fd9fa22b-a24b-5bf3-8f39-d747c084f2a7",
+        "fec0fefd-2d31-5d8e-8859-ccefac907c69",
+        "ffc1a008-97ed-5d94-9b90-b7f286781a98"
+      ],
+      "train_support": {
+        "Alta": 57,
+        "Baja": 57,
+        "Cr\u00edtica": 39,
+        "Media": 63
+      }
+    },
+    "probability_policy": "uncalibrated estimates, not validated confidence",
+    "protocol": "supervised-group-holdout-v1",
+    "python": "3.12.16",
+    "scipy": "1.15.2",
+    "seed": 202606,
+    "sklearn": "1.6.1",
+    "support": {
+      "Alta": 72,
+      "Baja": 72,
+      "Cr\u00edtica": 72,
+      "Media": 72
+    },
+    "test_fraction_target": 0.25,
+    "weighted_parameters": {
+      "algorithm_version": "weighted-v2",
+      "attack_values": {
+        "acceso_no_autorizado": 75,
+        "dos": 80,
+        "escaneo": 45,
+        "exfiltracion": 100,
+        "malware": 90,
+        "uso_indebido": 55
+      },
+      "context_policy": "unknown_neutral_prior_not_observed",
+      "recurrence_per_event": 20,
+      "rounding": "half_up",
+      "unknown_attack": 40,
+      "unknown_context": 50,
+      "weights": {
+        "asset_criticality": 0.25,
+        "attack_type": 0.15,
+        "context": 0.1,
+        "recurrence": 0.15,
+        "severity": 0.35
+      }
+    }
+  },
+  "created_at": "2026-11-22T06:12:27.998970+00:00",
+  "dataset_id": "50dcb7c7-4829-4739-880b-5d3e3ebc5c45",
+  "id": "cb7bdb6f-941c-4d50-aece-742d8100e01b",
+  "interpretation": {
+    "forest": {
+      "classes": [
+        "Alta",
+        "Baja",
+        "Cr\u00edtica",
+        "Media"
+      ],
+      "feature_names": [
+        "numeric__x0",
+        "numeric__x1",
+        "numeric__x2",
+        "numeric__x3",
+        "numeric__x4",
+        "categorical__x5_acceso_no_autorizado",
+        "categorical__x5_dos",
+        "categorical__x5_escaneo",
+        "categorical__x5_exfiltracion",
+        "categorical__x5_malware",
+        "categorical__x5_uso_indebido"
+      ],
+      "importance": [
+        0.26364142960245324,
+        0.20270031181882348,
+        0.22806665822285957,
+        0.12134646163604446,
+        0.13492382906751238,
+        0.007519716727856733,
+        0.012799189728586104,
+        0.0054988995886625265,
+        0.006885005564715493,
+        0.008710432427185872,
+        0.007908065615300268
+      ]
+    },
+    "logistic": {
+      "classes": [
+        "Alta",
+        "Baja",
+        "Cr\u00edtica",
+        "Media"
+      ],
+      "coef": [
+        [
+          0.43667682581082434,
+          0.23221229615562283,
+          0.7679616883683064,
+          0.4054465027827384,
+          0.4054465027827385,
+          0.4068446707954924,
+          -0.5575323183832047,
+          0.5640435359070624,
+          0.12896972082420968,
+          -0.5919533619169219,
+          0.04948989913957276
+        ],
+        [
+          -1.3186623446394914,
+          -1.735265302115119,
+          -1.335205394425567,
+          -0.9534809476098186,
+          -0.9534809476098183,
+          0.14767999097913753,
+          -0.32528569816281583,
+          -0.10034081941944865,
+          -0.45521887371239284,
+          0.8932186464023684,
+          -0.14175146680617756
+        ],
+        [
+          1.2383179236775683,
+          2.4034313553016635,
+          1.6758154098252243,
+          0.7710363820769464,
+          0.7710363820769452,
+          -0.4606177154608668,
+          0.6746381251672593,
+          -0.43054609838229563,
+          0.43744341915251117,
+          -0.6904165647540309,
+          0.45568550225578724
+        ],
+        [
+          -0.35633240484890016,
+          -0.9003783493421645,
+          -1.1085717037679645,
+          -0.22300193724986733,
+          -0.2230019372498677,
+          -0.09390694631376312,
+          0.20817989137876208,
+          -0.03315661810531766,
+          -0.11119426626432825,
+          0.389151280268585,
+          -0.36342393458918265
+        ]
+      ],
+      "feature_names": [
+        "numeric__x0",
+        "numeric__x1",
+        "numeric__x2",
+        "numeric__x3",
+        "numeric__x4",
+        "categorical__x5_acceso_no_autorizado",
+        "categorical__x5_dos",
+        "categorical__x5_escaneo",
+        "categorical__x5_exfiltracion",
+        "categorical__x5_malware",
+        "categorical__x5_uso_indebido"
+      ],
+      "intercept": [
+        1.272690831511714,
+        -0.41276356752748483,
+        -2.815200710490612,
+        1.9552734465063877
+      ]
+    }
+  },
+  "note": "Compact synthetic laboratory summary. Full groups, predictions and numeric models are available in the protected export. No production validity or statistical superiority claim.",
+  "protocol": "supervised-group-holdout-v1",
+  "results": {
+    "forest": {
+      "classification": {
+        "accuracy": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "ratio",
+          "value": 0.7083333333333334
+        },
+        "classes": [
+          "Baja",
+          "Media",
+          "Alta",
+          "Cr\u00edtica"
+        ],
+        "labeled": 72,
+        "macro": {
+          "f1": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.7086199836199837
+          },
+          "precision": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.7304454804454804
+          },
+          "recall": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.7297979797979798
+          }
+        },
+        "matrix": [
+          [
+            10,
+            4,
+            1,
+            0
+          ],
+          [
+            0,
+            8,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            10,
+            4
+          ],
+          [
+            0,
+            0,
+            10,
+            23
+          ]
+        ],
+        "per_class": {
+          "Alta": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.5405405405405406
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.45454545454545453
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.6666666666666666
+            },
+            "support": 15
+          },
+          "Baja": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.8
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 1.0
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.6666666666666666
+            },
+            "support": 15
+          },
+          "Cr\u00edtica": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.7666666666666667
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.8518518518518519
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.696969696969697
+            },
+            "support": 33
+          },
+          "Media": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.7272727272727273
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.6153846153846154
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.8888888888888888
+            },
+            "support": 9
+          }
+        },
+        "total": 72
+      },
+      "critical_coverage": {
+        "backlog": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "incidentes",
+          "value": 62
+        },
+        "budget_used": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "unidades de atenci\u00f3n simulada",
+          "value": 10
+        },
+        "critical_coverage": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "ratio",
+          "value": 0.30303030303030304
+        },
+        "selected": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "incidentes",
+          "value": 10
+        },
+        "selected_events": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "eventos",
+          "value": 68
+        },
+        "unit_definition": "Una selecci\u00f3n de incidente consume una unidad, sin duraci\u00f3n ni operador simulado"
+      },
+      "cv": {
+        "folds": [
+          {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.5614350188818273
+          },
+          {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.5341136617248525
+          },
+          {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.5378230837789661
+          }
+        ],
+        "reason": null,
+        "status": "Calculable"
+      }
+    },
+    "limitations": [
+      "Laboratory/synthetic evidence is not real-world efficacy",
+      "Single reserved group test; no statistical superiority claim",
+      "Probabilities are uncalibrated",
+      "No production deployment"
+    ],
+    "logistic": {
+      "classification": {
+        "accuracy": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "ratio",
+          "value": 0.5972222222222222
+        },
+        "classes": [
+          "Baja",
+          "Media",
+          "Alta",
+          "Cr\u00edtica"
+        ],
+        "labeled": 72,
+        "macro": {
+          "f1": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.5656226864922518
+          },
+          "precision": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.603125
+          },
+          "recall": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.5853535353535354
+          }
+        },
+        "matrix": [
+          [
+            7,
+            7,
+            1,
+            0
+          ],
+          [
+            1,
+            7,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            6,
+            7
+          ],
+          [
+            0,
+            0,
+            10,
+            23
+          ]
+        ],
+        "per_class": {
+          "Alta": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.36363636363636365
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.3333333333333333
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.4
+            },
+            "support": 15
+          },
+          "Baja": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.6086956521739131
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.875
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.4666666666666667
+            },
+            "support": 15
+          },
+          "Cr\u00edtica": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.7301587301587301
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.7666666666666667
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.696969696969697
+            },
+            "support": 33
+          },
+          "Media": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.56
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.4375
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.7777777777777778
+            },
+            "support": 9
+          }
+        },
+        "total": 72
+      },
+      "critical_coverage": {
+        "backlog": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "incidentes",
+          "value": 62
+        },
+        "budget_used": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "unidades de atenci\u00f3n simulada",
+          "value": 10
+        },
+        "critical_coverage": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "ratio",
+          "value": 0.30303030303030304
+        },
+        "selected": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "incidentes",
+          "value": 10
+        },
+        "selected_events": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "eventos",
+          "value": 66
+        },
+        "unit_definition": "Una selecci\u00f3n de incidente consume una unidad, sin duraci\u00f3n ni operador simulado"
+      },
+      "cv": {
+        "folds": [
+          {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.6322344322344322
+          },
+          {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.5052433198984922
+          },
+          {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.3997591176939003
+          }
+        ],
+        "reason": null,
+        "status": "Calculable"
+      }
+    },
+    "status": "completed",
+    "weighted-v2": {
+      "classification": {
+        "accuracy": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "ratio",
+          "value": 0.5833333333333334
+        },
+        "classes": [
+          "Baja",
+          "Media",
+          "Alta",
+          "Cr\u00edtica"
+        ],
+        "labeled": 72,
+        "macro": {
+          "f1": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.41875
+          },
+          "precision": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.6002331002331002
+          },
+          "recall": {
+            "reason": null,
+            "status": "Calculable",
+            "unit": "ratio",
+            "value": 0.45151515151515154
+          }
+        },
+        "matrix": [
+          [
+            1,
+            8,
+            6,
+            0
+          ],
+          [
+            0,
+            3,
+            6,
+            0
+          ],
+          [
+            0,
+            0,
+            7,
+            8
+          ],
+          [
+            0,
+            0,
+            2,
+            31
+          ]
+        ],
+        "per_class": {
+          "Alta": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.3888888888888889
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.3333333333333333
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.4666666666666667
+            },
+            "support": 15
+          },
+          "Baja": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.125
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 1.0
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.06666666666666667
+            },
+            "support": 15
+          },
+          "Cr\u00edtica": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.8611111111111112
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.7948717948717948
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.9393939393939394
+            },
+            "support": 33
+          },
+          "Media": {
+            "f1": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.3
+            },
+            "precision": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.2727272727272727
+            },
+            "recall": {
+              "reason": null,
+              "status": "Calculable",
+              "unit": "ratio",
+              "value": 0.3333333333333333
+            },
+            "support": 9
+          }
+        },
+        "total": 72
+      },
+      "critical_coverage": {
+        "backlog": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "incidentes",
+          "value": 62
+        },
+        "budget_used": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "unidades de atenci\u00f3n simulada",
+          "value": 10
+        },
+        "critical_coverage": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "ratio",
+          "value": 0.30303030303030304
+        },
+        "selected": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "incidentes",
+          "value": 10
+        },
+        "selected_events": {
+          "reason": null,
+          "status": "Calculable",
+          "unit": "eventos",
+          "value": 63
+        },
+        "unit_definition": "Una selecci\u00f3n de incidente consume una unidad, sin duraci\u00f3n ni operador simulado"
+      }
+    }
+  },
+  "status": "completed"
+}

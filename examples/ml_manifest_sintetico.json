@@ -1,0 +1,36 @@
+{
+  "dataset": {
+    "name": "ML manifest template: synthetic, insufficient for training",
+    "data_kind": "synthetic",
+    "provenance": "Ejemplo creado para documentar el contrato. No contiene registros IDS reales ni resultados de operadores.",
+    "authorized": true,
+    "cases": [
+      {
+        "id": "dc5b762a-7264-4328-91ec-1a630264a304",
+        "event_type": "dos",
+        "events": [
+          {
+            "id": "89264b02-7444-4988-b0e2-f91000629345",
+            "event_timestamp": "2026-01-01T00:00:00Z",
+            "received_at": "2026-01-01T00:00:30Z",
+            "severity": 20,
+            "asset_criticality": 10
+          }
+        ]
+      }
+    ],
+    "references": [
+      {
+        "case_id": "dc5b762a-7264-4328-91ec-1a630264a304",
+        "priority": "Cr\u00edtica",
+        "malicious": true,
+        "rationale": "Escenario ficticio de interrupci\u00f3n confirmada de un servicio esencial; la etiqueta procede del desenlace del escenario, no del score. Los factores recibidos infrarrepresentan ese impacto."
+      }
+    ]
+  },
+  "groups": {
+    "dc5b762a-7264-4328-91ec-1a630264a304": "be706afd-d954-4c25-9810-3a3cc1017a60"
+  },
+  "annotation_policy": "Independent scenario outcome: essential service outage makes priority critical; never inferred from severity or weighted score. This one-case template is insufficient for training.",
+  "label_source": "independent_review"
+}

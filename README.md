@@ -4,6 +4,8 @@ Gestión de incidentes con FastAPI, SQLAlchemy, PostgreSQL y React/TypeScript. I
 
 La **iteración 05** incorpora evaluación experimental reproducible: datasets separados del flujo operativo, comparación emparejada FIFO/SmartIR, métricas con motivos de «No calculable» y exportación CSV/JSON. Los reportes no representan trabajo de operadores ni demuestran mejoras estadísticas.
 
+La **iteración 06** añade LogisticRegression y RandomForest experimentales, pipelines scikit-learn, test aislado por grupos y comparación con weighted-v2. **Weighted-v2 sigue siendo el motor operativo predeterminado**; no se activan modelos ML en producción ni se alteran scores históricos.
+
 ## Arranque
 
 Requiere Docker Compose v2 y puertos locales 5173 y 8000 disponibles.
@@ -50,7 +52,7 @@ Algoritmo, fórmulas, campos ausentes, límites, eventos tardíos, migración 00
 
 ## Migraciones sin borrar datos
 
-Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0005`, que agrega tablas de evaluación experimental a `0004` sin eliminar datos, usuarios ni evaluaciones existentes. Los incidentes previos conservan su estado y parámetros; no se inventa procedencia retroactiva. No cambiar credenciales durante la actualización.
+Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0006`, que agrega únicamente ml_runs a `0005` para guardar modelos numéricos y resultados sin eliminar ni modificar datos, usuarios, evidencias o experimentos existentes. Los incidentes previos conservan su estado y parámetros; no se inventa procedencia retroactiva. No cambiar credenciales durante la actualización.
 
 Fuera de Docker, definir DATABASE_URL y JWT_SECRET en el entorno; desde backend ejecutar `python -m alembic upgrade head`, `python -m app.bootstrap` y `python -m uvicorn app.main:app`. La API ya no crea tablas al arrancar.
 
@@ -69,7 +71,7 @@ npm run build
 Pop-Location
 ```
 
-SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 05: **54 pruebas aprobadas en SQLite y 54 en PostgreSQL 16**, build TypeScript/Vite correcto y Compose aislado verificado en `0005`, incluida ejecución experimental y descarga CSV. Permanece una advertencia de deprecación de Starlette/AnyIO. [Validación actual](docs/EVALUACION_EXPERIMENTAL.md). La evidencia anterior de iteración 04 (38 pruebas por base e importación/reimportación EVE de 6 alertas) permanece en [su documento](docs/INTEGRACION_SURICATA.md).
+SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 06: **65 pruebas aprobadas en SQLite y 65 en PostgreSQL 16**, comprobaciones finales específicas de ML en ambas, build TypeScript/Vite correcto y Compose aislado en `0006` con entrenamiento e inferencia por API. Permanece una advertencia de deprecación de Starlette/AnyIO. [Validación actual](docs/APRENDIZAJE_AUTOMATICO.md). Se conservan los resultados de [iteración 05 (54 por base)](docs/EVALUACION_EXPERIMENTAL.md) y [04 (38 por base)](docs/INTEGRACION_SURICATA.md) como evidencia histórica.
 
 ## Evaluación experimental (iteración 05)
 
@@ -79,6 +81,14 @@ Se guardan UUID, fecha, versiones, parámetros, cohorte, órdenes y resultados. 
 
 Resultado real del replay sintético documentado: FIFO seleccionó **7/23 críticos**, SmartIR **4/23**, ambos con 10 selecciones. Exactitud del clasificador 0.25; macro-F1 0.182850. MTTD/MTTR: **No calculable**. Esta muestra no respalda una mejora y no constituye evidencia estadística sobre incidentes reales. [Diseño, fórmulas, amenazas a la validez y resultados](docs/EVALUACION_EXPERIMENTAL.md).
 
+## Aprendizaje automático experimental (iteración 06)
+
+Actualizar las dependencias del backend e ingresar como administrador investigador. En **Aprendizaje automático experimental**, generar laboratorio con semilla `202606`, 96 grupos (288 casos), luego entrenar con la misma semilla y presupuesto 10. El manifiesto separa grupos, referencias y características. Repetir el mismo manifiesto devuelve 409: reutilizar el dataset existente. El generador de iteración 05 queda excluido como evidencia predictiva.
+
+El sistema reserva grupos completos para test (216 train / 72 test en la ejecución documentada), ajusta preprocesamiento solo en train y ejecuta CV estratificada por grupos cuando es viable. Usa parámetros fijos, sin optimizar con test. Modelos, parámetros, clases, versiones y resultados se guardan en JSON numérico; no existe carga de pickle/joblib ni de artefactos de terceros. La inferencia y sus probabilidades estimadas sin calibrar son consultables por usuarios autenticados; entrenamiento, resultados con referencias y exportaciones quedan para administrador, conforme al protocolo de cegamiento anterior.
+
+Resultado del laboratorio guardado: macro-F1 test LR **0.5656**, RF **0.7086**, weighted-v2 **0.4188**. Sin embargo, recall de críticos fue mayor con weighted-v2 (**31/33**, frente a **23/33** en ML), y los tres cubrieron **10/33** críticos con presupuesto 10. Son resultados descriptivos sobre supuestos sintéticos, sin superioridad estadística ni validez de producción. [Metodología, manifiesto externo, limitaciones y resultados completos](docs/APRENDIZAJE_AUTOMATICO.md).
+
 ## Alcance
 
 Solo health, login y documentación OpenAPI son públicos; los endpoints de datos requieren Bearer. El frontend guarda el token en memoria: recargar exige iniciar sesión. El backend consulta rol y activación en cada petición. Cerrar sesión borra el token local; una copia sigue válida hasta expirar. No hay refresh tokens, revocación individual, MFA, recuperación de contraseña ni limitación de intentos de login. La gestión administrativa de usuarios se ofrece por API/OpenAPI.
@@ -87,4 +97,4 @@ Las ventanas fijas pueden separar eventos cercanos a ambos lados de un límite y
 
 .env y __pycache__ permanecen fuera del índice; .env.example contiene únicamente campos secretos vacíos y el ancho de ventana. Se retiró del ejemplo un valor con apariencia de secreto JWT. Si se utilizó o compartió, debe rotarse: retirarlo del commit actual no elimina su exposición anterior. No se modificaron .env ni contraseñas existentes.
 
-El estado actual está en este README, [la antología actualizada](docs/ANTologia_implementacion.md) y [la evaluación experimental](docs/EVALUACION_EXPERIMENTAL.md). Los documentos de autenticación, correlación y Suricata conservan sus especificaciones y resultados históricos; no se sustituyen por la evidencia de la nueva iteración.
+El estado actual está en este README, [la antología actualizada](docs/ANTologia_implementacion.md) y [el aprendizaje automático experimental](docs/APRENDIZAJE_AUTOMATICO.md). Los documentos anteriores conservan sus especificaciones y resultados históricos; no se sustituyen por la evidencia de la nueva iteración.
