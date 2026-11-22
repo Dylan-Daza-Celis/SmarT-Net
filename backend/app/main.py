@@ -20,7 +20,7 @@ from fastapi import Depends
 from typing import Literal
 from argon2.exceptions import VerificationError, InvalidHashError
 
-app = FastAPI(title="SmartIR-Net API", version="0.4.0", description="Gestión de incidentes con autenticación y roles")
+app = FastAPI(title="SmartIR-Net API", version="0.5.0", description="Gestión de incidentes con autenticación y roles")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"])
 
 def serialize(inc: Incident, count: int | None = None):
@@ -234,3 +234,6 @@ def event_evidence(event_id: str, offset: int = Query(default=0, ge=0), limit: i
         return [{"id": e.id, "author_id": e.author_id, "import_id": e.import_id, "filename": e.filename,
                  "sensor_id": e.sensor_id, "line_number": e.line_number, "raw_line": e.raw_line,
                  "raw_sha256": e.raw_sha256, "created_at": e.created_at.isoformat()} for e in records]
+
+from .evaluation_api import router as evaluation_router
+app.include_router(evaluation_router)

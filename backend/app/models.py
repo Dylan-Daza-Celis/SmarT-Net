@@ -95,3 +95,42 @@ class ResponseAction(Base):
     author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     description: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+class EvaluationDataset(Base):
+    __tablename__ = "evaluation_datasets"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    name: Mapped[str] = mapped_column(String(100))
+    data_kind: Mapped[str] = mapped_column(String(20))
+    configuration: Mapped[str] = mapped_column(Text)
+    feature_hash: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+class EvaluationCase(Base):
+    __tablename__ = "evaluation_cases"
+    __table_args__ = (Index("uq_evaluation_case_key", "dataset_id", "case_key", unique=True),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"), index=True)
+    case_key: Mapped[str] = mapped_column(String(36))
+    incident_id: Mapped[str | None] = mapped_column(ForeignKey("incidents.id"), nullable=True)
+    features: Mapped[str] = mapped_column(Text)
+
+class EvaluationReference(Base):
+    __tablename__ = "evaluation_references"
+    case_id: Mapped[str] = mapped_column(ForeignKey("evaluation_cases.id"), primary_key=True)
+    payload: Mapped[str] = mapped_column(Text)
+
+class EvaluationEventLink(Base):
+    __tablename__ = "evaluation_event_links"
+    case_id: Mapped[str] = mapped_column(ForeignKey("evaluation_cases.id"), primary_key=True)
+    event_id: Mapped[str] = mapped_column(ForeignKey("events.id"), primary_key=True)
+
+class Experiment(Base):
+    __tablename__ = "experiments"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    dataset_id: Mapped[str] = mapped_column(ForeignKey("evaluation_datasets.id"), index=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    configuration: Mapped[str] = mapped_column(Text)
+    rankings: Mapped[str] = mapped_column(Text)
+    results: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))

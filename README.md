@@ -2,6 +2,8 @@
 
 Gestión de incidentes con FastAPI, SQLAlchemy, PostgreSQL y React/TypeScript. Incluye Argon2id, JWT de 15 minutos, permisos en backend, acciones de respuesta e historial de estados. La iteración 04 incorpora archivos Suricata EVE JSON Lines al motor de correlación UTC y riesgo versionado existente, con evidencia y reporte de importación.
 
+La **iteración 05** incorpora evaluación experimental reproducible: datasets separados del flujo operativo, comparación emparejada FIFO/SmartIR, métricas con motivos de «No calculable» y exportación CSV/JSON. Los reportes no representan trabajo de operadores ni demuestran mejoras estadísticas.
+
 ## Arranque
 
 Requiere Docker Compose v2 y puertos locales 5173 y 8000 disponibles.
@@ -48,7 +50,7 @@ Algoritmo, fórmulas, campos ausentes, límites, eventos tardíos, migración 00
 
 ## Migraciones sin borrar datos
 
-Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0004`, que agrega metadata y evidencia EVE a `0003` sin eliminar datos, usuarios ni evaluaciones existentes. Los incidentes previos conservan su estado y parámetros; no se inventa procedencia retroactiva. No cambiar credenciales durante la actualización.
+Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volumen postgres_data; no ejecutar `docker compose down -v`. Alembic aplica hasta `0005`, que agrega tablas de evaluación experimental a `0004` sin eliminar datos, usuarios ni evaluaciones existentes. Los incidentes previos conservan su estado y parámetros; no se inventa procedencia retroactiva. No cambiar credenciales durante la actualización.
 
 Fuera de Docker, definir DATABASE_URL y JWT_SECRET en el entorno; desde backend ejecutar `python -m alembic upgrade head`, `python -m app.bootstrap` y `python -m uvicorn app.main:app`. La API ya no crea tablas al arrancar.
 
@@ -67,7 +69,15 @@ npm run build
 Pop-Location
 ```
 
-SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 04: **38 pruebas aprobadas en SQLite y 38 en PostgreSQL 16**, build TypeScript/Vite correcto y Compose aislado verificado en `0004`, incluida importación/reimportación sintética de 6 alertas. Permanece una advertencia de deprecación de Starlette/AnyIO. Consultar [resultados y fallos corregidos](docs/INTEGRACION_SURICATA.md).
+SQLite se usa solo como base temporal de pruebas por defecto. Para PostgreSQL real, definir TEST_DATABASE_URL hacia una base desechable y usar otro --basetemp. Cada prueba crea y elimina un esquema aislado. Iteración 05: **54 pruebas aprobadas en SQLite y 54 en PostgreSQL 16**, build TypeScript/Vite correcto y Compose aislado verificado en `0005`, incluida ejecución experimental y descarga CSV. Permanece una advertencia de deprecación de Starlette/AnyIO. [Validación actual](docs/EVALUACION_EXPERIMENTAL.md). La evidencia anterior de iteración 04 (38 pruebas por base e importación/reimportación EVE de 6 alertas) permanece en [su documento](docs/INTEGRACION_SURICATA.md).
+
+## Evaluación experimental (iteración 05)
+
+Ingresar como administrador investigador y abrir **Evaluación experimental**. Generar semilla `202605`, 60 casos y presupuesto de 10 selecciones para reproducir el protocolo. También se admite un JSON externo de hasta 2 MiB con autorización y procedencia explícitas; plantilla sintética: `examples/evaluacion_externa_sintetica.json`. Las etiquetas se almacenan aparte, no se pasan al modelo y no se muestran a analistas/observadores. Estos roles pueden consultar características y órdenes sin resultados contra referencias; solo el investigador ejecuta, consulta métricas y exporta datos etiquetados.
+
+Se guardan UUID, fecha, versiones, parámetros, cohorte, órdenes y resultados. La comparación mide cobertura de críticos bajo el mismo número de selecciones, sin inventar duraciones. Exactitud, matriz, precisión/recall/F1 evalúan el clasificador común; FIFO no emite otra prioridad. FPR requiere etiquetas binarias explícitas. MTTD/MTTR requieren marcas válidas completas, evidencia temporal y datos no sintéticos, y son descripciones de la fuente, no mejoras causadas por la simulación.
+
+Resultado real del replay sintético documentado: FIFO seleccionó **7/23 críticos**, SmartIR **4/23**, ambos con 10 selecciones. Exactitud del clasificador 0.25; macro-F1 0.182850. MTTD/MTTR: **No calculable**. Esta muestra no respalda una mejora y no constituye evidencia estadística sobre incidentes reales. [Diseño, fórmulas, amenazas a la validez y resultados](docs/EVALUACION_EXPERIMENTAL.md).
 
 ## Alcance
 
@@ -77,4 +87,4 @@ Las ventanas fijas pueden separar eventos cercanos a ambos lados de un límite y
 
 .env y __pycache__ permanecen fuera del índice; .env.example contiene únicamente campos secretos vacíos y el ancho de ventana. Se retiró del ejemplo un valor con apariencia de secreto JWT. Si se utilizó o compartió, debe rotarse: retirarlo del commit actual no elimina su exposición anterior. No se modificaron .env ni contraseñas existentes.
 
-El estado actual está en este README, [la antología actualizada](docs/ANTologia_implementacion.md) y [la integración Suricata](docs/INTEGRACION_SURICATA.md). AUTENTICACION_Y_RESPUESTA.md y CORRELACION_Y_RIESGO.md conservan la evidencia de sus iteraciones anteriores.
+El estado actual está en este README, [la antología actualizada](docs/ANTologia_implementacion.md) y [la evaluación experimental](docs/EVALUACION_EXPERIMENTAL.md). Los documentos de autenticación, correlación y Suricata conservan sus especificaciones y resultados históricos; no se sustituyen por la evidencia de la nueva iteración.
