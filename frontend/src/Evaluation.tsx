@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {API} from './api';
 
 type Metric={value:number|null;unit:string;status:string;reason:string|null};
 type Dataset={id:string;name:string;data_kind:string};
@@ -23,7 +24,7 @@ export default function Evaluation({token,researcher,request}:Props){
  async function open(id:string){try{setResult(await request(`/api/evaluation/experiments/${id}`))}catch(e){setError(String(e))}}
  async function download(format:'json'|'csv'){
   if(!result)return;
-  try{const r=await fetch(`http://localhost:8000/api/evaluation/experiments/${result.id}/export?format=${format}`,{headers:{Authorization:`Bearer ${token}`}});if(!r.ok)throw Error(`Descarga: HTTP ${r.status}`);const url=URL.createObjectURL(await r.blob());const a=document.createElement('a');a.href=url;a.download=`experiment-${result.id}.${format}`;a.click();URL.revokeObjectURL(url)}catch(e){setError(String(e))}
+  try{const r=await fetch(`${API}/api/evaluation/experiments/${result.id}/export?format=${format}`,{headers:{Authorization:`Bearer ${token}`}});if(!r.ok)throw Error(`Descarga: HTTP ${r.status}`);const url=URL.createObjectURL(await r.blob());const a=document.createElement('a');a.href=url;a.download=`experiment-${result.id}.${format}`;a.click();URL.revokeObjectURL(url)}catch(e){setError(String(e))}
  }
  const c=result?.results?.classification;
  return <section className="panel"><h2>Evaluación experimental</h2><p>Reproducción offline de una cola disponible, con presupuesto igual en incidentes. No mide trabajo humano ni demuestra mejoras de tiempo.</p>

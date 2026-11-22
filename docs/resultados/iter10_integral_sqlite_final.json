@@ -1,0 +1,418 @@
+{
+  "data_kind": "synthetic",
+  "checks": [
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 401
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/7912a5d2-c98f-464e-9691-d2de555f6e03",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/e375dd25-4fa6-4b16-9bf9-ba9b3a1f2744/evidence",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/assignment",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/assignment",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/actions",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/actions",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/evaluations",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/evaluations",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/reevaluate",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/evaluations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/timeline",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/3fe58c6c-7a64-47b3-bb0a-93533cb03f52/lifecycle",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/dashboard",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analytics/reports",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/b309f080-5f8c-4f64-bb48-51bf19dc2729",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/b309f080-5f8c-4f64-bb48-51bf19dc2729",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/b309f080-5f8c-4f64-bb48-51bf19dc2729",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/datasets/synthetic",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/experiments",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/experiments/aaddbb56-1b9b-46c1-a4dc-b65697c4389d",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/datasets/laboratory",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/datasets/52471996-e0c5-4eaf-b9df-9ba76fafa135/cases",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/runs/6764d47c-3750-4239-a6f3-4679e1deec8d/predict",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/comparisons",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 422
+    }
+  ],
+  "incident_id": "3fe58c6c-7a64-47b3-bb0a-93533cb03f52",
+  "report_id": "b309f080-5f8c-4f64-bb48-51bf19dc2729",
+  "experiment_id": "aaddbb56-1b9b-46c1-a4dc-b65697c4389d",
+  "ml_run_id": "6764d47c-3750-4239-a6f3-4679e1deec8d",
+  "export_sha256": {
+    "json": "022cd56cdbcdd00aa2dd4279ba9fc2c2c3a26bbce8d10a41f71e7be770939ab9",
+    "csv": "862cef79afd2ee7a5f76ce57f8ded2b0e424a17b273077a4b5a539f0321a326a",
+    "pdf": "f25f5d1ca33069523a290bd16ef559cdcf010d6aafad9610e705aa8e2d210e2c"
+  },
+  "counts": {
+    "events": 6,
+    "incidents": 4
+  },
+  "mttd": "No calculable",
+  "mttr": "No calculable",
+  "database": "sqlite",
+  "generated_at": "2026-11-22T20:00:57.557935+00:00",
+  "transport": "HTTP TCP loopback, real Uvicorn process",
+  "api_restart_preserved": true,
+  "tables_before_after": {
+    "alembic_version": {
+      "rows": 1,
+      "sha256": "914e918499850838d17b1caf6f9c45d37fc3137d520a294dabb954b201199b7d"
+    },
+    "analytics_reports": {
+      "rows": 1,
+      "sha256": "4fa56703192c9bfe9baf80c929f25f9b77b63b686c1ff36b8328ec5ea2f37044"
+    },
+    "assignment_history": {
+      "rows": 1,
+      "sha256": "1754fdb13208b1178a79b53c5b325660c39d6ac4eb47259bd2ac2fd2089f29f1"
+    },
+    "evaluation_cases": {
+      "rows": 348,
+      "sha256": "10a43f9cb95ec9f8633568a69a1bc1379f6b52269eb7cef83308499043cd3814"
+    },
+    "evaluation_datasets": {
+      "rows": 2,
+      "sha256": "f10e11acdcf2e39c06652c34b0cb465f36ae8311d77e7fbf15295d46eefa971c"
+    },
+    "evaluation_event_links": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "evaluation_references": {
+      "rows": 348,
+      "sha256": "3aa593fb8e72aacb05f463ee8a54c132fe8d1b8173d43b9b4748e8a5b6df3b9c"
+    },
+    "event_evidence": {
+      "rows": 2,
+      "sha256": "2c50d058594b7754f41f8f90d43c42596d268e04383706970335963bab60f7b3"
+    },
+    "events": {
+      "rows": 6,
+      "sha256": "1be920b1c10ece7225ae9a088657580d5dc0290450c7b33ddd7230ef1d88eb0c"
+    },
+    "experiments": {
+      "rows": 1,
+      "sha256": "6dcde895d55e81baba24d86612c2f3170b508b7bf5718de628abca7217a177b8"
+    },
+    "incident_history": {
+      "rows": 10,
+      "sha256": "f412554e86181200623d5e46ae2d662c8adae8127397964c576b579a42fedba1"
+    },
+    "incident_review_signals": {
+      "rows": 1,
+      "sha256": "281d10e6765c8fbb9f6d159bcd659bf6ab474de53bdb35da50fac63a648b993a"
+    },
+    "incident_time_evidence": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "incidents": {
+      "rows": 4,
+      "sha256": "0bb821dceac027c740cefed86f56576f897eebbaf6a6578108e147ae735ac524"
+    },
+    "ml_runs": {
+      "rows": 1,
+      "sha256": "db41f9229dcd80f5a05a6bdf3a88093cb8bcb01e66deb4fde8a58d96904425d8"
+    },
+    "response_actions": {
+      "rows": 1,
+      "sha256": "bc8487fda1aa8fc0ca0cc09c4ec1e6f09674be22bf414a5f399a4c98120ea8f5"
+    },
+    "review_acknowledgements": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "risk_evaluations": {
+      "rows": 5,
+      "sha256": "6d075a19f3d80efc7ca501b4f234afb3fb937c08a60601835744a0f55ca311d3"
+    },
+    "risk_reassessment_signals": {
+      "rows": 1,
+      "sha256": "a75588f951be4bc20de34e650a442b6e92a0a48f85c0017a25d56a63340da303"
+    },
+    "risk_reassessments": {
+      "rows": 1,
+      "sha256": "06b96ec79769bedf4efaa5f3a937f1a7a72a45ab413b967db59106e9e8eab6d4"
+    },
+    "users": {
+      "rows": 3,
+      "sha256": "a39cc2f1b117412010f8727cde97e3a166f604def6cf2efe339cccc5ec4720a2"
+    }
+  },
+  "python": "3.11.15",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "duration_seconds": 19.684220600000117
+}

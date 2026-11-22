@@ -1,5 +1,9 @@
 # SmartIR-Net
 
+La **iteración 10** consolida la validación: **126 pruebas aprobadas en SQLite y126 en PostgreSQL 16**, recorrido HTTP completo con reinicio y conservación de datos, Chromium real con tres roles, build React y Compose aislado con Alembic 0008. El benchmark TCP de320 solicitudes obtuvo114 éxitos y206 rechazos429 esperados, sin503 ni errores inesperados; no demuestra capacidad de producción ni mejora de MTTD/MTTR. No se modificaron algoritmos/backend, migraciones históricas, secretos ni datos operativos.
+
+Documentación vigente: [validación y matriz requisito→prueba→evidencia](docs/VALIDACION_INTEGRAL.md), [guía de usuario](docs/GUIA_USUARIO.md), [despliegue y recuperación segura](docs/GUIA_DESPLIEGUE.md), [antología en revisión](docs/ANTologia_implementacion.md) y [cinco prácticas Packet Tracer diseñadas](docs/PRACTICAS_PACKET_TRACER.md). Las prácticas todavía **no están implementadas ni validadas** y no se incluyen `.pkt` ni capturas ficticias.
+
 Gestión de incidentes con FastAPI, SQLAlchemy, PostgreSQL y React/TypeScript. Incluye Argon2id, JWT de 15 minutos, permisos en backend, acciones de respuesta e historial de estados. La iteración 04 incorpora archivos Suricata EVE JSON Lines al motor de correlación UTC y riesgo versionado existente, con evidencia y reporte de importación.
 
 La **iteración 05** incorpora evaluación experimental reproducible: datasets separados del flujo operativo, comparación emparejada FIFO/SmartIR, métricas con motivos de «No calculable» y exportación CSV/JSON. Los reportes no representan trabajo de operadores ni demuestran mejoras estadísticas.
@@ -101,6 +105,19 @@ Respaldar PostgreSQL y detener escrituras antes de actualizar. Conservar el volu
 Fuera de Docker, definir DATABASE_URL y JWT_SECRET en el entorno; desde backend ejecutar `python -m alembic upgrade head`, `python -m app.bootstrap` y `python -m uvicorn app.main:app`. La API ya no crea tablas al arrancar.
 
 ## Pruebas
+
+Las instrucciones y cifras posteriores de iteraciones anteriores son históricas. Para el cierre10 se ejecutó además un recorrido de61 operaciones HTTP por base y un test Playwright real; consultar la matriz para distinguir assertions, casos pytest, prueba de navegador y resultados sintéticos. Los runners crean exclusivamente bases/schemas UUID temporales y rechazan sobrescribir evidencias.
+
+```powershell
+# Después de instalar dependencias, npm ci/build y Chromium, y arrancar PG temporal55440
+# siguiendo docs/GUIA_DESPLIEGUE.md (nunca usar la BD habitual):
+.venv\Scripts\python -m validation.run_integral --database postgresql --browser --label replica
+.venv\Scripts\python -m validation.run_integral --database sqlite --label replica
+.venv\Scripts\python -m benchmarks.http_concurrent --label replica
+powershell -NoProfile -File validation/compose_smoke.ps1
+```
+
+React centraliza ahora `VITE_API_URL`, con default `http://localhost:8000`; un valor vacío permite proxy same-origin de prueba. No amplía CORS automáticamente. Playwright es solo dependencia de desarrollo; sus credenciales viven en procesos efímeros, sin traces/HAR/storageState. npm ci debe terminar antes de abrir Vite para evitar bloqueo de esbuild en Windows. Sin cambios de esquema: **0008 sigue siendo head**, sin0009/0010 innecesarias.
 
 Desde la raíz, PowerShell:
 

@@ -5,7 +5,7 @@ import Evaluation from './Evaluation';
 import MachineLearning from './MachineLearning';
 import IncidentLifecycle from './IncidentLifecycle';
 import AnalyticsDashboard from './AnalyticsDashboard';
-const API = 'http://localhost:8000';
+import {API} from './api';
 type User = {id:string; username:string; role:'administrador'|'analista'|'observador'};
 type ImportReport = {imported:number;duplicates:number;discarded?:number;unknown?:number;batches?:number;complete?:boolean;errors?:{line:number|null;code:string;fields:string[]}[];errors_omitted?:number};
 type EventView = {id:string;source:string;message:string;asset_criticality:number;asset_criticality_observed:boolean|null;adapter_metadata:Record<string,unknown>|null};

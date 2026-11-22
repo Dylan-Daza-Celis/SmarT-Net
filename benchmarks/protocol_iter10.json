@@ -1,0 +1,27 @@
+{
+  "version": "iter10-http-v1",
+  "declared_before_execution": "2026-11-22",
+  "data_kind": "synthetic",
+  "seed": 202610,
+  "clients": [1, 5, 10, 20],
+  "scenarios": ["ingestion", "dashboard"],
+  "requests_per_scenario": 40,
+  "events_per_request": 100,
+  "fixture_events": 1000,
+  "duplicate_request_every": 10,
+  "request_timeout_seconds": 30,
+  "retry_automatically": false,
+  "percentile": "linear interpolation at (n-1)*p; all HTTP samples, plus separate success/429/503 series",
+  "deployment": "one real Uvicorn process, limit-concurrency 32, no-proxy-headers, no-server-header; default AbuseController quotas and slots unchanged",
+  "isolation": "fresh UUID schema per scenario on dedicated PostgreSQL16 at 127.0.0.1:55440/smartir_validation; API restarted once after fixture provisioning, before measurement",
+  "acceptance": {
+    "unexpected_errors": 0,
+    "http_503": 0,
+    "minimum_successes_per_scenario": 1,
+    "all_429_have_positive_retry_after": true,
+    "stored_event_count_equals_union_of_successful_payloads_plus_fixture": true,
+    "baseline_rows_preserved": true,
+    "success_latency_p95_max_seconds": 5,
+    "interpretation": "429 are expected admission control, not accepted event loss; failed criteria must be reported. No production SLO or human MTTD/MTTR inference."
+  }
+}

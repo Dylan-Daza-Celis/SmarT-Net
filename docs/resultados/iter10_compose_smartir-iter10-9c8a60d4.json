@@ -1,0 +1,16 @@
+﻿{
+    "generated_at":  "2026-11-22T20:00:58.4313974+00:00",
+    "project":  "smartir-iter10-9c8a60d4",
+    "health":  {
+                   "status":  "ok",
+                   "service":  "smartir-net"
+               },
+    "web_http":  200,
+    "migration":  "0008",
+    "postgresql":  "16.16",
+    "data_kind":  "empty isolated test volume",
+    "browser_tested_in_this_compose":  false,
+    "scope":  "startup, migration, health and web HTTP only; independent browser/API journey uses isolated runner",
+    "original_services_modified":  false,
+    "volumes_removed":  false
+}

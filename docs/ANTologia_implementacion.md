@@ -1,4 +1,6 @@
-# Diseño e implementación de SmartIR-Net — estado acumulado hasta iteración 09
+# Diseño e implementación de SmartIR-Net — estado acumulado hasta iteración 10
+
+**Borrador técnico para revisión académica; no antología final aprobada.** La validación10 amplía la evidencia anterior con HTTP concurrente y Chromium reales. Las limitaciones temporales de capítulos previos se conservan como contexto histórico; consultar [VALIDACION_INTEGRAL.md](VALIDACION_INTEGRAL.md) para el estado vigente y su matriz de trazabilidad.
 
 Este capítulo describe la implementación actual. Las versiones anteriores y sus resultados de validación se conservan en el historial Git, AUTENTICACION_Y_RESPUESTA.md y CORRELACION_Y_RIESGO.md; sus limitaciones históricas no deben interpretarse como ausencia de componentes que ya se implementaron.
 
@@ -90,7 +92,7 @@ La iteración 08 sustituye la compatibilidad de nuevas acciones sin revisión: a
 
 La evidencia HTTP sintética de 08 produjo 6 incidentes/7 eventos; el score del caso de exfiltración se mantuvo 83 al recibir evidencia durante cierre y pasó a 86 solo con reevaluación explícita, conservando evaluaciones anteriores. Un intento de acción obsoleta devolvió 409 y MTTD/MTTR quedaron No calculable. Los archivos JSON/CSV/PDF y su verificación están en docs/resultados, claramente identificados como sintéticos. No son mediciones de detección IDS ni trabajo humano. [Arquitectura, fórmulas, migración 0008, archivos, pruebas e instrucciones de captura](DASHBOARD_Y_REPORTES.md).
 
-Validación final 08: 106 pruebas aprobadas en SQLite (68.78s) y 106 en PostgreSQL 16 (383.11s), con advertencia heredada de Starlette/AnyIO. Build TypeScript/Vite correcto y Compose en 0008. Se verificó persistencia del hash tras recrear API y parada API/PostgreSQL con código 0, conservando volumen y servicios originales. No se realizaron capturas/pruebas de navegador o carga; se incluyen instrucciones reproducibles y los fallos reales corregidos, sin borrar las evidencias de iteraciones previas.
+Validación final 08: 106 pruebas aprobadas en SQLite (68.78 s) y 106 en PostgreSQL 16 (383.11 s), con advertencia heredada de Starlette/AnyIO. Build TypeScript/Vite correcto y Compose en 0008. Se verificó persistencia del hash tras recrear API y parada API/PostgreSQL con código 0, conservando volumen y servicios originales. No se realizaron capturas/pruebas de navegador o carga; se incluyen instrucciones reproducibles y los fallos reales corregidos, sin borrar las evidencias de iteraciones previas.
 
 ## Seguridad y rendimiento reproducible: iteración 09
 
@@ -103,3 +105,54 @@ El protocolo sintético de semilla 202609 se declaró antes de medir: 100/1000/1
 El perfil inicial identificó ~81.000 sentencias para 10.000 eventos. Prefetch/caché por lote e inserciones agrupadas redujeron el conteo pareado a 3321 SQLite y 3428 PostgreSQL, sin cambiar fingerprints, ventanas, parámetros o evaluaciones. Hashes semánticos de las fases coinciden. Con librerías comunes actualizadas, 10.000 eventos pasaron de 28.95039 a 9.07892 s SQLite y de 101.70874 a 14.88929 s PostgreSQL. Son observaciones de host compartido, no superioridad estadística; varias latencias de dashboard/reportes empeoraron y se publican también. No se interpreta throughput como reducción de MTTD/MTTR.
 
 Validación: 124 pruebas aprobadas por motor (SQLite 76.48 s, PostgreSQL 16 470.08 s), build React correcto, Compose con controles HTTP y parada exit=0 conservando volúmenes/servicios originales. Alembic permanece en 0008: los índices existentes fueron observados mediante EXPLAIN y no se justificó migración 0009. Se conserva advertencia de TestClient/httpx, cuotas no distribuidas, despliegue local y trabajo pendiente en grandes históricos. Métodos, archivos, fuentes, fallos y resultados completos: [SEGURIDAD_Y_RENDIMIENTO.md](SEGURIDAD_Y_RENDIMIENTO.md).
+
+## Consolidación y cierre técnico provisional: iteración 10
+
+Esta fase verificó el repositorio existente y agregó recorridos reproducibles, documentación de operación/despliegue y evidencia TCP/navegador. No cambió el backend, los algoritmos de riesgo/ML, sus evaluaciones congeladas ni las migraciones históricas. React centraliza ahora la URL de API en VITE_API_URL, conservando localhost8000 como default; el arnés utiliza un proxy same-origin hacia su instancia aislada. Playwright es dependencia de desarrollo. No se requirió migración0010: head0008 sigue vigente.
+
+### Trazabilidad de las diez iteraciones
+
+| Iteración | Implementación y resultado principal | Evidencia/alcance |
+|---|---|---|
+|01|Plataforma FastAPI/PostgreSQL/React, ingestión normalizada y esquema previo|Código y adopción legacy probada en test_api; no se inventa una ejecución01 separada |
+|02|Argon2id/JWT/RBAC, usuarios, historial y acciones|AUTENTICACION_Y_RESPUESTA y regresiones actuales |
+|03|Ventanas UTC por tipo/IP, fingerprint y riesgo congelado|CORRELACION_Y_RIESGO; extremos/límites/tardíos/migración |
+|04|EVE JSONL, taxonomía conservadora y originales/procedencia|INTEGRACION_SURICATA;38 pruebas históricas, regresión10 |
+|05|Evaluación emparejada FIFO/SmartIR con referencias separadas|60 casos sintéticos,7/23 vs4/23 críticos conK 10;54 pruebas históricas |
+|06|LR/RF interpretables, test por grupos y artefacto JSON seguro|Laboratorio288 casos, macro-F1 .5656/.7086/.4188, crítica31/33 weighted vs23/33 ML;65 pruebas |
+|07|Responsables, máquina de estados, ciclos, revisiones y métricas documentales|GESTION_AVANZADA_INCIDENTES;82 pruebas históricas |
+|08|Agregación SQL, Recharts, snapshots/PDF y reevaluación explícita|Reportes/hashes reales sintéticos;106 pruebas por motor |
+|09|Controles de abuso/seguridad, consultas paginadas y optimización por lotes|124 pruebas por motor; pares ASGI10.000 eventos con igualdad semántica, mejoras y regresiones documentadas |
+|10|Integración completa, reinicio conservando datos, Chromium, TCP concurrente y guías|126 pruebas por motor,1test navegador final,61 checks HTTP por base y320 muestras de carga |
+
+Los conteos por iteración son fotografías históricas y no se suman para aparentar una muestra mayor: la suite10 incluye regresiones previas. Tampoco se suman assertions o checks del journey a los casos pytest.
+
+### Flujos completos comprobados
+
+El recorrido parte de una BD nueva con migraciones, crea tres roles y autentica por la API. Importa SmartIR y EVE, repite para deduplicar y conserva evidencia EVE; distingue ventanas/IP y valida desglose weighted-v2. Asigna a analista y recorre Nuevo→Asignado→En análisis→En respuesta→Resuelto→Cerrado, registrando acción y autores. Un evento posterior al cierre produce señal sin recalcular; administrador reabre y el responsable solicita reevaluación explícita con revisión y parámetros congelados. Evaluaciones anteriores permanecen idénticas.
+
+El mismo recorrido consulta filtros analíticos y genera snapshot JSON/CSV/PDF, crea evaluación experimental y laboratorio ML, entrena y compara en test reservado, consulta inferencia cegada y verifica No calculable con motivo. Después de reiniciar Uvicorn compara hashes/conteos de todas las tablas y exportaciones y vuelve a consultar modelo/experimento. El backend conserva sus contratos expected_revision: acciones sin revisión428, obsoletas409.
+
+Los flujos analíticos y experimentales siguen separados. Las características no contienen etiquetas de referencia, grupos/IDs/desenlaces o score ponderado como predictor. Los resultados congelados, a menudo sintéticos, no se filtran como si fueran incidentes operativos actuales. En la interfaz, otros roles pueden inferir sin conocer referencias, pero entrenar/gestionar modelos y consultar métricas etiquetadas requiere administrador investigador. No hay activación ML operacional.
+
+### Resultados y procedencia de la validación10
+
+Suite completa: **126 passed SQLite 102.83 s y126 passed PostgreSQL 16.16 119.27 s**, sin fallos u omisiones. Se conserva advertencia TestClient/httpx. Build TypeScript/Vite correcto,442 módulos,4.56 s; npm ci final correcto. npm audit y pip-audit con dependencias transitivas resueltas/dev no reportaron avisos conocidos a fecha de consulta; no es certificación ni pentest. Compose separado migró a0008, health/web200 y se detuvo conservando volumen; servicios originales no fueron modificados.
+
+Playwright/Chromium 149.0.7827.55 ejecutó un test final con tres roles,14 checks descriptivos, importación de archivos, filtros/estado vacío, responsable/transición/acción/timeline,409 visible por otro escritor y descarga de tres formatos.401 y429 se verificaron también en formulario;403/422 por HTTP desde el navegador. Sin errores JS. Capturas PNG y reportes provienen de esa ejecución, con datos sintéticos y sin credenciales. No se generaron imágenes ficticias ni trazas/HAR con tokens. Los intentos iniciales fallidos de arnés/npm están documentados, sin contarlos como éxitos del producto.
+
+Protocolo TCP previo: seed 202610, una API Uvicorn por condición, PostgreSQL temporal/schemaUUID,40 solicitudes para cada operación×clientes1/5/10/20,100 eventos por solicitud EVE, fixture1000 eventos y cuotas predeterminadas. Total320 solicitudes: **114 éxitos,206 HTTP429,0 HTTP503 y0errores inesperados**. En ingestión, éxitos30/3/3/2; dashboard40/20/8/8. La admisión bajo ráfaga elevada es baja: cumplir los criterios funcionales predeclarados no equivale a satisfacer una demanda de producción. Cada429 tuvo Retry-After; las cargas aceptadas conservaron conteos, duplicados y baseline.
+
+Se publican p50/p95/p99, duración, solicitudes/s, eventos nuevos/s y muestras individuales, incluyendo rechazos. No se midió CPU/RSS del servidor en ese runner. Son ráfagas breves de host compartido, sin repeticiones estadísticas ni carga sostenida. Los resultados09 ASGI no son un control antes/después comparable a TCP10. No se deduce mejora de MTTD/MTTR ni eficacia humana.
+
+### Estado documental, prácticas y límites metodológicos
+
+[VALIDACION_INTEGRAL](VALIDACION_INTEGRAL.md) incluye matriz requisito→componente→prueba→evidencia→estado, entorno, fórmulas de carga, fallos/correcciones y límites. [GUIA_USUARIO](GUIA_USUARIO.md) explica roles, importación, trabajo operativo, modelos y reportes. [GUIA_DESPLIEGUE](GUIA_DESPLIEGUE.md) documenta variables sin secretos, actualización aditiva, liveness/readiness, respaldo y restauración **como procedimiento todavía no ensayado** en esta fase.
+
+Las cinco [prácticas Packet Tracer](PRACTICAS_PACKET_TRACER.md) se ampliaron con topología/puertos, tabla IPv4, configuraciones por dispositivo, teoría, secuencias, pruebas positivas/negativas, criterios, diagnóstico y evidencias que debe entregar otro implementador. Estado de cada una: **DISEÑADA; implementación y validación pendientes**. VLAN/ACL/SSH-AAA/Syslog proporcionan conceptos de intercomunicación, control y observabilidad; la quinta propone traducción **manual y explícita** a JSON de laboratorio. No existe receptor Syslog/IOS en SmartIR, ejecución Suricata en Packet Tracer ni captura EVE real desde esas topologías. No hay `.pkt` ni capturas PT creadas en esta entrega.
+
+Se conserva el bosquejo histórico de prácticas, pero los IDs RPT/RF sin catálogo verificable no sirven para declarar cumplimiento externo. Las referencias Cisco incluidas son primarias y no prueban soporte de todos los comandos del simulador: se exige registrar versión/subset. La antología tampoco contiene una bibliografía fabricada o una aprobación académica inexistente.
+
+La verificación de resultados anteriores compara blobs Git normalizados para CRLF/LF de Windows y registra hashes de disco aparte; un colector preliminar confundió esas representaciones, se conserva y se aclara en el informe. No se reescribieron evidencias históricas. La BD del usuario no se inspeccionó ni modificó; la preservación exhaustiva y reinicios se demostraron en bases aisladas. No se publicaron secretos, dumps o datos reales.
+
+Pendientes: ensayo de restauración, implementaciones PT, otros navegadores/accesibilidad, carga sostenida/multiproceso/proxy, autenticación/defensa distribuidas de producción, validación con datos reales autorizados y ensayos humanos/estadísticos. Las ventanas fijas y los priors de criticidad/contexto conservan sus limitaciones; No calculable permanece como ausencia de evidencia, sin convertirse a cero. El cierre es técnico y provisional, no validación operacional ni aprobación final de esta antología.

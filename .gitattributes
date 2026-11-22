@@ -1,0 +1,4 @@
+# Preserve evidence bytes and PDF cross-reference offsets across operating systems.
+*.pdf binary
+*.png binary
+docs/resultados/iter10*.csv -text whitespace=cr-at-eol

@@ -1,0 +1,451 @@
+{
+  "data_kind": "synthetic",
+  "checks": [
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 401
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/393a7e3d-cbe0-40e3-9ab4-d50300e84acb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/dc815d63-02bc-4f0e-b3f6-156784e0a370/evidence",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/assignment",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/assignment",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/actions",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/actions",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/evaluations",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/evaluations",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/reevaluate",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/evaluations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/timeline",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/04a173b4-84bf-49c2-afbd-aac59e9ad782/lifecycle",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/dashboard",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analytics/reports",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/d06ac301-e7b2-492d-8c66-f9e9206cda91",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/d06ac301-e7b2-492d-8c66-f9e9206cda91",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/d06ac301-e7b2-492d-8c66-f9e9206cda91",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/datasets/synthetic",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/experiments",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/experiments/9b686bb5-1c9d-494b-9a08-e2370aff4938",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/datasets/laboratory",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/datasets/21f5c479-fa0a-4918-b28a-0ba1ecc01bed/cases",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/runs/ea197ce9-e520-4aeb-8605-aae9e9d4f4d4/predict",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/comparisons",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 422
+    }
+  ],
+  "incident_id": "04a173b4-84bf-49c2-afbd-aac59e9ad782",
+  "report_id": "d06ac301-e7b2-492d-8c66-f9e9206cda91",
+  "experiment_id": "9b686bb5-1c9d-494b-9a08-e2370aff4938",
+  "ml_run_id": "ea197ce9-e520-4aeb-8605-aae9e9d4f4d4",
+  "export_sha256": {
+    "json": "b8224b71541285aedcacdf7a38916ec819928c624954baeec4c8512de938f564",
+    "csv": "6375e0b0e227b69222c46af3e70a67f7cfad2b45d8cac878cb2ea0f73555562a",
+    "pdf": "8cb6a5b43a1843cd03747f8591ac1f3ba65bf0d331df985314b4b06d383d446a"
+  },
+  "counts": {
+    "events": 6,
+    "incidents": 4
+  },
+  "mttd": "No calculable",
+  "mttr": "No calculable",
+  "database": "postgresql",
+  "generated_at": "2026-11-22T20:06:25.474819+00:00",
+  "transport": "HTTP TCP loopback, real Uvicorn process",
+  "api_restart_preserved": true,
+  "tables_before_after": {
+    "alembic_version": {
+      "rows": 1,
+      "sha256": "914e918499850838d17b1caf6f9c45d37fc3137d520a294dabb954b201199b7d"
+    },
+    "analytics_reports": {
+      "rows": 1,
+      "sha256": "88bd509b47adabae84a3e1d7621d6fa7a4d8c72a1bafe638b113b30f13a0a2c8"
+    },
+    "assignment_history": {
+      "rows": 1,
+      "sha256": "4ea6ada1aa26402b9df3aef76eecc3247f661dc5ada010f53b01ae853a64511e"
+    },
+    "evaluation_cases": {
+      "rows": 348,
+      "sha256": "11dc6f8ab0fb59745f62248ad164af436ad4d0138380a6323ece36edc82fd8ef"
+    },
+    "evaluation_datasets": {
+      "rows": 2,
+      "sha256": "241f48cbb66f8363d91a8945526d8ce2c4cf6d77296a808efbf16f08839fdd5d"
+    },
+    "evaluation_event_links": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "evaluation_references": {
+      "rows": 348,
+      "sha256": "64717c2e31cf4ef2979455da1cda14b30f754193e3006d4860655de7fdcb92f8"
+    },
+    "event_evidence": {
+      "rows": 2,
+      "sha256": "a8ef67f3bb985a2dcf9b75e6887c78467804277e959b0364aa61d9e7e167b385"
+    },
+    "events": {
+      "rows": 6,
+      "sha256": "12eaffe035a026066f599a65176dff607c63d43b03c24d51c55c978de2859ff6"
+    },
+    "experiments": {
+      "rows": 1,
+      "sha256": "3e4b9d20dda5c9b3d676c63833f9b1cf37d839f6340c254cf238a22456b9be01"
+    },
+    "incident_history": {
+      "rows": 10,
+      "sha256": "a099ebbc2f99c13ed0cc8830bd6c5f2f5ab345b392857d1bdc61d70ec714db4d"
+    },
+    "incident_review_signals": {
+      "rows": 1,
+      "sha256": "f5108a28b86b1a5ad0335d0c416c64f40fceb0b905b34a75c3707e2880595087"
+    },
+    "incident_time_evidence": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "incidents": {
+      "rows": 4,
+      "sha256": "848e905f49755b23925be6fac6948ade15c36e1db956fb3b9e401698d28b8dc0"
+    },
+    "ml_runs": {
+      "rows": 1,
+      "sha256": "ddd9ce07f6b026c670652615401d8e94e435aa53d6af7de8f4efd8d572855f76"
+    },
+    "response_actions": {
+      "rows": 1,
+      "sha256": "823538722c1ea68ef688f670b500b4e31ec96b8f48b67ea0501cbf1aed6dd6de"
+    },
+    "review_acknowledgements": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "risk_evaluations": {
+      "rows": 5,
+      "sha256": "0a370d2dc2f1cd76c36de31130f2679435c76b3ac6ec6ce4dfd84e7b11fb8a52"
+    },
+    "risk_reassessment_signals": {
+      "rows": 1,
+      "sha256": "3bc9d6efe97692fe0a752d0779cc4e9771197d3a7875acb40eef75874eeccad0"
+    },
+    "risk_reassessments": {
+      "rows": 1,
+      "sha256": "aa4ddd3d1a055c4a1cc23e9dd6bb6f84c3caea9c35f8d03bb0f8f861d68c5728"
+    },
+    "users": {
+      "rows": 3,
+      "sha256": "49d288e23e62ee0f67c9cfd77636d8a32f42e59a1b8430b0194ff726a08e1351"
+    }
+  },
+  "python": "3.11.15",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "browser": {
+    "browser": "149.0.7827.55",
+    "engine": "Chromium",
+    "checks": [
+      "401 visible en formulario de login",
+      "login administrador",
+      "dashboard real, UTC y No calculable",
+      "filtros combinables y estado vacío",
+      "importación SmartIR y Suricata mediante selector de archivos",
+      "detalle, asignación, transición, acción y timeline",
+      "409 visible por revisión obsoleta real",
+      "descargas JSON, CSV y PDF desde botones",
+      "login analista",
+      "analista escritor sin entrenamiento ni etiquetas",
+      "login observador",
+      "observador solo lectura, detalle y timeline",
+      "401/403/422/429 reales; validación sin reflejar entrada; Retry-After",
+      "429 visible en formulario, con Retry-After"
+    ],
+    "statuses": {
+      "unauth": 401,
+      "denied": 403,
+      "invalid": 422,
+      "safe": true,
+      "limited": 429,
+      "retry": "44"
+    },
+    "page_errors": [],
+    "synthetic": true,
+    "network": "real loopback API via same-origin Vite proxy",
+    "traces": false,
+    "credentials_saved": false
+  },
+  "duration_seconds": 30.153084699995816
+}
