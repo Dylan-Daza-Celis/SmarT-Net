@@ -20,8 +20,8 @@ from fastapi import Depends
 from typing import Literal
 from argon2.exceptions import VerificationError, InvalidHashError
 
-app = FastAPI(title="SmartIR-Net API", version="0.7.0", description="Gestión de incidentes con autenticación y roles")
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"])
+app = FastAPI(title="SmartIR-Net API", version="0.8.0", description="Gestión de incidentes con autenticación y roles")
+app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "Authorization"], expose_headers=["Content-Disposition", "X-Content-SHA256"])
 
 def serialize(inc: Incident, db, count: int | None = None):
     return {**lifecycle.summary(db,inc), "source_ip": inc.source_ip, "correlation_version": inc.correlation_version or "legacy",
@@ -90,6 +90,7 @@ class StatusIn(lifecycle.LifecycleInput):
 
 class ActionIn(lifecycle.LifecycleInput):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    expected_revision: int | None = Field(default=None, ge=0, strict=True)
     category: Literal["comentario","contencion","erradicacion","recuperacion","verificacion"] = "comentario"
     performed_at: AwareDatetime | None = None
     description: str = Field(min_length=1, max_length=4000)
@@ -177,8 +178,7 @@ def add_action(incident_id: str, data: ActionIn, user: User = Depends(writers)):
     with Session.begin() as db:
         lifecycle.mutation_lock(db)
         actor=lifecycle.actor(db,user.id)
-        inc=db.get(Incident,incident_id)
-        if inc is None:raise HTTPException(404,"Incidente no encontrado")
+        inc=lifecycle.incident(db,incident_id,data.expected_revision)
         if data.category!="comentario":
             lifecycle.owner_or_admin(inc,actor)
             lifecycle.eligible(db,inc.assigned_to_id)
@@ -262,3 +262,9 @@ app.include_router(ml_router)
 
 from .lifecycle_api import router as lifecycle_router
 app.include_router(lifecycle_router)
+
+from .reassessment import router as reassessment_router
+app.include_router(reassessment_router)
+
+from .analytics_api import router as analytics_router
+app.include_router(analytics_router)

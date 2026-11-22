@@ -4,6 +4,7 @@ from fastapi import HTTPException
 from sqlalchemy import select, text
 from pydantic import BaseModel, ConfigDict, field_validator
 from .models import User, Incident, IncidentHistory, AssignmentHistory, IncidentReviewSignal, ReviewAcknowledgement
+from .risk_audit import pending
 
 VERSION="lifecycle-v1"
 TRANSITIONS={"Nuevo":[],"Asignado":["En análisis"],"En análisis":["Asignado","En respuesta"],
@@ -119,5 +120,6 @@ def needs_review(db,incident_id):
 def summary(db,inc):
     user=db.get(User,inc.assigned_to_id) if inc.assigned_to_id else None
     return {"revision":inc.revision,"assigned_to_id":inc.assigned_to_id,
+            "risk_reevaluation_pending":pending(db,inc.id),
             "assignee":None if user is None else {"id":user.id,"username":user.username,"active":user.active,"role":user.role},
             "needs_review":needs_review(db,inc.id),"lifecycle_legacy":inc.lifecycle_started_at is None}

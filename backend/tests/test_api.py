@@ -65,7 +65,7 @@ def test_permissions_import_status_actions(api, headers, batch, role):
     revision=client.get(f"/api/incidents/{iid}",headers=h).json()["revision"]
     uid=client.get("/api/auth/me",headers=h).json()["id"]
     assert client.patch(f"/api/incidents/{iid}/assignment",json={"assigned_to_id":uid,"justification":"Initial review","expected_revision":revision},headers=h).status_code == (200 if allowed else 403)
-    assert client.post(f"/api/incidents/{iid}/actions",json={"description":"Aislar equipo"},headers=h).status_code == (201 if allowed else 403)
+    assert client.post(f"/api/incidents/{iid}/actions",json={"description":"Aislar equipo","expected_revision":client.get(f"/api/incidents/{iid}",headers=h).json()["revision"]},headers=h).status_code == (201 if allowed else 403)
 
 
 def test_import_deduplication_and_validation(api, headers, batch):
@@ -104,7 +104,7 @@ def test_status_audit_and_actions(api, headers, batch):
     assert all(row["author"] == "administrador" and row["author_id"] and row["created_at"] and row["justification"] for row in history)
     with session() as db:
         assert len(db.scalars(select(IncidentHistory).where(IncidentHistory.incident_id==iid)).all()) == 7
-    assert client.post(path+"/actions",json={"description":"Bloqueo de IP"},headers=h).status_code == 201
+    assert client.post(path+"/actions",json={"description":"Bloqueo de IP","expected_revision":client.get(path,headers=h).json()["revision"]},headers=h).status_code == 201
     assert client.post(path+"/actions",json={"description":" "},headers=h).status_code == 422
     assert client.get(path+"/actions",headers=h).json()[0]["author"] == "administrador"
     assert client.patch("/api/incidents/missing/status",json={"status":"Cerrado","justification":"Motivo"},headers=h).status_code == 404
@@ -124,4 +124,4 @@ def test_migration_preserves_legacy_data(api):
     with session() as db:
         assert db.execute(text("SELECT status FROM incidents WHERE id='legacy'")).scalar() == "Nuevo"
         assert db.execute(text("SELECT incident_id FROM events WHERE id='old-event'")).scalar() == "legacy"
-        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0007"
+        assert db.execute(text("SELECT version_num FROM alembic_version")).scalar() == "0008"

@@ -1,5 +1,7 @@
 # Iteración 07: gestión avanzada del ciclo de vida
 
+Nota de continuidad: este documento conserva la especificación y resultados comprobados de 07. Desde 08, las nuevas acciones también requieren expected_revision y la evidencia recibida durante cierre exige reevaluación explícita después de reabrir; esas reglas sustituyen la compatibilidad sin revisión y el recálculo por importación descritos aquí. Véase [DASHBOARD_Y_REPORTES.md](DASHBOARD_Y_REPORTES.md). No se borran resultados históricos.
+
 ## Alcance y arquitectura inspeccionada
 
 Se inspeccionaron main.py, models.py, ingestion.py, endpoints de acciones/usuarios, esquemas, migraciones y pruebas. Antes de esta iteración, Asignado no tenía responsable y cualquier escritor podía saltar entre los seis estados. La nueva política `lifecycle-v1` se aplica en backend, sin sustituir FastAPI, PostgreSQL, SQLAlchemy, Alembic, JWT/RBAC o React/TypeScript.

@@ -10,6 +10,7 @@ from .models import Event, EventEvidence, Incident, IncidentHistory, RiskEvaluat
 from .risk import evaluate, parameters
 from .lifecycle import mutation_lock, now, actor, VERSION as LIFECYCLE_VERSION
 from .schemas import EventIn
+from .risk_audit import pending
 
 
 @dataclass
@@ -76,7 +77,7 @@ def ingest(records, author_id, session_factory):
         for inc_id in affected:
             inc = db.get(Incident, inc_id)
             inc.revision+=1
-            if inc.status=="Cerrado":
+            if inc.status=="Cerrado" or pending(db,inc.id):
                 continue
             events = db.scalars(select(Event).where(Event.incident_id == inc_id)).all()
             explanation = evaluate(events, json.loads(inc.risk_parameters))

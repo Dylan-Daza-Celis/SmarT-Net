@@ -6,6 +6,8 @@ from sqlalchemy import select, func
 from . import database, lifecycle as service
 from .operational_metrics import details
 from .models import User, Incident, AssignmentHistory, IncidentHistory, ResponseAction, IncidentReviewSignal, ReviewAcknowledgement, IncidentTimeEvidence
+from .models import RiskReassessment
+import json
 from .security import current_user, writers, administrators
 
 router=APIRouter(tags=["Incident lifecycle"])
@@ -102,6 +104,13 @@ def timeline(incident_id:str,user:User=Depends(current_user)):
                 "source_kind":h.source_kind,"evidence_reference":h.evidence_reference,"review_note":h.review_note,
                 "occurred_at":service.iso(h.occurred_at),"detected_at":service.iso(h.detected_at),
                 "response_completed_at":service.iso(h.response_completed_at),"cycle_number":h.cycle_number})
+        for h in db.scalars(select(RiskReassessment).where(RiskReassessment.incident_id==incident_id)):
+            items.append({"id":h.id,"kind":"risk_reassessment","at":service.iso(h.created_at),
+                "author_id":h.author_id,"author":names[h.author_id],"justification":h.justification,
+                "evaluation_id":h.evaluation_id,"previous_revision":h.previous_revision,
+                "resulting_revision":h.resulting_revision,"cycle_number":h.cycle_number,
+                "signal_ids":json.loads(h.signal_ids),"event_ids":json.loads(h.event_ids),
+                "parameters":json.loads(h.parameters)})
         return sorted(items,key=lambda h:(h['at'],h['kind'],h['id']))
 
 

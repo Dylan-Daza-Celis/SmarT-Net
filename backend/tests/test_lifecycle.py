@@ -221,16 +221,18 @@ def test_temporal_evidence_revision_source_and_metrics(api,headers,batch):
 def test_actions_preserve_comments_and_category_constraints(api,headers,batch):
     client,_,_=api;h=headers('administrador');iid=create(client,h,batch);uid=client.get('/api/auth/me',headers=h).json()['id']
     path=f'/api/incidents/{iid}/actions'
-    assert client.post(path,json={'description':'Existing compatible comment'},headers=headers('analista')).status_code==201
-    assert client.post(path,json={'description':'Contain','category':'contencion'},headers=h).status_code==409
+    def post(data,headers):
+        return client.post(path,json={**data,'expected_revision':current(client,headers,iid)['revision']},headers=headers)
+    assert post({'description':'Existing compatible comment'},headers=headers('analista')).status_code==201
+    assert post({'description':'Contain','category':'contencion'},headers=h).status_code==409
     assign(client,h,iid,uid);transition(client,h,iid,'En análisis');transition(client,h,iid,'En respuesta')
-    assert client.post(path,json={'description':'Contain','category':'contencion'},headers=headers('analista')).status_code==403
-    response=client.post(path,json={'description':'Containment record, no execution','category':'contencion'},headers=h)
+    assert post({'description':'Contain','category':'contencion'},headers=headers('analista')).status_code==403
+    response=post({'description':'Containment record, no execution','category':'contencion'},headers=h)
     assert response.status_code==201 and response.json()['date_basis']=='recorded_at'
-    declared=client.post(path,json={'description':'Declared timestamp','category':'verificacion','performed_at':'2026-01-01T05:00:00+05:00'},headers=h)
+    declared=post({'description':'Declared timestamp','category':'verificacion','performed_at':'2026-01-01T05:00:00+05:00'},headers=h)
     assert declared.status_code==201
     assert client.get(path,headers=h).json()[-1]['performed_at']=='2026-01-01T00:00:00+00:00'
-    assert client.post(path,json={'description':'Invalid','category':'command'},headers=h).status_code==422
+    assert post({'description':'Invalid','category':'command'},headers=h).status_code==422
     assert len(client.get(path,headers=h).json())==3
 
 
@@ -272,7 +274,7 @@ def test_0007_preserves_legacy_states_and_ml_data(api,headers):
         for table in tables:
             rows=db.execute(text(f'SELECT * FROM {table}')).mappings().all()
             assert [{k:r[k] for k in before[table][0]} for r in rows]==before[table] if before[table] else rows==[]
-        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0007'
+        assert db.execute(text('SELECT version_num FROM alembic_version')).scalar()=='0008'
     h=headers('administrador')
     life=client.get('/api/incidents/5/lifecycle',headers=h).json()
     assert life['lifecycle_legacy'] is True and all(v['value'] is None for v in life['metrics'].values())

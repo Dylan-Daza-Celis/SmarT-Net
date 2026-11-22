@@ -1,0 +1,41 @@
+﻿record,key,value,unit,status,reason,details_json
+metadata,snapshot,98b1c087-5116-49f1-a5fc-09e984106ab1,,,,"{""content_sha256"": ""8cae5263af9bb8487e8091ca9e761798690554ceffd4875a89f42e5d4c5832f7"", ""filters"": {""assignee"": null, ""end"": ""2026-01-02T00:00:00Z"", ""event_type"": null, ""priority"": null, ""source"": ""iter08-synthetic-example"", ""start"": ""2026-01-01T00:00:00Z"", ""status"": null, ""time_basis"": ""event_timestamp""}, ""generated_at"": ""2026-11-22T07:39:44.371103+00:00"", ""limitations"": [""Datos del flujo operativo con procedencia no certificada: pueden incluir ejemplos sint\u00e9ticos; no acreditan eficacia real."", ""Se cuentan eventos deduplicados, no l\u00edneas importadas ni apariciones de evidencia."", ""Estado, prioridad y responsable son actuales, no una reconstrucci\u00f3n hist\u00f3rica al final del periodo."", ""Los intervalos describen registros o evidencia documental; no son mediciones de trabajo humano."", ""Las comparaciones experimentales conservan su cohorte independiente y no se mezclan con este reporte operativo.""], ""methodology"": {""event_denominator"": 7, ""event_trend"": ""En incident_created los eventos se atribuyen a la fecha de creaci\u00f3n del incidente; en los otros ejes se usa su propio timestamp"", ""incident_denominator"": 6, ""incident_trend"": ""Una vez por incidente: creaci\u00f3n o primer evento coincidente seg\u00fan time_basis"", ""period"": ""UTC [start,end)"", ""response_cohort"": ""Primera transici\u00f3n registrada; evidencia temporal vigente del ciclo actual. Media solo con cobertura completa."", ""trend_unit"": ""deduplicated events / distinct incidents per UTC day""}, ""provenance"": {""data_kind"": ""unverified"", ""reason"": ""El esquema de eventos no certifica origen sint\u00e9tico/operacional; no se infiere de source.""}}"
+indicator,assigned,1,count
+indicator,closed,0,count
+indicator,critical_open,1,count
+indicator,events,7,count
+indicator,incidents,6,count
+indicator,needs_review,1,count
+indicator,open,6,count
+indicator,resolved,0,count
+indicator,unassigned,5,count
+indicator,urgent_unassigned,3,count
+distribution,priority,0,count,,,"{""count"": 0, ""name"": ""Baja""}"
+distribution,priority,2,count,,,"{""count"": 2, ""name"": ""Media""}"
+distribution,priority,3,count,,,"{""count"": 3, ""name"": ""Alta""}"
+distribution,priority,1,count,,,"{""count"": 1, ""name"": ""Cr\u00edtica""}"
+distribution,source,7,count,,,"{""count"": 7, ""name"": ""iter08-synthetic-example""}"
+distribution,status,5,count,,,"{""count"": 5, ""name"": ""Nuevo""}"
+distribution,status,0,count,,,"{""count"": 0, ""name"": ""Asignado""}"
+distribution,status,1,count,,,"{""count"": 1, ""name"": ""En an\u00e1lisis""}"
+distribution,status,0,count,,,"{""count"": 0, ""name"": ""En respuesta""}"
+distribution,status,0,count,,,"{""count"": 0, ""name"": ""Resuelto""}"
+distribution,status,0,count,,,"{""count"": 0, ""name"": ""Cerrado""}"
+distribution,type,1,count,,,"{""count"": 1, ""name"": ""acceso_no_autorizado""}"
+distribution,type,1,count,,,"{""count"": 1, ""name"": ""dos""}"
+distribution,type,1,count,,,"{""count"": 1, ""name"": ""escaneo""}"
+distribution,type,1,count,,,"{""count"": 1, ""name"": ""exfiltracion""}"
+distribution,type,1,count,,,"{""count"": 1, ""name"": ""malware""}"
+distribution,type,1,count,,,"{""count"": 1, ""name"": ""uso_indebido""}"
+trend,2026-01-01,,count,,,"{""critical"": 1, ""date"": ""2026-01-01"", ""events"": 7, ""incidents"": 6}"
+metric,mttd,,seconds,No calculable,Cohorte vacía o incompleta; faltan transiciones/baseline o evidencia operacional revisada. No se promedian subconjuntos.,"{""valid"": 0, ""total"": 6}"
+metric,mttr,,seconds,No calculable,Cohorte vacía o incompleta; faltan transiciones/baseline o evidencia operacional revisada. No se promedian subconjuntos.,"{""valid"": 0, ""total"": 6}"
+metric,time_to_assignment,,seconds,No calculable,Cohorte vacía o incompleta; faltan transiciones/baseline o evidencia operacional revisada. No se promedian subconjuntos.,"{""valid"": 1, ""total"": 6}"
+metric,time_to_resolution,,seconds,No calculable,Cohorte vacía o incompleta; faltan transiciones/baseline o evidencia operacional revisada. No se promedian subconjuntos.,"{""valid"": 1, ""total"": 6}"
+metric,time_to_response,,seconds,No calculable,Cohorte vacía o incompleta; faltan transiciones/baseline o evidencia operacional revisada. No se promedian subconjuntos.,"{""valid"": 1, ""total"": 6}"
+incident,e4ed4a7a-af76-4d68-9d7e-5ca83d3c4430,86,score/100,En análisis,,"{""assigned"": true, ""cohort_at"": ""2026-01-01T12:00:00+00:00"", ""created_at"": ""2026-11-22T07:38:37.553860+00:00"", ""event_count"": 2, ""event_type"": ""exfiltracion"", ""id"": ""e4ed4a7a-af76-4d68-9d7e-5ca83d3c4430"", ""needs_review"": true, ""priority"": ""Cr\u00edtica"", ""revision"": 10, ""score"": 86, ""status"": ""En an\u00e1lisis""}"
+incident,5945b0e6-21ce-412e-8286-3d0d225d5627,67,score/100,Nuevo,,"{""assigned"": false, ""cohort_at"": ""2026-01-01T12:00:00+00:00"", ""created_at"": ""2026-11-22T07:38:37.549853+00:00"", ""event_count"": 1, ""event_type"": ""uso_indebido"", ""id"": ""5945b0e6-21ce-412e-8286-3d0d225d5627"", ""needs_review"": false, ""priority"": ""Alta"", ""revision"": 1, ""score"": 67, ""status"": ""Nuevo""}"
+incident,d02fe773-d780-48ff-897b-55a172d3a6d0,57,score/100,Nuevo,,"{""assigned"": false, ""cohort_at"": ""2026-01-01T12:00:00+00:00"", ""created_at"": ""2026-11-22T07:38:37.546500+00:00"", ""event_count"": 1, ""event_type"": ""escaneo"", ""id"": ""d02fe773-d780-48ff-897b-55a172d3a6d0"", ""needs_review"": false, ""priority"": ""Alta"", ""revision"": 1, ""score"": 57, ""status"": ""Nuevo""}"
+incident,52514b5c-c709-4262-a4d9-69fd46956f21,50,score/100,Nuevo,,"{""assigned"": false, ""cohort_at"": ""2026-01-01T12:00:00+00:00"", ""created_at"": ""2026-11-22T07:38:37.543293+00:00"", ""event_count"": 1, ""event_type"": ""dos"", ""id"": ""52514b5c-c709-4262-a4d9-69fd46956f21"", ""needs_review"": false, ""priority"": ""Alta"", ""revision"": 1, ""score"": 50, ""status"": ""Nuevo""}"
+incident,9d2d3d5e-24b3-4e59-9ae3-ad996d4f3a19,40,score/100,Nuevo,,"{""assigned"": false, ""cohort_at"": ""2026-01-01T12:00:00+00:00"", ""created_at"": ""2026-11-22T07:38:37.537902+00:00"", ""event_count"": 1, ""event_type"": ""malware"", ""id"": ""9d2d3d5e-24b3-4e59-9ae3-ad996d4f3a19"", ""needs_review"": false, ""priority"": ""Media"", ""revision"": 1, ""score"": 40, ""status"": ""Nuevo""}"
+incident,ace56df4-6ecc-4de7-bed4-a40dcc7fb451,25,score/100,Nuevo,,"{""assigned"": false, ""cohort_at"": ""2026-01-01T12:00:00+00:00"", ""created_at"": ""2026-11-22T07:38:37.509589+00:00"", ""event_count"": 1, ""event_type"": ""acceso_no_autorizado"", ""id"": ""ace56df4-6ecc-4de7-bed4-a40dcc7fb451"", ""needs_review"": false, ""priority"": ""Media"", ""revision"": 1, ""score"": 25, ""status"": ""Nuevo""}"

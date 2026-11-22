@@ -12,7 +12,7 @@ class Event(Base):
     fingerprint: Mapped[str] = mapped_column(String(64), unique=True, index=True)
     source: Mapped[str] = mapped_column(String(100))
     event_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
-    received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
     source_ip: Mapped[str | None] = mapped_column(String(45), nullable=True)
     destination_ip: Mapped[str | None] = mapped_column(String(45), nullable=True)
     event_type: Mapped[str] = mapped_column(String(60))
@@ -53,7 +53,7 @@ class Incident(Base):
     score: Mapped[int] = mapped_column(Integer, default=0)
     priority: Mapped[str] = mapped_column(String(16), default="Baja")
     explanation: Mapped[str] = mapped_column(Text, default="")
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
     assigned_to_id: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
     revision: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     cycle_number: Mapped[int] = mapped_column(Integer, default=1, server_default="0")
@@ -196,3 +196,34 @@ class MLRun(Base):
     artifacts: Mapped[str] = mapped_column(Text)
     results: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+
+class RiskReassessment(Base):
+    __tablename__ = "risk_reassessments"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    incident_id: Mapped[str] = mapped_column(ForeignKey("incidents.id"), index=True)
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    evaluation_id: Mapped[str] = mapped_column(ForeignKey("risk_evaluations.id"), unique=True)
+    justification: Mapped[str] = mapped_column(Text)
+    previous_revision: Mapped[int] = mapped_column(Integer)
+    resulting_revision: Mapped[int] = mapped_column(Integer)
+    cycle_number: Mapped[int] = mapped_column(Integer)
+    signal_ids: Mapped[str] = mapped_column(Text)
+    event_ids: Mapped[str] = mapped_column(Text)
+    parameters: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class AnalyticsReport(Base):
+    __tablename__ = "analytics_reports"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    author_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    payload: Mapped[str] = mapped_column(Text)
+    content_sha256: Mapped[str] = mapped_column(String(64))
+
+
+class RiskReassessmentSignal(Base):
+    __tablename__ = "risk_reassessment_signals"
+    signal_id: Mapped[str] = mapped_column(ForeignKey("incident_review_signals.id"), primary_key=True)
+    reassessment_id: Mapped[str] = mapped_column(ForeignKey("risk_reassessments.id"), index=True)
