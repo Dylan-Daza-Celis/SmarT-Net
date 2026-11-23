@@ -13,3 +13,5 @@ dist/
 .test-runs/
 .smartir-agent/
 .agent-secrets/
+automation/lab.local.json
+.lab-runtime/

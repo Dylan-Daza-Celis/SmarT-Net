@@ -1,0 +1,4 @@
+# Install ONLY after replacing LAB_USER with the actual Linux operator.
+# Validate a private copy using visudo -cf; install root:root 0440.
+# Unit, config, helper and rules must be root-owned, not writable by LAB_USER.
+LAB_USER ALL=(root) NOPASSWD: /usr/bin/systemctl start smartir-suricata.service, /usr/bin/systemctl stop smartir-suricata.service

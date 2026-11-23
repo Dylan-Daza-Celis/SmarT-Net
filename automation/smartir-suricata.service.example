@@ -1,0 +1,21 @@
+[Unit]
+Description=SmartIR authorized lab Suricata PCAP
+After=network-online.target
+[Service]
+Type=simple
+User=smartir-sensor
+Group=smartir-sensor
+# Operator must substitute paths and verify access. Never copy this example over the main config.
+ExecStartPre=/bin/sh -c '! /usr/bin/pgrep -x suricata'
+ExecStartPre=/usr/bin/python3 /opt/smartir/tools/suricata_alerts_config.py --check /etc/smartir-lab/suricata.yaml
+ExecStartPre=/usr/bin/suricata -T --init-errors-fatal -c /etc/smartir-lab/suricata.yaml -l /var/log/smartir-suricata
+ExecStart=/usr/bin/suricata --pcap=eth0 --init-errors-fatal -c /etc/smartir-lab/suricata.yaml -l /var/log/smartir-suricata
+Restart=no
+KillSignal=SIGINT
+TimeoutStopSec=60
+AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
+CapabilityBoundingSet=CAP_NET_RAW CAP_NET_ADMIN
+NoNewPrivileges=true
+UMask=0077
+[Install]
+WantedBy=multi-user.target

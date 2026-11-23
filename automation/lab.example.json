@@ -1,0 +1,18 @@
+{
+  "repo": "C:\\SmartIR\\smartir-net-mvp",
+  "python": "C:\\SmartIR\\smartir-net-mvp\\.venv\\Scripts\\python.exe",
+  "eve": "C:\\SmartIRLab\\smartir-alerts.json",
+  "state": "C:\\SmartIRLab\\agent-state",
+  "runtime": "C:\\SmartIRLab\\runtime",
+  "password_file": "C:\\SmartIRSecrets\\sensor-password.txt",
+  "username": "sensor-lab-agente",
+  "sensor": "wsl2-lab",
+  "api": "http://127.0.0.1:8000",
+  "web": "http://127.0.0.1:5173",
+  "distro": "Ubuntu",
+  "unit": "smartir-suricata.service",
+  "compose_project": "smartir-net-mvp",
+  "poll_seconds": 10,
+  "docker_wait_seconds": 60,
+  "stop_owned_compose": false
+}

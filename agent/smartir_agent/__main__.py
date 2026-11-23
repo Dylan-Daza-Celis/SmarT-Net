@@ -34,6 +34,7 @@ def main():
     parser.add_argument('--resume-blocked', action='store_true')
     parser.add_argument('--accept-source-reset', action='store_true')
     parser.add_argument('--once', action='store_true', help='One bounded poll/send, for scheduled/isolated validation')
+    parser.add_argument('--stop-file', type=Path, help='Optional local supervisor request for graceful shutdown')
     args = parser.parse_args()
     stop = threading.Event()
     for sig in (signal.SIGINT, signal.SIGTERM): signal.signal(sig, lambda *_:stop.set())
@@ -50,9 +51,10 @@ def main():
         transport = Transport(config); agent = Agent(store, transport, emit)
         emit(code='started', version=__version__, poll_seconds=config.poll_seconds)
         while not stop.is_set():
+            if args.stop_file and args.stop_file.exists(): break
             wait = agent.step()
             if args.once: break
-            stop.wait(min(wait, 60))  # Recheck the durable deadline; never send early or overflow Windows waits.
+            stop.wait(min(wait, 1 if args.stop_file else 60))  # Supervisor polling never sends before durable deadlines.
         emit(code='stopped')
         return 0
     except AgentError as exc:
