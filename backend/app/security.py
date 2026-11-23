@@ -7,6 +7,7 @@ from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from .database import Session
 from .models import User
+from .web_session import COOKIE, browser_request
 
 JWT_SECRET = os.environ.get("JWT_SECRET", "")
 if len(JWT_SECRET.encode()) < 32:
@@ -22,12 +23,17 @@ def issue_token(user):
 
 def current_user(request: Request, credentials: HTTPAuthorizationCredentials = Depends(bearer)):
     unauthorized = HTTPException(401, "Sesión inválida o expirada", headers={"WWW-Authenticate": "Bearer"})
-    if credentials is None:
+    if request.headers.get('authorization') and credentials is None:
         raise unauthorized
-    if len(credentials.credentials)>4096:
+    token = credentials.credentials if credentials else request.cookies.get(COOKIE)
+    if not token:
+        raise unauthorized
+    if credentials is None:
+        browser_request(request, mutation=request.method not in ('GET','HEAD','OPTIONS'))
+    if len(token)>4096:
         raise unauthorized
     try:
-        payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=["HS256"], audience="smartir-api", issuer="smartir-net", options={"require": ["sub", "exp", "iat", "iss", "aud"]})
+        payload = decode_token(token)
         if not isinstance(payload['sub'],str) or not 1<=len(payload['sub'])<=36:
             raise unauthorized
     except jwt.InvalidTokenError:
@@ -40,6 +46,11 @@ def current_user(request: Request, credentials: HTTPAuthorizationCredentials = D
                 ('POST', '/api/events/import/eve'), ('GET', '/api/auth/me')}):
             raise HTTPException(403, 'Cuenta de servicio restringida a importación EVE')
         return user
+
+
+def decode_token(token):
+    return jwt.decode(token, JWT_SECRET, algorithms=['HS256'], audience='smartir-api', issuer='smartir-net',
+        options={'require':['sub','exp','iat','iss','aud']})
 
 def require_roles(*roles):
     def check(user: User = Depends(current_user)):

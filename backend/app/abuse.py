@@ -109,13 +109,19 @@ class RequestGuard:
             if parsed.hostname is None or parsed.hostname.casefold() not in self.allowed_hosts: raise ValueError('Untrusted Host')
             parsed.port  # Validate numeric port/range, if present.
         except (ValueError, UnicodeError): return await response(400,'Host no permitido o inválido')
-        login = path == '/api/auth/login' and scope['method']=='POST'
+        login = path in ('/api/auth/login','/api/auth/session') and scope['method']=='POST'
         control = scope['app'].state.abuse
         if login:
             peer = (scope.get('client') or ('unknown',0))[0]
             try: control.check('login:peer:'+peer, control.login_limit)
             except HTTPException as exc: return await response(exc.status_code,exc.detail,exc.headers)
-        if path.startswith('/api/') and not login and b'authorization' not in headers:
+        from http.cookies import SimpleCookie, CookieError
+        from .web_session import COOKIE
+        cookie = SimpleCookie()
+        try: cookie.load(headers.get(b'cookie',b'').decode('latin1'))
+        except CookieError: pass
+        logout = path == '/api/auth/session' and scope['method']=='DELETE'
+        if path.startswith('/api/') and not login and not logout and b'authorization' not in headers and COOKIE not in cookie:
             return await response(401,'Sesión inválida o expirada',{'WWW-Authenticate':'Bearer'})
         lengths = [v for k,v in scope.get('headers',[]) if k==b'content-length']
         if len(lengths)>1 or (lengths and (not lengths[0].isdigit() or b'transfer-encoding' in headers)):

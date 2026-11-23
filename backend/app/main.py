@@ -3,7 +3,7 @@ Uso exclusivo en laboratorios autorizados. Autenticación y permisos en backend.
 """
 import json
 
-from fastapi import FastAPI, HTTPException, Request, Query
+from fastapi import FastAPI, HTTPException, Request, Query, Response
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,6 +24,7 @@ from .abuse import AbuseController, RequestGuard, importer, password_admin, anal
 from .analytics import review_exists
 from .risk_audit import pending_query
 from .validation import SafeInput
+from .web_session import COOKIE, browser_request, set_session, clear_session
 
 app = FastAPI(title="SmartIR-Net API", version="0.9.0", description="Gestión de incidentes con autenticación y roles")
 app.state.abuse = AbuseController()
@@ -146,6 +147,48 @@ def login(data: LoginIn, request: Request):
 @app.get("/api/auth/me")
 def me(user: User = Depends(current_user)):
     return user_out(user)
+
+
+@app.post('/api/auth/session', tags=['Browser session'])
+def create_web_session(data: LoginIn, request: Request, response: Response):
+    from .security import decode_token
+    browser_request(request, mutation=True)
+    result = login(data, request)  # Same Argon2 verification and admission controls as Bearer login.
+    payload = decode_token(result['access_token'])
+    with Session() as db:
+        user = db.get(User, payload['sub'])
+        if user is None or not user.active:
+            raise HTTPException(401, 'Sesión inválida o expirada')
+        if user.eve_only:
+            raise HTTPException(403, 'Cuenta exclusiva del agente EVE; no dispone de acceso interactivo')
+        identity = user_out(user)
+    set_session(response, request, result['access_token'])
+    return {'user': identity, 'expires_at': payload['exp'], 'expires_in': 900}
+
+
+@app.get('/api/auth/session', tags=['Browser session'])
+def restore_web_session(request: Request, user: User = Depends(current_user)):
+    from datetime import datetime, timezone
+    from .security import decode_token
+    # This endpoint restores a COOKIE session, never returns its JWT, never extends its lifetime.
+    token = request.cookies.get(COOKIE)
+    if not token:
+        raise HTTPException(401, 'No existe sesión web')
+    import jwt
+    try:
+        payload = decode_token(token)
+        if payload['sub'] != user.id:
+            raise jwt.InvalidTokenError()
+    except jwt.InvalidTokenError:
+        raise HTTPException(401, 'Sesión inválida o expirada') from None
+    return {'user': user_out(user), 'expires_at': payload['exp'],
+            'expires_in': max(0, payload['exp']-int(datetime.now(timezone.utc).timestamp()))}
+
+
+@app.delete('/api/auth/session', status_code=204, tags=['Browser session'])
+def end_web_session(request: Request, response: Response):
+    browser_request(request, mutation=True)
+    clear_session(response, request)
 
 @app.get("/api/users")
 def list_users(user: User = Depends(administrators)):
