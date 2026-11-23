@@ -12,9 +12,9 @@ from .journey import journey
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--database',choices=['sqlite','postgresql'],default='sqlite')
-    parser.add_argument('--label',default='final');args=parser.parse_args()
+    parser.add_argument('--label',default='final');parser.add_argument('--iteration',choices=['13','14'],default='13');args=parser.parse_args()
     if not args.label.replace('-','').isalnum():parser.error('Invalid label')
-    target=ROOT/'docs/resultados'/f'iter13_frontend_{args.database}_{args.label}.json'
+    target=ROOT/'docs/resultados'/f'iter{args.iteration}_frontend_{args.database}_{args.label}.json'
     if target.exists():raise RuntimeError('Evidence exists; choose a new label')
     instance=Isolated(args.database)
     with instance.running(),httpx.Client(base_url=instance.base_url,trust_env=False,timeout=120) as client:

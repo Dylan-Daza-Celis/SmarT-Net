@@ -21,7 +21,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--source-dir',type=Path,required=True)
     parser.add_argument('--database',choices=['sqlite','postgresql'],default='sqlite');parser.add_argument('--label',default='final')
     parser.add_argument('--browser',action='store_true')
-    parser.add_argument('--iteration',choices=['12','13'],default='12')
+    parser.add_argument('--iteration',choices=['12','13','14'],default='12')
     args=parser.parse_args()
     if not re.fullmatch('[a-zA-Z0-9_-]{1,30}',args.label):parser.error('Invalid label')
     directory=args.source_dir.resolve()

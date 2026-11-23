@@ -30,8 +30,8 @@ def wait_until(predicate, seconds=30):
     raise RuntimeError('Isolated validation condition timed out; no response bodies or secrets exported')
 
 
-def run(dialect, label):
-    output=ROOT/'docs/resultados'/f'iter11_agent_http_{dialect}_{label}.json'
+def run(dialect, label, iteration='11'):
+    output=ROOT/'docs/resultados'/f'iter{iteration}_agent_http_{dialect}_{label}.json'
     if output.exists() or output.with_suffix('.csv').exists():raise RuntimeError('Evidence exists; use another label')
     instance=Isolated(dialect)
     started=time.perf_counter();process=None;log=None
@@ -137,6 +137,6 @@ def run(dialect, label):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--database',choices=['sqlite','postgresql'],default='sqlite');parser.add_argument('--label',default='final')
-    args=parser.parse_args()
+    parser.add_argument('--iteration',choices=['11','14'],default='11');args=parser.parse_args()
     if not re.fullmatch('[a-zA-Z0-9_-]{1,30}',args.label):parser.error('Invalid label')
-    run(args.database,args.label)
+    run(args.database,args.label,args.iteration)
