@@ -19,15 +19,34 @@ function Read-LabConfig([string]$Path) {
 function Test-LabHttp([string]$Url) {
     try { return (Invoke-WebRequest -Uri $Url -UseBasicParsing -TimeoutSec 5).StatusCode -eq 200 } catch { return $false }
 }
+# Windows PowerShell 5.1 turns native stderr into RemoteException when
+# ErrorActionPreference=Stop, even for successful docker compose operations.
+# Temporarily tolerate native stderr; always check the native exit code.
+function Invoke-LabNative([scriptblock]$Operation) {
+    $previous=$ErrorActionPreference
+    try {
+        $ErrorActionPreference='Continue'
+        & $Operation 2>$null | Out-Null
+        return [int]$LASTEXITCODE
+    } finally {
+        $ErrorActionPreference=$previous
+    }
+}
 function Invoke-LabCompose($c,[string[]]$Command) {
-    & docker compose --project-directory $c.repo -p $c.compose_project -f (Join-Path $c.repo 'compose.yaml') @Command *> $null
-    if ($LASTEXITCODE -ne 0) { throw 'Compose operation failed' }
+    $code=Invoke-LabNative {
+        & docker compose --project-directory $c.repo -p $c.compose_project -f (Join-Path $c.repo 'compose.yaml') @Command
+    }
+    if ($code -ne 0) { throw 'Compose operation failed' }
 }
 function Invoke-LabUnit($c,[string]$Action) {
-    & wsl -d $c.distro --exec sudo -n /usr/bin/systemctl $Action $c.unit *> $null
-    if ($LASTEXITCODE -ne 0) { throw 'WSL service operation failed; check local sudo authorization and journal' }
+    $code=Invoke-LabNative {
+        & wsl -d $c.distro --exec sudo -n /usr/bin/systemctl $Action $c.unit
+    }
+    if ($code -ne 0) { throw 'WSL service operation failed; check local sudo authorization and journal' }
 }
 function Test-LabUnit($c) {
-    & wsl -d $c.distro --exec /usr/bin/systemctl is-active --quiet $c.unit *> $null
-    return $LASTEXITCODE -eq 0
+    $code=Invoke-LabNative {
+        & wsl -d $c.distro --exec /usr/bin/systemctl is-active --quiet $c.unit
+    }
+    return $code -eq 0
 }
