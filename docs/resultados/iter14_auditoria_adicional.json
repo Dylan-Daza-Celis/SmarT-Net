@@ -1,0 +1,16 @@
+{
+  "sqlite": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pg": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scope": "Additional checks: every protected API operation rejects missing and invalid Bearer credentials; operator exports, EVE scope, literal SQL filters",
+  "test_source_sha256": "39747c110f6bc8fdb75d9a02c072dad780aa196daf5589bf08184bf52c9dc11c"
+}

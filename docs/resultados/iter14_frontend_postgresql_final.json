@@ -1,0 +1,334 @@
+{
+  "generated_at": "2026-11-23T03:10:15.601298+00:00",
+  "database": "postgresql",
+  "transport": "real HTTP TCP loopback, Chromium and API processes",
+  "journey_checks": [
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 401
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/45c9f480-ab6d-436b-80f2-b4f56377e498",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/4f2f1e41-f647-4239-8d9c-0d9756b05bfe/evidence",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/assignment",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/assignment",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/actions",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/actions",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/evaluations",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/evaluations",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/reevaluate",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/evaluations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/timeline",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/8045814d-1346-4679-a845-74d3988593df/lifecycle",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/dashboard",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analytics/reports",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/45f624e3-70fa-4cd1-9241-04c7078873d0",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/45f624e3-70fa-4cd1-9241-04c7078873d0",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/45f624e3-70fa-4cd1-9241-04c7078873d0",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/datasets/synthetic",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/experiments",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/experiments/144d142a-9987-4177-94a9-3239a253f747",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/datasets/laboratory",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/datasets/6b80b08a-860d-47e6-a753-7b1b4a1e571c/cases",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/runs/1f9a9d6f-a807-49cf-9df7-678dada5e9b9/predict",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/comparisons",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 422
+    }
+  ],
+  "browser": {
+    "browser": "149.0.7827.55",
+    "engine": "Chromium",
+    "cases": 6,
+    "checks": [
+      "cookie HttpOnly, sin almacenamiento JS, recarga, rutas y filtros preservados, panel y evidencia contextual, teclado/Escape",
+      "asignación/transición/acción, conflicto409, fallo de red controlado y recuperación, historial, módulos independientes y permiso administrador",
+      "analista: recarga válida, RBAC y rutas protegidas",
+      "observador: recarga válida, RBAC y rutas protegidas",
+      "escritorio1440/tablet820/móvil390 sin overflow de documento; diálogo acotado, foco/Escape; cuatro pares de contraste>=4.5",
+      "JWT cinco segundos: expira por reloj real/API, logout persistente,422 validación sin eco y429 real con Retry-After"
+    ],
+    "page_errors": [],
+    "synthetic": true,
+    "network": "real loopback API via same-origin Vite proxy",
+    "traces": false,
+    "credentials_saved": false
+  },
+  "data_kind": "synthetic isolated fixtures; NOT live traffic",
+  "user_database_read_or_written": false,
+  "migration_head": "0009",
+  "credentials_saved": false
+}

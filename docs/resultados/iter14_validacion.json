@@ -1,0 +1,1833 @@
+{
+  "generated_at": "2026-11-23T03:18:42.974555+00:00",
+  "baseline": "644cc4f",
+  "pytest": {
+    "sqlite": {
+      "tests": 216,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 177.409,
+      "cases": [
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_incremental_incomplete_blank_and_documentary_order"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_durable_spool_restart_and_exclusive_reader"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_rotation_multiple_generations_restart_and_late_growth"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[smaller]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[same_size_rewrite]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[missing_rotation]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[oversized]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[rotated_incomplete]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_binding_and_explicit_audited_reset"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_foreign_database_never_modified"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_corrupt_spool_not_sent_or_skipped"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_compressed_and_large_responses_rejected"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_failed_login_and_overprivileged_account_are_not_accepted"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://0.0.0.0:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://api:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[https://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://user:secret@127.0.0.1:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1?token=secret]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[file:///tmp/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_tls_and_proxy_defaults_and_credentials"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[400]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[401]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[403]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[413]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[422]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[302]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[429]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[503]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_retry_after_date_and_oversize"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_token_expiry_renewal_and_single_401_reauthentication"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unverifiable_report_never_advances_and_bounds"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_api_service_least_privilege_inactive_and_assignment_guard"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_real_adapter_rejected_lines_quarantined_order_and_legacy_compatibility"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_exact_eve_line_limit_is_accepted_by_agent_and_adapter"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_lost_http_response_replays_exact_pending_bytes_server_deduplicates"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_0009_is_additive_preserves_all_old_columns_and_users[0008]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_aggregates_denominators_and_trends"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_combined_filters_response_metrics_and_half_open_dates"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_event_and_reception_axes_count_only_matching_events"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_pagination_and_no_n_plus_one"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params0]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params1]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params2]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params3]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params4]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params5]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params6]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params7]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params8]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params9]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_empty_permissions_and_read_only_observer"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_snapshot_exports_are_immutable_consistent_and_sanitized"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_export_limits_sql_injection_and_csv_formulas"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_latest_nonoperational_evidence_does_not_become_zero"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_registered_comparisons_keep_synthetic_label_and_do_not_expose_labels"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_explicit_reassessment_frozen_parameters_history_and_permissions"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_race_and_actions_revision_contract"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_rejects_unknown_parameters_and_allows_owner_analyst"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_0008_preserves_every_existing_table[0007]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_offline_report_verifier"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_authentication"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_user_management_and_live_permissions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[administrador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[analista]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[observador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_import_deduplication_and_validation"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_status_audit_and_actions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_migration_preserves_legacy_data[0002]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_accuracy_matrix_f1_and_binary"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_metrics_missing_zero_denominators_and_budget"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_times_require_complete_observed_evidence"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_generator_reproducibility_independent_labels_and_ties"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[reference_in_features]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[unauthorized]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_case]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[invalid_time]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_reference]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_replay_results_exports_and_no_operational_writes"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_references_do_not_change_predictions_or_orders"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[analista]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[observador]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_errors_missing_labels_and_limits"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_operational_traceability_and_atomic_rejection"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_additive_0005_migration[0004]"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_all_api_operations_require_identity_before_parsing"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_reference_exports_are_not_available_to_operators[analista]"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_reference_exports_are_not_available_to_operators[observador]"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_service_account_cannot_query_other_modules_with_valid_jwt"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_sql_metacharacters_are_literal_filter_data"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_integrated_workflow_and_idempotent_upgrade_preserves_all_rows"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_concurrent_transition_and_action_share_revision_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_reassignment_withdraw_and_real_author"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_ineligible_users_and_user_role_race_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Resuelto]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Cerrado]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En respuesta]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En an\\xe1lisis]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_machine_rollbacks_reopen_and_assignment_requirements"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_preconditions_and_observer_read_only"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_assignment_has_single_winner"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_transitions_no_lost_history"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_vs_deactivation_race_preserves_invariant"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_import_vs_close_race_has_no_silent_closed_risk_update"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_recorded_times_first_latest_and_missing_evidence"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_temporal_evidence_revision_source_and_metrics"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_actions_preserve_comments_and_category_constraints"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_closed_late_events_freeze_risk_and_signal_review"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_0007_preserves_legacy_states_and_ml_data[0006]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_lab_reproducibility_and_nonweighted_labels"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_no_reference_id_group_or_score_in_features"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_group_isolation_cv_and_test_support"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_preprocessing_train_only_and_safe_inference"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_repeated_training_exact_reproducibility"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_insufficient_missing_and_one_class_data"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[analista]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[observador]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_api_training_blinding_inference_and_persistence"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_duplicate_records_bad_groups_and_insufficient_run"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_0006_additive_migration_preserves_experiments[0005]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_validation_does_not_echo_password"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rejects_unexpected_fields"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_smartir_rejects_nul_without_changing_fingerprint_contract"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rate_retry_after_window_and_forwarded_header"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_limiter_capacity_and_nonblocking_slot_release"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_costly_quotas_and_authorization_before_admission"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_size_limits_malformed_json_and_safe_headers"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[evil.example]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost/path?foo=]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost#fragment]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[user@localhost]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost:99999]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_read_timeout_is_explicit_and_does_not_echo_body"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_bulk_same_batch_and_concurrent_duplicates_preserve_evidence"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_legacy_pagination_and_statistics_remain_consistent"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_synthetic_generator_and_percentiles_are_reproducible"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_aggregation_does_not_hold_mutation_lock"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_publication_rechecks_inactive_author"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_normalization_and_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes4]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes5]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes6]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes7]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes8]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes9]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes10]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes11]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes12]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes13]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes14]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_unknown_and_missing_fields_are_explicit"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[administrador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[analista]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[observador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_partial_errors_and_stable_duplicates"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_stream_batching_limits_and_recovery"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_migration_0004_preserves_all_data_and_legacy_fingerprint[0003]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_asset_provenance_and_frozen_v1"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[None-50-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[0-100-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[1-100-Cr\\xedtica]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[2-70-Alta]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[3-40-Media]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[4-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[255-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[   ]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[MISSING]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[IPv6-ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMPv6]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[TCP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_category_taxonomy_precedes_lab_and_ml_taxonomy_stays_six"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_fingerprint_namespace_original_fields_and_provenance_are_unchanged"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_four_new_alerts_one_incident_and_duplicate_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_agent_existing_checkpoint_and_pending_receipt_compatibility"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_preserves_base_and_all_original_outputs"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[same_file]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[collision]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[include]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[duplicate]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[flow_list]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_check_rejects_locally_changed_logger"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_pcap_generator_is_deterministic_and_checksums_valid"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_windows_late_order_boundaries_duplicates"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_addresses_missing_and_utc"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_configurable_window"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_scoring_extremes_and_contributions"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_parameters_frozen_and_evaluations_preserved"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_legacy_preserved_and_excluded[0002]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[administrador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[analista]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[observador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers0]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers1]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers2]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers3]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers4]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_csrf_enforced_for_writes_exports_and_logout_bearer_still_works"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_inactive_changed_role_expired_and_tampered_cookie"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_service_account_rejected_without_cookie_and_login_rate_shared"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_secure_https_and_remote_http_rejected"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_safe_validation_and_original_bearer_contract"
+        }
+      ]
+    },
+    "pg": {
+      "tests": 216,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 664.21,
+      "cases": [
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_incremental_incomplete_blank_and_documentary_order"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_durable_spool_restart_and_exclusive_reader"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_rotation_multiple_generations_restart_and_late_growth"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[smaller]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[same_size_rewrite]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[missing_rotation]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[oversized]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[rotated_incomplete]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_binding_and_explicit_audited_reset"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_foreign_database_never_modified"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_corrupt_spool_not_sent_or_skipped"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_compressed_and_large_responses_rejected"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_failed_login_and_overprivileged_account_are_not_accepted"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://0.0.0.0:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://api:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[https://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://user:secret@127.0.0.1:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1?token=secret]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[file:///tmp/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_tls_and_proxy_defaults_and_credentials"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[400]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[401]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[403]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[413]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[422]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[302]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[429]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[503]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_retry_after_date_and_oversize"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_token_expiry_renewal_and_single_401_reauthentication"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unverifiable_report_never_advances_and_bounds"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_api_service_least_privilege_inactive_and_assignment_guard"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_real_adapter_rejected_lines_quarantined_order_and_legacy_compatibility"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_exact_eve_line_limit_is_accepted_by_agent_and_adapter"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_lost_http_response_replays_exact_pending_bytes_server_deduplicates"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_0009_is_additive_preserves_all_old_columns_and_users[0008]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_aggregates_denominators_and_trends"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_combined_filters_response_metrics_and_half_open_dates"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_event_and_reception_axes_count_only_matching_events"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_pagination_and_no_n_plus_one"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params0]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params1]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params2]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params3]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params4]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params5]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params6]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params7]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params8]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params9]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_empty_permissions_and_read_only_observer"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_snapshot_exports_are_immutable_consistent_and_sanitized"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_export_limits_sql_injection_and_csv_formulas"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_latest_nonoperational_evidence_does_not_become_zero"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_registered_comparisons_keep_synthetic_label_and_do_not_expose_labels"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_explicit_reassessment_frozen_parameters_history_and_permissions"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_race_and_actions_revision_contract"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_rejects_unknown_parameters_and_allows_owner_analyst"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_0008_preserves_every_existing_table[0007]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_offline_report_verifier"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_authentication"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_user_management_and_live_permissions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[administrador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[analista]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[observador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_import_deduplication_and_validation"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_status_audit_and_actions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_migration_preserves_legacy_data[0002]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_accuracy_matrix_f1_and_binary"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_metrics_missing_zero_denominators_and_budget"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_times_require_complete_observed_evidence"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_generator_reproducibility_independent_labels_and_ties"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[reference_in_features]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[unauthorized]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_case]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[invalid_time]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_reference]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_replay_results_exports_and_no_operational_writes"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_references_do_not_change_predictions_or_orders"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[analista]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[observador]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_errors_missing_labels_and_limits"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_operational_traceability_and_atomic_rejection"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_additive_0005_migration[0004]"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_all_api_operations_require_identity_before_parsing"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_reference_exports_are_not_available_to_operators[analista]"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_reference_exports_are_not_available_to_operators[observador]"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_service_account_cannot_query_other_modules_with_valid_jwt"
+        },
+        {
+          "module": "backend.tests.test_final_audit",
+          "name": "test_sql_metacharacters_are_literal_filter_data"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_integrated_workflow_and_idempotent_upgrade_preserves_all_rows"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_concurrent_transition_and_action_share_revision_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_reassignment_withdraw_and_real_author"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_ineligible_users_and_user_role_race_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Resuelto]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Cerrado]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En respuesta]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En an\\xe1lisis]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_machine_rollbacks_reopen_and_assignment_requirements"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_preconditions_and_observer_read_only"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_assignment_has_single_winner"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_transitions_no_lost_history"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_vs_deactivation_race_preserves_invariant"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_import_vs_close_race_has_no_silent_closed_risk_update"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_recorded_times_first_latest_and_missing_evidence"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_temporal_evidence_revision_source_and_metrics"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_actions_preserve_comments_and_category_constraints"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_closed_late_events_freeze_risk_and_signal_review"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_0007_preserves_legacy_states_and_ml_data[0006]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_lab_reproducibility_and_nonweighted_labels"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_no_reference_id_group_or_score_in_features"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_group_isolation_cv_and_test_support"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_preprocessing_train_only_and_safe_inference"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_repeated_training_exact_reproducibility"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_insufficient_missing_and_one_class_data"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[analista]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[observador]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_api_training_blinding_inference_and_persistence"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_duplicate_records_bad_groups_and_insufficient_run"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_0006_additive_migration_preserves_experiments[0005]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_validation_does_not_echo_password"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rejects_unexpected_fields"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_smartir_rejects_nul_without_changing_fingerprint_contract"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rate_retry_after_window_and_forwarded_header"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_limiter_capacity_and_nonblocking_slot_release"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_costly_quotas_and_authorization_before_admission"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_size_limits_malformed_json_and_safe_headers"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[evil.example]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost/path?foo=]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost#fragment]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[user@localhost]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost:99999]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_read_timeout_is_explicit_and_does_not_echo_body"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_bulk_same_batch_and_concurrent_duplicates_preserve_evidence"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_legacy_pagination_and_statistics_remain_consistent"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_synthetic_generator_and_percentiles_are_reproducible"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_aggregation_does_not_hold_mutation_lock"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_publication_rechecks_inactive_author"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_normalization_and_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes4]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes5]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes6]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes7]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes8]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes9]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes10]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes11]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes12]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes13]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes14]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_unknown_and_missing_fields_are_explicit"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[administrador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[analista]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[observador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_partial_errors_and_stable_duplicates"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_stream_batching_limits_and_recovery"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_migration_0004_preserves_all_data_and_legacy_fingerprint[0003]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_asset_provenance_and_frozen_v1"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[None-50-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[0-100-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[1-100-Cr\\xedtica]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[2-70-Alta]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[3-40-Media]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[4-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[255-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[   ]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[MISSING]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[IPv6-ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMPv6]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[TCP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_category_taxonomy_precedes_lab_and_ml_taxonomy_stays_six"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_fingerprint_namespace_original_fields_and_provenance_are_unchanged"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_four_new_alerts_one_incident_and_duplicate_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_agent_existing_checkpoint_and_pending_receipt_compatibility"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_preserves_base_and_all_original_outputs"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[same_file]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[collision]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[include]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[duplicate]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[flow_list]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_check_rejects_locally_changed_logger"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_pcap_generator_is_deterministic_and_checksums_valid"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_windows_late_order_boundaries_duplicates"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_addresses_missing_and_utc"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_configurable_window"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_scoring_extremes_and_contributions"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_parameters_frozen_and_evaluations_preserved"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_legacy_preserved_and_excluded[0002]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[administrador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[analista]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[observador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers0]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers1]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers2]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers3]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers4]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_csrf_enforced_for_writes_exports_and_logout_bearer_still_works"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_inactive_changed_role_expired_and_tampered_cookie"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_service_account_rejected_without_cookie_and_login_rate_shared"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_secure_https_and_remote_http_rejected"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_safe_validation_and_original_bearer_contract"
+        }
+      ]
+    }
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python": "3.11.15",
+    "packages": {
+      "fastapi": "0.165.0",
+      "sqlalchemy": "2.0.36",
+      "pytest": "9.0.3",
+      "PyJWT": "2.15.1",
+      "scikit-learn": "1.6.1"
+    },
+    "node": "v18.20.8"
+  },
+  "completed_runs": [
+    "iter14_frontend_postgresql_final.json",
+    "iter14_integral_sqlite_final.json",
+    "iter14_agent_http_postgresql_final.json",
+    "iter14_pipeline_postgresql_final.json"
+  ],
+  "compose": "iter14_compose_base_smartir-iter14-base-074d9434.json",
+  "protected_source_changes": [],
+  "migration_head": "0009",
+  "new_migration": false,
+  "operational_database_accessed": false,
+  "live_capture": false,
+  "build": {
+    "exit_code": 0,
+    "modules_observed": 459,
+    "vite_seconds_observed": 47.96
+  },
+  "npm_ci": {
+    "exit_code": 0,
+    "packages_added": 66,
+    "audited": 67,
+    "vulnerabilities_reported": 0
+  },
+  "evidence_sha256": {
+    "iter14_agent_http_postgresql_final.csv": "970e239ec4b424a5bf6e1e391b61928474684f159c76f7c0885436340c22f511",
+    "iter14_agent_http_postgresql_final.json": "f2f4e73cb597378ae6cd7a1d6a04f4d23795c8df5705649d0ccb8c051ab33c49",
+    "iter14_compose_base_smartir-iter14-base-074d9434.json": "280766a99fc508d00a8ccf0e4480e73b20de08b553e39632c2e0cc84e48bd7e9",
+    "iter14_EVE_SINTETICO_OFFLINE.jsonl": "db84e64eece7b0466a5ed3cee2f2df563fac668d9cfc82cefb21ce72c78f7e24",
+    "iter14_frontend_postgresql_final.analitica.png": "c2db6f3ac1f5cb1f064d869cc35be477ed1985d719a4ea8d31364a9f42f02084",
+    "iter14_frontend_postgresql_final.browser.json": "1c4019ce7d96ad8db7ea9c0e14fa8e766f66992fcde27a57a2838d58824f78e6",
+    "iter14_frontend_postgresql_final.dashboard.png": "2e5d8923972fd207fcb5c987808c32cf885d5d1972bcaea9abc499359b78f45a",
+    "iter14_frontend_postgresql_final.evaluacion.png": "d054628ec9f11be1021f2065f5c95b290778ce287a29858f6317f4f66e695354",
+    "iter14_frontend_postgresql_final.evidencia.png": "167ee5c90397a1c0b57f06e5179e97ab9e766ad1eaf7a11aa6d2fbf296f826ec",
+    "iter14_frontend_postgresql_final.historial.png": "630f85970b552e890285159dfe39a2d5ed4906f1d8ad339701b471287d894648",
+    "iter14_frontend_postgresql_final.importacion.png": "099b69ec016433a867034f0e75b3e58ea34a4bf3f0e11148300c0eb36dd0450f",
+    "iter14_frontend_postgresql_final.incidentes.png": "bf9c9945d078c8a22d6d991867992b46440c2873a4f31cc6f43cc2933ceeef9c",
+    "iter14_frontend_postgresql_final.json": "618f7d2c754e07cbe5976b42153ae057f20698743d14fe2f6075bf232d4f51e8",
+    "iter14_frontend_postgresql_final.ml.png": "b0948770382e35fc6df55930d63d9ecffc5ca99c336bd95dc958d01713c02d3d",
+    "iter14_frontend_postgresql_final.movil.png": "a282d61d07084656a149412397070396fe9a5440079898ba041997b0a5c5e1b4",
+    "iter14_integral_sqlite_final.browser.json": "323caf96b542970ad54945cec5794101bf4d0344812d3362b2dcf7b54701ae98",
+    "iter14_integral_sqlite_final.dashboard.png": "02b75ffe1498862395ca6400a1c538cb367baaed7d532efac57efcb53bd309a7",
+    "iter14_integral_sqlite_final.incidente.png": "c51c35713c26fb79db6b748176cdd83d2a4648dca91c3b182a16b210e532659d",
+    "iter14_integral_sqlite_final.json": "3e7e965966e0422924d5cc3dbd524fbc4bbb32c842633f6290081c192e55a074",
+    "iter14_integral_sqlite_final.reporte.csv": "81e250b931236f948c75291109c572e93ef039e34aea37984d9da7ebdf9f9a90",
+    "iter14_integral_sqlite_final.reporte.json": "09a003f18083ff689a50ec1eb94cb009a97d42df10b5e10397a4cfa4bea5ce39",
+    "iter14_integral_sqlite_final.reporte.pdf": "25370e3529212c50a7b5a41dfa8de53e50b784f9a5e054ad35a2b89b89596851",
+    "iter14_pipeline_postgresql_final.browser.json": "99155bafdd109862f8a891967688ef64df26eb2619deb5167e027a39dc78afac",
+    "iter14_pipeline_postgresql_final.csv": "ae19d3945d99ec83040754bce40c3f2eabf84e28de835150a1784c424b25e542",
+    "iter14_pipeline_postgresql_final.evento.png": "bb1a0a5769e7e875d84ee4a3468b72c5eec01ebd3f695c53f93a3ddf0aabfc82",
+    "iter14_pipeline_postgresql_final.json": "c57585cebea4b3a7a86af810c509db25b2d91c1e3a526cdcb36df70794b0c9ba",
+    "iter14_suricata_offline.json": "08d576fcdb71f5b5bee5c6124b90ba27bde3c485141315eb615ee7bf54190ef0"
+  },
+  "first_sqlite_attempt": {
+    "passed": 215,
+    "failed": 1,
+    "seconds_observed": 488.01,
+    "failure": "unexpected fixture login401; related seven tests passed on repeat without code changes"
+  },
+  "limits_on_sqlite_repeat": {
+    "OPENBLAS_NUM_THREADS": 1,
+    "OMP_NUM_THREADS": 1
+  },
+  "limitations": [
+    "No external audit or guarantee of absence of vulnerabilities.",
+    "First parallel Compose health check and first Suricata browser run failed; retries recorded separately.",
+    "Browser initially reported ERR_INSUFFICIENT_RESOURCES under shared load.",
+    "No new performance benchmark; pytest/build durations are QA timings only.",
+    "Versions/build/npm values come from actual execution; no secrets or raw failure bodies exported."
+  ]
+}

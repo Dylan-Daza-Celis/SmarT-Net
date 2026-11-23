@@ -1,0 +1,5 @@
+id,event_type,suricata_priority,alert_index,alert_level,asset_criticality,asset_observed
+56893f8f-2efb-45cb-b801-668d77ee93ee,prueba_icmp,3,40,Media,50,False
+6befa3e8-2b3c-4b55-9d25-aff88246e91f,prueba_icmp,3,40,Media,50,False
+7a32b874-75d0-49ff-932b-760820a6b3d3,prueba_icmp,3,40,Media,50,False
+7d339010-ce99-4887-94b3-c6c4c922daad,prueba_icmp,3,40,Media,50,False
