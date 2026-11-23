@@ -1,0 +1,30 @@
+{
+  "version": "This is Suricata version 8.0.3 RELEASE",
+  "os": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "uid": 1000,
+  "protocol": "suricata8.0.3-synthetic-offline-v1",
+  "config_test_exit": 0,
+  "offline_replay_exit": 0,
+  "live_interface_opened": false,
+  "user_config_read_or_written": false,
+  "synthetic_packets": 4,
+  "general_event_types": {
+    "alert": 4,
+    "flow": 1
+  },
+  "dedicated_event_types": {
+    "alert": 4
+  },
+  "source_pcap_sha256": "ad71b879afbb1a102a74d4bfcb868eba96a1d6341cf6006338e663274b937774",
+  "source_alerts_sha256": "780e979b320d1d16c1d9eb80983003f78710f2f188d2644ea1be7674966e8e89",
+  "base_unchanged": true,
+  "configuration": {
+    "base_sha256": "b9cb8ec3a6eb54d470c464219f1b867971f83e6471a0c7e018bd7656747a951f",
+    "preserved_outputs": 1,
+    "added_outputs": 1,
+    "types": [
+      "alert"
+    ]
+  },
+  "capture_class": "engine-generated alerts from deterministic offline synthetic PCAP; no live capture"
+}

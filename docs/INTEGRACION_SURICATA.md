@@ -1,5 +1,7 @@
 # Iteración 04: integración de Suricata EVE JSON
 
+**Nota de vigencia (iteración 12):** este documento conserva el diseño y resultados históricos del adaptador v1. El código actual usa `suricata-eve-v2`: añade metadatos de criticidad de alerta derivada y una excepción explícita para prueba ICMP declarada con categoría vacía, fuera de los seis ataques. El mapa numérico anterior, fingerprints y filas/evaluaciones históricas no cambian. [Diseño vigente, compatibilidad y evidencia real offline](NORMALIZACION_SURICATA.md). No se realizó captura real en esa validación.
+
 ## Alcance y arquitectura
 
 Se conserva FastAPI, SQLAlchemy, PostgreSQL, Alembic, React/TypeScript, JWT y RBAC. Se añade un adaptador de archivos EVE JSON Lines, centrado en registros `event_type=alert`. No se ejecuta Suricata ni se configura captura de tráfico desde esta aplicación.

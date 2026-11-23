@@ -1,0 +1,404 @@
+{
+  "generated_at": "2026-11-23T01:10:48.123082+00:00",
+  "database": "postgresql",
+  "provenance": {
+    "version": "This is Suricata version 8.0.3 RELEASE",
+    "os": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "uid": 1000,
+    "protocol": "suricata8.0.3-synthetic-offline-v1",
+    "config_test_exit": 0,
+    "offline_replay_exit": 0,
+    "live_interface_opened": false,
+    "user_config_read_or_written": false,
+    "synthetic_packets": 4,
+    "general_event_types": {
+      "alert": 4,
+      "flow": 1
+    },
+    "dedicated_event_types": {
+      "alert": 4
+    },
+    "source_pcap_sha256": "ad71b879afbb1a102a74d4bfcb868eba96a1d6341cf6006338e663274b937774",
+    "source_alerts_sha256": "904dbb9a432008210ac803a6dd7e704a602343fca197f192579bc06bf0c1697a",
+    "base_unchanged": true,
+    "configuration": {
+      "base_sha256": "b9cb8ec3a6eb54d470c464219f1b867971f83e6471a0c7e018bd7656747a951f",
+      "preserved_outputs": 1,
+      "added_outputs": 1,
+      "types": [
+        "alert"
+      ]
+    },
+    "capture_class": "engine-generated alerts from deterministic offline synthetic PCAP; no live capture"
+  },
+  "live_capture": false,
+  "agent": "unmodified iteration11 process with restart on same checkpoint",
+  "agent_runs": [
+    {
+      "at": 1795396246.4733732,
+      "code": "started",
+      "poll_seconds": 1,
+      "version": "1.0.0"
+    },
+    {
+      "at": 1795396246.4969018,
+      "batch_id": "21b1123c-92b4-4d0a-847e-09fc282519b7",
+      "code": "jwt_obtain"
+    },
+    {
+      "at": 1795396246.8301897,
+      "batch_id": "21b1123c-92b4-4d0a-847e-09fc282519b7",
+      "code": "eve_request_started"
+    },
+    {
+      "at": 1795396246.9620924,
+      "batch_id": "21b1123c-92b4-4d0a-847e-09fc282519b7",
+      "code": "accepted",
+      "discarded": 0,
+      "duplicates": 0,
+      "imported": 4
+    },
+    {
+      "at": 1795396246.9620924,
+      "code": "stopped"
+    },
+    {
+      "at": 1795396247.4016306,
+      "code": "started",
+      "poll_seconds": 1,
+      "version": "1.0.0"
+    },
+    {
+      "at": 1795396247.4058428,
+      "code": "waiting_for_append"
+    },
+    {
+      "at": 1795396247.4058428,
+      "code": "stopped"
+    }
+  ],
+  "checkpoint_offset": 2259,
+  "checkpoint_batches": 1,
+  "receipt": {
+    "batches": 1,
+    "bytes_received": 2259,
+    "complete": true,
+    "discard_reasons": {},
+    "discarded": 0,
+    "duplicates": 0,
+    "errors": [],
+    "errors_omitted": 0,
+    "import_id": "8f2e7d70-fc49-4f16-9746-7de128f69d14",
+    "imported": 4,
+    "processed": 4,
+    "unknown": 0
+  },
+  "repeat_import": {
+    "import_id": "ad33f0db-11d0-4de5-920f-538b2b37e3fd",
+    "imported": 0,
+    "duplicates": 4,
+    "discarded": 0,
+    "processed": 4,
+    "batches": 1,
+    "bytes_received": 2259,
+    "unknown": 0,
+    "errors": [],
+    "errors_omitted": 0,
+    "discard_reasons": {},
+    "complete": true
+  },
+  "incidents": 1,
+  "incident": {
+    "id": "8e276dcc-b695-4096-9af8-0f5e91d5c68b",
+    "event_type": "prueba_icmp",
+    "score": 50,
+    "priority": "Alta",
+    "event_count": 4
+  },
+  "events": [
+    {
+      "id": "0a7d490c-dee1-41e6-9015-5746a9ad7229",
+      "event_type": "prueba_icmp",
+      "event_timestamp": "2026-01-01T00:00:03.123456+00:00",
+      "severity": 40,
+      "asset_criticality": 50,
+      "asset_criticality_observed": false,
+      "fingerprint": "18ea0054503af453ddb5aac91dc21d6084645971ab550199cc6d001c303429c7",
+      "adapter_metadata": {
+        "adapter_version": "suricata-eve-v2",
+        "fingerprint_version": "suricata-eve-fp-v1",
+        "source_port": null,
+        "destination_port": null,
+        "protocol": "ICMP",
+        "signature": "SMARTIR WSL2 LAB ICMP TEST",
+        "signature_id": 9900012,
+        "category": "",
+        "suricata_severity": 3,
+        "input_event_type": "alert",
+        "original_timestamp": "2025-12-31T18:00:03.123456-0600",
+        "category_status": "empty",
+        "classification": {
+          "type": "prueba_icmp",
+          "matched": true,
+          "policy": "category_then_declared_lab_v2",
+          "basis": "exact_lab_signature_and_icmp_empty_category",
+          "taxonomy": "auxiliary_non_attack",
+          "reason": "declared_connectivity_test_not_verified_attack"
+        },
+        "alert_criticality": {
+          "policy_version": "suricata-alert-criticality-v1",
+          "value": 40,
+          "level": "Media",
+          "observed": false,
+          "basis": "engineering_mapping_of_rule_priority",
+          "source_field": "alert.severity",
+          "source_value": 3,
+          "source_scale": "ordinal_rule_priority_1_highest",
+          "source_provided": true,
+          "standard_priority": true,
+          "defaulted": false
+        },
+        "severity_policy": "priority_0_1_100_2_70_3_40_4plus_10_missing_50",
+        "severity_defaulted": false,
+        "asset_criticality": {
+          "value": 50,
+          "observed": false,
+          "policy": "unknown_default_50"
+        }
+      }
+    },
+    {
+      "id": "1a2e6565-dd30-4407-be57-196a08392bba",
+      "event_type": "prueba_icmp",
+      "event_timestamp": "2026-01-01T00:00:02.123456+00:00",
+      "severity": 40,
+      "asset_criticality": 50,
+      "asset_criticality_observed": false,
+      "fingerprint": "0b5aec09d637f8db26d9362858bc836abfb25575bccfe990b2518bdc0d4170d3",
+      "adapter_metadata": {
+        "adapter_version": "suricata-eve-v2",
+        "fingerprint_version": "suricata-eve-fp-v1",
+        "source_port": null,
+        "destination_port": null,
+        "protocol": "ICMP",
+        "signature": "SMARTIR WSL2 LAB ICMP TEST",
+        "signature_id": 9900012,
+        "category": "",
+        "suricata_severity": 3,
+        "input_event_type": "alert",
+        "original_timestamp": "2025-12-31T18:00:02.123456-0600",
+        "category_status": "empty",
+        "classification": {
+          "type": "prueba_icmp",
+          "matched": true,
+          "policy": "category_then_declared_lab_v2",
+          "basis": "exact_lab_signature_and_icmp_empty_category",
+          "taxonomy": "auxiliary_non_attack",
+          "reason": "declared_connectivity_test_not_verified_attack"
+        },
+        "alert_criticality": {
+          "policy_version": "suricata-alert-criticality-v1",
+          "value": 40,
+          "level": "Media",
+          "observed": false,
+          "basis": "engineering_mapping_of_rule_priority",
+          "source_field": "alert.severity",
+          "source_value": 3,
+          "source_scale": "ordinal_rule_priority_1_highest",
+          "source_provided": true,
+          "standard_priority": true,
+          "defaulted": false
+        },
+        "severity_policy": "priority_0_1_100_2_70_3_40_4plus_10_missing_50",
+        "severity_defaulted": false,
+        "asset_criticality": {
+          "value": 50,
+          "observed": false,
+          "policy": "unknown_default_50"
+        }
+      }
+    },
+    {
+      "id": "3f0e77e5-3605-4314-82ed-7db2d6865066",
+      "event_type": "prueba_icmp",
+      "event_timestamp": "2026-01-01T00:00:01.123456+00:00",
+      "severity": 40,
+      "asset_criticality": 50,
+      "asset_criticality_observed": false,
+      "fingerprint": "95acfcfce514bf39e6ec0dbd90b811af10a3e5c21fcbab1e29a06a5201aedd41",
+      "adapter_metadata": {
+        "adapter_version": "suricata-eve-v2",
+        "fingerprint_version": "suricata-eve-fp-v1",
+        "source_port": null,
+        "destination_port": null,
+        "protocol": "ICMP",
+        "signature": "SMARTIR WSL2 LAB ICMP TEST",
+        "signature_id": 9900012,
+        "category": "",
+        "suricata_severity": 3,
+        "input_event_type": "alert",
+        "original_timestamp": "2025-12-31T18:00:01.123456-0600",
+        "category_status": "empty",
+        "classification": {
+          "type": "prueba_icmp",
+          "matched": true,
+          "policy": "category_then_declared_lab_v2",
+          "basis": "exact_lab_signature_and_icmp_empty_category",
+          "taxonomy": "auxiliary_non_attack",
+          "reason": "declared_connectivity_test_not_verified_attack"
+        },
+        "alert_criticality": {
+          "policy_version": "suricata-alert-criticality-v1",
+          "value": 40,
+          "level": "Media",
+          "observed": false,
+          "basis": "engineering_mapping_of_rule_priority",
+          "source_field": "alert.severity",
+          "source_value": 3,
+          "source_scale": "ordinal_rule_priority_1_highest",
+          "source_provided": true,
+          "standard_priority": true,
+          "defaulted": false
+        },
+        "severity_policy": "priority_0_1_100_2_70_3_40_4plus_10_missing_50",
+        "severity_defaulted": false,
+        "asset_criticality": {
+          "value": 50,
+          "observed": false,
+          "policy": "unknown_default_50"
+        }
+      }
+    },
+    {
+      "id": "442e1e11-b208-40a1-bc5a-a7ae8f6789a2",
+      "event_type": "prueba_icmp",
+      "event_timestamp": "2026-01-01T00:00:00.123456+00:00",
+      "severity": 40,
+      "asset_criticality": 50,
+      "asset_criticality_observed": false,
+      "fingerprint": "815c54147ee40a1497d4cf8520ed070f39b2da1c2561511002400825075413d6",
+      "adapter_metadata": {
+        "adapter_version": "suricata-eve-v2",
+        "fingerprint_version": "suricata-eve-fp-v1",
+        "source_port": null,
+        "destination_port": null,
+        "protocol": "ICMP",
+        "signature": "SMARTIR WSL2 LAB ICMP TEST",
+        "signature_id": 9900012,
+        "category": "",
+        "suricata_severity": 3,
+        "input_event_type": "alert",
+        "original_timestamp": "2025-12-31T18:00:00.123456-0600",
+        "category_status": "empty",
+        "classification": {
+          "type": "prueba_icmp",
+          "matched": true,
+          "policy": "category_then_declared_lab_v2",
+          "basis": "exact_lab_signature_and_icmp_empty_category",
+          "taxonomy": "auxiliary_non_attack",
+          "reason": "declared_connectivity_test_not_verified_attack"
+        },
+        "alert_criticality": {
+          "policy_version": "suricata-alert-criticality-v1",
+          "value": 40,
+          "level": "Media",
+          "observed": false,
+          "basis": "engineering_mapping_of_rule_priority",
+          "source_field": "alert.severity",
+          "source_value": 3,
+          "source_scale": "ordinal_rule_priority_1_highest",
+          "source_provided": true,
+          "standard_priority": true,
+          "defaulted": false
+        },
+        "severity_policy": "priority_0_1_100_2_70_3_40_4plus_10_missing_50",
+        "severity_defaulted": false,
+        "asset_criticality": {
+          "value": 50,
+          "observed": false,
+          "policy": "unknown_default_50"
+        }
+      }
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "c969c57d-0daa-4b4b-aa0a-f77796d76ef2",
+      "algorithm_version": "weighted-v2",
+      "score": 50,
+      "priority": "Alta",
+      "event_count": 4,
+      "explanation": {
+        "algorithm_version": "weighted-v2",
+        "parameters": {
+          "algorithm_version": "weighted-v2",
+          "weights": {
+            "severity": 0.35,
+            "asset_criticality": 0.25,
+            "recurrence": 0.15,
+            "attack_type": 0.15,
+            "context": 0.1
+          },
+          "attack_values": {
+            "acceso_no_autorizado": 75,
+            "malware": 90,
+            "dos": 80,
+            "escaneo": 45,
+            "uso_indebido": 55,
+            "exfiltracion": 100
+          },
+          "unknown_attack": 40,
+          "unknown_context": 50,
+          "recurrence_per_event": 20,
+          "rounding": "half_up",
+          "context_policy": "unknown_neutral_prior_not_observed"
+        },
+        "event_count": 4,
+        "factors": {
+          "severity": {
+            "value": 40,
+            "weight": 0.35,
+            "contribution": 14.0,
+            "observed": true
+          },
+          "asset_criticality": {
+            "value": 50,
+            "weight": 0.25,
+            "contribution": 12.5,
+            "observed": false,
+            "basis": "policy_default_50",
+            "policy": "max_asset_input_or_default_50_not_network_measurement"
+          },
+          "recurrence": {
+            "value": 80,
+            "weight": 0.15,
+            "contribution": 12.0,
+            "observed": true
+          },
+          "attack_type": {
+            "value": 40,
+            "weight": 0.15,
+            "contribution": 6.0,
+            "observed": false
+          },
+          "context": {
+            "value": 50,
+            "weight": 0.1,
+            "contribution": 5.0,
+            "observed": false
+          }
+        },
+        "context": {
+          "known": false,
+          "policy": "unknown_neutral_prior_not_observed"
+        },
+        "unrounded_score": 49.5,
+        "score": 50,
+        "priority": "Alta"
+      },
+      "created_at": "2026-11-23T01:10:46.948538+00:00"
+    }
+  ],
+  "duration_seconds": 10.879915500001516,
+  "interpretation": "Generic weighted-v2 score for a declared test, NOT observed attack risk or MTTD/MTTR"
+}

@@ -189,3 +189,32 @@ Se separan metodológicamente **generación sintética EVE**, **seguimiento auto
 Fallos reales se conservan en el informe: identidad vacía de DirEntry en Windows corregida con os.stat; mock de compresión que descomprimía antes de llegar al cliente corregido a stream crudo. Los intentos fallidos no se suman como éxitos. Fuente, schema de estado, límites, operación, comandos de laboratorio y artefactos: [MONITOREO_CONTINUO_SURICATA](MONITOREO_CONTINUO_SURICATA.md), [índice11](resultados/README_ITER11.md).
 
 Pendientes: sensor real autorizado y su modo concreto de rotación/flush, operación prolongada, archivado/capacidad del estado, DACL Windows exhaustivas, NFS/locks distribuidos, PKI/proxy remoto y supervisión/heartbeat. Las cinco prácticas Packet Tracer continúan diseñadas, sin implementación/capturas nuevas; no existe conector Syslog/IOS ni Suricata dentro de Packet Tracer. Esta antología sigue en revisión y no constituye aprobación final o certificación productiva.
+
+## Iteración 12 — normalización Suricata, magnitudes de criticidad y salida dedicada
+
+Se conserva íntegra la historia01–11. El código inspeccionado distinguía severidad y criticidad del activo, pero React mostraba principalmente esta última. Severity3 ya se normalizaba a40; activo50 era un default desconocido. La categoría vacía de una regla ICMP propia no permitía justificar ninguno de los seis ataques. El usuario reportó cuatro alertas reales; **no se consultaron ni editaron esas filas** durante esta implementación.
+
+El adaptador `suricata-eve-v2` conserva la categoría/firma/SID originales y añade procedencia de clasificación y una política explícita de criticidad de alerta. Categorías conocidas conservan su correspondencia. Solo la firma exacta SMARTIR WSL2 LAB ICMP TEST, protocolo ICMP compatible y categoría vacía/ausente/null se identifican como `prueba_icmp`, auxiliar fuera de la taxonomía de ataques. Otros casos siguen desconocidos con motivo. No se usa una coincidencia parcial para inventar DoS o escaneo.
+
+La prioridad ordinal Suricata se conserva. El índice de alerta mantiene calibración numérica heredada:1→100 Crítica,2→70 Alta,3→40 Media,4–255→10 Baja. Ausente→50 sin nivel atribuible;0 conserva100 por compatibilidad, marcado no estándar. Son parámetros iniciales de ingeniería sin validación empírica, no probabilidades ni impacto observado. EVE no aporta valor del activo:50 continúa predeterminado no observado, hasta disponer de inventario. React presenta firma/SID, prioridad original, índice derivado, activo y advertencia para prueba declarada.
+
+No se recalibra weighted-v2 ni se alteran riesgos/evaluaciones congeladas. En el ensayo, cuatro pruebas producen49.5→50 Alta por la fórmula genérica existente: no significa ataque de riesgo alto. Los metadatos señalan derivación; el campo histórico observed de severity significa disponibilidad de entrada al motor y no verificación de impacto. Tampoco se cambia el comportamiento de correlación/estado ante eventos tardíos.
+
+Fingerprint `suricata-eve-fp-v1` y agente/checkpoint11 permanecen iguales. Reimportar eventos anteriores conserva tipo/metadatos/riesgos y añade evidencia; no hay reclasificación retroactiva ni fusión automática de un incidente desconocido con el nuevo auxiliar. Dos fixtures históricas weighted-v1/v2 prueban esa conservación. El head real sigue0009 (cuentas solo EVE de11), **sin migración nueva**. No se tocaron usuarios/credenciales, ML o experimentos operativos.
+
+Se añade fragmento EVE solo alert y generador de wrapper privado: incluye el principal, preserva sus outputs y agrega un logger regular sin threading, buffer0 y permisos600. No sobreescribe el principal, inicia sensores ni modifica systemd; detecta cambios de hash/outputs y rechaza configuraciones ambiguas. Las listas no se anexan con un simple include, por eso se conserva explícitamente la lista. Hay instrucciones WSL2, validación -T y condiciones de permisos/rotación. Cambiar el archivo seguido requiere nuevo directorio de checkpoint, conservando el anterior.
+
+Se encontró Suricata8.0.3 en Ubuntu WSL2 y se validó dos veces **offline**, con -T y -r sobre cuatro tramas ICMP construidas por código, SID9900012 sintético y direcciones de documentación. No hubo captura de interfaz ni tráfico enviado. El general produjo4 alert+1 flow; el dedicado solo4 alert. El principal del usuario no se leyó/modificó; se utilizó base/rule privada del repositorio. El PCAP es determinista; flow_id EVE puede cambiar entre ejecuciones, lo cual se registra mediante hashes diferentes.
+
+| Validación12 | Resultado comprobado |
+|---|---|
+| Suites completas, incluido historial01–11 | **198 aprobadas SQLite,198 PostgreSQL16.16**;34 casos nuevos parametrizados |
+| Duraciones de suites compartiendo host | SQLite138.44s, PG192.01s; no equivalen a benchmark de rendimiento |
+| Agente Windows real y API aislada, SQLite/PG |4 nuevos,1 incidente,1 lote confirmado, reinicio sin replay, repetición4 duplicados y evidencia preservada |
+| Chromium149 con datos offline en PG |Analista/observador, filtro UTC/tipo, separación de magnitudes,0 errores JS; captura auténtica solo de evento sintético |
+| React/TypeScript |Build correcto,443 módulos,Vite6.4.6,6.52s |
+| Compose separado |PG16.16, head0009, health ok y web200; proyecto de prueba detenido sin eliminar volumen |
+
+Dos fallos iniciales del arnés esperaban un campo inexistente del reporte EVE; se corrigieron las aserciones sin cambiar la API. Persiste deprecación TestClient/httpx. Los resultados anteriores no se sustituyen; el manifiesto compara objetos Git de evidencia histórica, agente, migraciones y algoritmos conservados. No se probó captura real, configuración principal, todas las rutas Windows/WSL, eficacia de reglas, calibración en redes reales ni MTTD/MTTR. Las cuatro alertas anteriores conservan su política v1. No se añade una séptima clase ML ni se afirma generalización.
+
+Metodología, archivos, contratos y reproducción: [NORMALIZACION_SURICATA](NORMALIZACION_SURICATA.md). Resultados JSON/CSV, fuentes sintéticas exactas, hashes, captura real de Chromium y matriz de evidencias: [índice12](resultados/README_ITER12.md). La relación con las cinco prácticas Packet Tracer continúa conceptual: todas **DISEÑADAS**, no implementadas/validadas; este ensayo no crea integración IOS/Syslog ni topologías .pkt. La antología continúa **en revisión**, sin aprobación final.

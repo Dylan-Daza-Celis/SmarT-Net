@@ -1,5 +1,7 @@
 # Monitoreo continuo de archivos Suricata — iteración 11
 
+**Actualización12:** el agente y su checkpoint no cambiaron. El backend incorpora adaptador v2, criticidad de alerta separada del activo y tipo auxiliar de prueba ICMP; [procedimiento y evidencias](NORMALIZACION_SURICATA.md). Se añadió un ensayo posterior con Suricata 8.0.3 en WSL2 sobre PCAP sintético offline. Las afirmaciones de ausencia de ejecución de Suricata de este documento describen la **iteración11**, cuyos resultados se conservan. Cambiar al nuevo archivo dedicado requiere un directorio de estado nuevo, conservando el anterior; no editar/resetear offsets para cambiar la ruta.
+
 Estado: agente experimental de sondeo, validado con **archivos sintéticos** en Windows y Linux/Docker. No se instaló ni ejecutó Suricata, no se abrieron interfaces de captura y no se generó tráfico ofensivo. Fecha de revisión:22-11-2026, America/Mexico_City; registros/evidencias usan UTC o epoch Unix.
 
 ## Arquitectura y alcance
