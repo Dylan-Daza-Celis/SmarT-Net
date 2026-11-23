@@ -19,4 +19,4 @@ export function JsonViewer({value,label='Datos técnicos'}:{value:unknown;label?
 export function PageTitle({eyebrow,title,description,action}:{eyebrow:string;title:string;description:string;action?:ReactNode}){
  return <div className="page-title"><div><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{description}</p></div>{action}</div>;
 }
-export const date=(s:string)=>new Intl.DateTimeFormat('es-MX',{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'}).format(new Date(s));
+export const date=(s:string)=>new Intl.DateTimeFormat('es-MX',{dateStyle:'medium',timeStyle:'short',timeZone:undefined}).format(new Date(s));
