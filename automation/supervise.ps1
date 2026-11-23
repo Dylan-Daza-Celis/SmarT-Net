@@ -22,13 +22,18 @@ try {
     Record 'starting'
     $stage='docker_info'
     $dockerDeadline=[DateTimeOffset]::UtcNow.AddSeconds([int]$c.docker_wait_seconds)
-    do { & docker info *> $null; if ($LASTEXITCODE -eq 0 -or (Test-Path $stop)) {break}; if ([DateTimeOffset]::UtcNow -ge $dockerDeadline) {break};Start-Sleep -Seconds 2 } while ($true)
-    if ($LASTEXITCODE -ne 0) { throw 'docker_unavailable' }
+    do { $dockerCode=Invoke-LabNative { & docker info }; if ($dockerCode -eq 0 -or (Test-Path $stop)) {break}; if ([DateTimeOffset]::UtcNow -ge $dockerDeadline) {break};Start-Sleep -Seconds 2 } while ($true)
+    if ($dockerCode -ne 0) { throw 'docker_unavailable' }
     if (Test-Path $stop) {Record 'cancelled_before_compose';return}
     # Never stop services that were already running when this supervisor started.
     $stage='compose_inspection'
-    $running=& docker compose --project-directory $c.repo -p $c.compose_project -f (Join-Path $c.repo 'compose.yaml') ps --status running -q 2>$null
-    if ($LASTEXITCODE -ne 0) { throw 'compose_inspection_failed' }
+    $oldPreference=$ErrorActionPreference
+    try {
+        $ErrorActionPreference='Continue'
+        $running=& docker compose --project-directory $c.repo -p $c.compose_project -f (Join-Path $c.repo 'compose.yaml') ps --status running -q 2>$null
+        $inspectCode=$LASTEXITCODE
+    } finally { $ErrorActionPreference=$oldPreference }
+    if ($inspectCode -ne 0) { throw 'compose_inspection_failed' }
     $composeOwned= -not [bool]$running
     $stage='compose_start'
     Invoke-LabCompose $c -Command @('up','-d')
