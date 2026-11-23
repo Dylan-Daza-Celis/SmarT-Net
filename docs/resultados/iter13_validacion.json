@@ -1,0 +1,2640 @@
+{
+  "generated_at": "2026-11-23T02:44:12.498239+00:00",
+  "git_baseline": "07cc24c079a52c968843bcda7c4c3e335f80c04f",
+  "environment": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python": "3.11.15",
+    "node": "v18.20.8",
+    "npm_observed": "10.8.2",
+    "postgresql": "16.16",
+    "packages": {
+      "fastapi": "0.165.0",
+      "sqlalchemy": "2.0.36",
+      "pytest": "9.0.3",
+      "PyJWT": "2.15.1",
+      "argon2-cffi": "25.1.0"
+    }
+  },
+  "pytest": {
+    "sqlite": {
+      "tests": 211,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 134.862,
+      "cases": [
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_incremental_incomplete_blank_and_documentary_order"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_durable_spool_restart_and_exclusive_reader"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_rotation_multiple_generations_restart_and_late_growth"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[smaller]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[same_size_rewrite]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[missing_rotation]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[oversized]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[rotated_incomplete]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_binding_and_explicit_audited_reset"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_foreign_database_never_modified"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_corrupt_spool_not_sent_or_skipped"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_compressed_and_large_responses_rejected"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_failed_login_and_overprivileged_account_are_not_accepted"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://0.0.0.0:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://api:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[https://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://user:secret@127.0.0.1:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1?token=secret]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[file:///tmp/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_tls_and_proxy_defaults_and_credentials"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[400]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[401]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[403]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[413]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[422]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[302]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[429]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[503]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_retry_after_date_and_oversize"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_token_expiry_renewal_and_single_401_reauthentication"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unverifiable_report_never_advances_and_bounds"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_api_service_least_privilege_inactive_and_assignment_guard"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_real_adapter_rejected_lines_quarantined_order_and_legacy_compatibility"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_exact_eve_line_limit_is_accepted_by_agent_and_adapter"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_lost_http_response_replays_exact_pending_bytes_server_deduplicates"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_0009_is_additive_preserves_all_old_columns_and_users[0008]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_aggregates_denominators_and_trends"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_combined_filters_response_metrics_and_half_open_dates"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_event_and_reception_axes_count_only_matching_events"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_pagination_and_no_n_plus_one"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params0]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params1]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params2]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params3]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params4]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params5]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params6]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params7]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params8]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params9]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_empty_permissions_and_read_only_observer"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_snapshot_exports_are_immutable_consistent_and_sanitized"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_export_limits_sql_injection_and_csv_formulas"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_latest_nonoperational_evidence_does_not_become_zero"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_registered_comparisons_keep_synthetic_label_and_do_not_expose_labels"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_explicit_reassessment_frozen_parameters_history_and_permissions"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_race_and_actions_revision_contract"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_rejects_unknown_parameters_and_allows_owner_analyst"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_0008_preserves_every_existing_table[0007]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_offline_report_verifier"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_authentication"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_user_management_and_live_permissions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[administrador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[analista]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[observador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_import_deduplication_and_validation"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_status_audit_and_actions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_migration_preserves_legacy_data[0002]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_accuracy_matrix_f1_and_binary"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_metrics_missing_zero_denominators_and_budget"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_times_require_complete_observed_evidence"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_generator_reproducibility_independent_labels_and_ties"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[reference_in_features]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[unauthorized]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_case]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[invalid_time]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_reference]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_replay_results_exports_and_no_operational_writes"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_references_do_not_change_predictions_or_orders"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[analista]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[observador]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_errors_missing_labels_and_limits"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_operational_traceability_and_atomic_rejection"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_additive_0005_migration[0004]"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_integrated_workflow_and_idempotent_upgrade_preserves_all_rows"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_concurrent_transition_and_action_share_revision_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_reassignment_withdraw_and_real_author"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_ineligible_users_and_user_role_race_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Resuelto]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Cerrado]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En respuesta]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En an\\xe1lisis]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_machine_rollbacks_reopen_and_assignment_requirements"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_preconditions_and_observer_read_only"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_assignment_has_single_winner"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_transitions_no_lost_history"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_vs_deactivation_race_preserves_invariant"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_import_vs_close_race_has_no_silent_closed_risk_update"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_recorded_times_first_latest_and_missing_evidence"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_temporal_evidence_revision_source_and_metrics"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_actions_preserve_comments_and_category_constraints"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_closed_late_events_freeze_risk_and_signal_review"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_0007_preserves_legacy_states_and_ml_data[0006]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_lab_reproducibility_and_nonweighted_labels"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_no_reference_id_group_or_score_in_features"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_group_isolation_cv_and_test_support"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_preprocessing_train_only_and_safe_inference"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_repeated_training_exact_reproducibility"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_insufficient_missing_and_one_class_data"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[analista]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[observador]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_api_training_blinding_inference_and_persistence"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_duplicate_records_bad_groups_and_insufficient_run"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_0006_additive_migration_preserves_experiments[0005]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_validation_does_not_echo_password"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rejects_unexpected_fields"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_smartir_rejects_nul_without_changing_fingerprint_contract"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rate_retry_after_window_and_forwarded_header"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_limiter_capacity_and_nonblocking_slot_release"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_costly_quotas_and_authorization_before_admission"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_size_limits_malformed_json_and_safe_headers"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[evil.example]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost/path?foo=]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost#fragment]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[user@localhost]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost:99999]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_read_timeout_is_explicit_and_does_not_echo_body"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_bulk_same_batch_and_concurrent_duplicates_preserve_evidence"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_legacy_pagination_and_statistics_remain_consistent"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_synthetic_generator_and_percentiles_are_reproducible"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_aggregation_does_not_hold_mutation_lock"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_publication_rechecks_inactive_author"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_normalization_and_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes4]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes5]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes6]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes7]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes8]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes9]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes10]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes11]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes12]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes13]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes14]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_unknown_and_missing_fields_are_explicit"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[administrador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[analista]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[observador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_partial_errors_and_stable_duplicates"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_stream_batching_limits_and_recovery"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_migration_0004_preserves_all_data_and_legacy_fingerprint[0003]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_asset_provenance_and_frozen_v1"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[None-50-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[0-100-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[1-100-Cr\\xedtica]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[2-70-Alta]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[3-40-Media]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[4-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[255-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[   ]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[MISSING]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[IPv6-ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMPv6]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[TCP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_category_taxonomy_precedes_lab_and_ml_taxonomy_stays_six"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_fingerprint_namespace_original_fields_and_provenance_are_unchanged"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_four_new_alerts_one_incident_and_duplicate_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_agent_existing_checkpoint_and_pending_receipt_compatibility"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_preserves_base_and_all_original_outputs"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[same_file]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[collision]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[include]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[duplicate]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[flow_list]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_check_rejects_locally_changed_logger"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_pcap_generator_is_deterministic_and_checksums_valid"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_windows_late_order_boundaries_duplicates"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_addresses_missing_and_utc"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_configurable_window"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_scoring_extremes_and_contributions"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_parameters_frozen_and_evaluations_preserved"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_legacy_preserved_and_excluded[0002]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[administrador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[analista]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[observador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers0]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers1]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers2]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers3]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers4]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_csrf_enforced_for_writes_exports_and_logout_bearer_still_works"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_inactive_changed_role_expired_and_tampered_cookie"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_service_account_rejected_without_cookie_and_login_rate_shared"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_secure_https_and_remote_http_rejected"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_safe_validation_and_original_bearer_contract"
+        }
+      ]
+    },
+    "pg": {
+      "tests": 211,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 207.123,
+      "cases": [
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_incremental_incomplete_blank_and_documentary_order"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_durable_spool_restart_and_exclusive_reader"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_rotation_multiple_generations_restart_and_late_growth"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[smaller]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[same_size_rewrite]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[missing_rotation]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[oversized]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_source_gaps_block_without_advancing[rotated_incomplete]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_binding_and_explicit_audited_reset"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_foreign_database_never_modified"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_corrupt_spool_not_sent_or_skipped"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_compressed_and_large_responses_rejected"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_failed_login_and_overprivileged_account_are_not_accepted"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://0.0.0.0:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://api:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[https://example.com]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://user:secret@127.0.0.1:8000]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[http://127.0.0.1?token=secret]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unsafe_origins_rejected[file:///tmp/api]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_tls_and_proxy_defaults_and_credentials"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[400]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[401]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[403]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[413]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[422]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_permanent_http_errors_retain_spool_no_automatic_retry[302]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[429]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_transient_deadlines_survive_restart_and_recover[503]"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_retry_after_date_and_oversize"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_token_expiry_renewal_and_single_401_reauthentication"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_unverifiable_report_never_advances_and_bounds"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_api_service_least_privilege_inactive_and_assignment_guard"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_real_adapter_rejected_lines_quarantined_order_and_legacy_compatibility"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_exact_eve_line_limit_is_accepted_by_agent_and_adapter"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_lost_http_response_replays_exact_pending_bytes_server_deduplicates"
+        },
+        {
+          "module": "backend.tests.test_agent",
+          "name": "test_0009_is_additive_preserves_all_old_columns_and_users[0008]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_aggregates_denominators_and_trends"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_combined_filters_response_metrics_and_half_open_dates"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_event_and_reception_axes_count_only_matching_events"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_pagination_and_no_n_plus_one"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params0]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params1]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params2]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params3]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params4]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params5]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params6]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params7]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params8]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_invalid_parameters[params9]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_empty_permissions_and_read_only_observer"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_snapshot_exports_are_immutable_consistent_and_sanitized"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_export_limits_sql_injection_and_csv_formulas"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_latest_nonoperational_evidence_does_not_become_zero"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_registered_comparisons_keep_synthetic_label_and_do_not_expose_labels"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_explicit_reassessment_frozen_parameters_history_and_permissions"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_race_and_actions_revision_contract"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_reassessment_rejects_unknown_parameters_and_allows_owner_analyst"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_0008_preserves_every_existing_table[0007]"
+        },
+        {
+          "module": "backend.tests.test_analytics",
+          "name": "test_offline_report_verifier"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_authentication"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_user_management_and_live_permissions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[administrador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[analista]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_permissions_import_status_actions[observador]"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_import_deduplication_and_validation"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_status_audit_and_actions"
+        },
+        {
+          "module": "backend.tests.test_api",
+          "name": "test_migration_preserves_legacy_data[0002]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_accuracy_matrix_f1_and_binary"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_metrics_missing_zero_denominators_and_budget"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_times_require_complete_observed_evidence"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_generator_reproducibility_independent_labels_and_ties"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[reference_in_features]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[unauthorized]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_case]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[invalid_time]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_dataset_validation[duplicate_reference]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_replay_results_exports_and_no_operational_writes"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_references_do_not_change_predictions_or_orders"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[analista]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_blinding_and_permissions[observador]"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_errors_missing_labels_and_limits"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_operational_traceability_and_atomic_rejection"
+        },
+        {
+          "module": "backend.tests.test_evaluation",
+          "name": "test_additive_0005_migration[0004]"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_integrated_workflow_and_idempotent_upgrade_preserves_all_rows"
+        },
+        {
+          "module": "backend.tests.test_integral",
+          "name": "test_concurrent_transition_and_action_share_revision_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_reassignment_withdraw_and_real_author"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_ineligible_users_and_user_role_race_guard"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Resuelto]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[Cerrado]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En respuesta]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_new_incident_cannot_skip_assignment[En an\\xe1lisis]"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_machine_rollbacks_reopen_and_assignment_requirements"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_preconditions_and_observer_read_only"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_assignment_has_single_winner"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_concurrent_transitions_no_lost_history"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_assignment_vs_deactivation_race_preserves_invariant"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_import_vs_close_race_has_no_silent_closed_risk_update"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_recorded_times_first_latest_and_missing_evidence"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_temporal_evidence_revision_source_and_metrics"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_actions_preserve_comments_and_category_constraints"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_closed_late_events_freeze_risk_and_signal_review"
+        },
+        {
+          "module": "backend.tests.test_lifecycle",
+          "name": "test_0007_preserves_legacy_states_and_ml_data[0006]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_lab_reproducibility_and_nonweighted_labels"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_no_reference_id_group_or_score_in_features"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_group_isolation_cv_and_test_support"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_preprocessing_train_only_and_safe_inference"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_repeated_training_exact_reproducibility"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_insufficient_missing_and_one_class_data"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[analista]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_permissions_and_old_dataset_block[observador]"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_api_training_blinding_inference_and_persistence"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_duplicate_records_bad_groups_and_insufficient_run"
+        },
+        {
+          "module": "backend.tests.test_ml",
+          "name": "test_0006_additive_migration_preserves_experiments[0005]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_validation_does_not_echo_password"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rejects_unexpected_fields"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_smartir_rejects_nul_without_changing_fingerprint_contract"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_login_rate_retry_after_window_and_forwarded_header"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_limiter_capacity_and_nonblocking_slot_release"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_costly_quotas_and_authorization_before_admission"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_size_limits_malformed_json_and_safe_headers"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[evil.example]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost/path?foo=]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost#fragment]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[user@localhost]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_host_poisoning_is_rejected[localhost:99999]"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_read_timeout_is_explicit_and_does_not_echo_body"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_bulk_same_batch_and_concurrent_duplicates_preserve_evidence"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_legacy_pagination_and_statistics_remain_consistent"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_synthetic_generator_and_percentiles_are_reproducible"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_aggregation_does_not_hold_mutation_lock"
+        },
+        {
+          "module": "backend.tests.test_security_controls",
+          "name": "test_report_publication_rechecks_inactive_author"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_normalization_and_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes4]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes5]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes6]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes7]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes8]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes9]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes10]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes11]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes12]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes13]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_adapter_rejects_invalid_types[changes14]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_unknown_and_missing_fields_are_explicit"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[administrador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[analista]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_permissions_and_six_synthetic_categories[observador]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_partial_errors_and_stable_duplicates"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_stream_batching_limits_and_recovery"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_migration_0004_preserves_all_data_and_legacy_fingerprint[0003]"
+        },
+        {
+          "module": "backend.tests.test_suricata",
+          "name": "test_asset_provenance_and_frozen_v1"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[None-50-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[0-100-None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[1-100-Cr\\xedtica]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[2-70-Alta]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[3-40-Media]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[4-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_explicit_criticality_policy_keeps_asset_independent[255-10-Baja]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[   ]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_empty_categories_match_only_explicit_declared_icmp[MISSING]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[IPv6-ICMP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_declared_icmp_protocols_and_ipv6_canonicalization[ICMPv6]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes0]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_no_attack_inferred_from_unknown_category_or_substrings[changes3]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[TCP]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_signature_does_not_impute_missing_or_wrong_protocol[None]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_category_taxonomy_precedes_lab_and_ml_taxonomy_stays_six"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_fingerprint_namespace_original_fields_and_provenance_are_unchanged"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_four_new_alerts_one_incident_and_duplicate_evidence"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v1]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_old_events_parameters_metadata_and_frozen_risks_never_rewritten[weighted-v2]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_agent_existing_checkpoint_and_pending_receipt_compatibility"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_preserves_base_and_all_original_outputs"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[same_file]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[collision]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[include]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[duplicate]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_unsafe_or_ambiguous_config_rejected_without_overwrite[flow_list]"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_wrapper_check_rejects_locally_changed_logger"
+        },
+        {
+          "module": "backend.tests.test_suricata12",
+          "name": "test_pcap_generator_is_deterministic_and_checksums_valid"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_windows_late_order_boundaries_duplicates"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_addresses_missing_and_utc"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_configurable_window"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_scoring_extremes_and_contributions"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_parameters_frozen_and_evaluations_preserved"
+        },
+        {
+          "module": "backend.tests.test_temporal_risk",
+          "name": "test_legacy_preserved_and_excluded[0002]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[administrador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[analista]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_restore_live_identity_and_logout[observador]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers0]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers1]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers2]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers3]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_login_requires_origin_and_custom_header[headers4]"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_csrf_enforced_for_writes_exports_and_logout_bearer_still_works"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_inactive_changed_role_expired_and_tampered_cookie"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_browser_service_account_rejected_without_cookie_and_login_rate_shared"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_cookie_secure_https_and_remote_http_rejected"
+        },
+        {
+          "module": "backend.tests.test_web_session",
+          "name": "test_safe_validation_and_original_bearer_contract"
+        }
+      ]
+    }
+  },
+  "browser": {
+    "sqlite": {
+      "file": "iter13_frontend_sqlite_estable.json",
+      "cases": 6,
+      "browser": "149.0.7827.55",
+      "checks": [
+        "cookie HttpOnly, sin almacenamiento JS, recarga, rutas y filtros preservados, panel y evidencia contextual, teclado/Escape",
+        "asignación/transición/acción, conflicto409, fallo de red controlado y recuperación, historial, módulos independientes y permiso administrador",
+        "analista: recarga válida, RBAC y rutas protegidas",
+        "observador: recarga válida, RBAC y rutas protegidas",
+        "escritorio1440/tablet820/móvil390 sin overflow de documento; diálogo acotado, foco/Escape; cuatro pares de contraste>=4.5",
+        "JWT cinco segundos: expira por reloj real/API, logout persistente,422 validación sin eco y429 real con Retry-After"
+      ]
+    },
+    "postgresql": {
+      "file": "iter13_frontend_postgresql_capturas.json",
+      "cases": 6,
+      "browser": "149.0.7827.55",
+      "checks": [
+        "cookie HttpOnly, sin almacenamiento JS, recarga, rutas y filtros preservados, panel y evidencia contextual, teclado/Escape",
+        "asignación/transición/acción, conflicto409, fallo de red controlado y recuperación, historial, módulos independientes y permiso administrador",
+        "analista: recarga válida, RBAC y rutas protegidas",
+        "observador: recarga válida, RBAC y rutas protegidas",
+        "escritorio1440/tablet820/móvil390 sin overflow de documento; diálogo acotado, foco/Escape; cuatro pares de contraste>=4.5",
+        "JWT cinco segundos: expira por reloj real/API, logout persistente,422 validación sin eco y429 real con Retry-After"
+      ]
+    }
+  },
+  "browser_cases_executed_final": 14,
+  "unique_browser_cases_final": 8,
+  "regressions": {
+    "integral": {
+      "file": "iter13_integral_postgresql_final.json",
+      "api_checks": 61,
+      "restart_preserved": true,
+      "browser_cases": 1
+    },
+    "suricata": {
+      "file": "iter13_pipeline_postgresql_regresion.json",
+      "browser_cases": 1,
+      "imported": 4,
+      "duplicates": 4
+    }
+  },
+  "compose": {
+    "file": "iter13_compose_base_smartir-iter13-base-55afa103.json",
+    "cookie_proxy_validated": true
+  },
+  "attempts": {
+    "first": {
+      "passed": 0,
+      "failed": 6,
+      "log_sha256": "1f6c8e18fc599c8c28aed784bdd54be5ae2207bd49c8252ef0c89465ca50ae51"
+    },
+    "second": {
+      "passed": 3,
+      "failed": 3,
+      "log_sha256": "0473f86993289ec225893aff66531b2f9302236f996fe0db8f352aaa4b0486b9"
+    },
+    "third": {
+      "passed": 4,
+      "failed": 2,
+      "log_sha256": "0f5bc8326c6476317bdffcafdd4fc29417d65ebdd57cd2b5d3d9b0fa2959aa26"
+    },
+    "first_pass": {
+      "passed": 6,
+      "failed": 0,
+      "log_sha256": "3159dbc9eefb5d8263886af69780a8f7500ff7708424220a4d42b2c7976001f6"
+    },
+    "sqlite_transform_failure": {
+      "passed": 5,
+      "failed": 1,
+      "log_sha256": "7da2e2e5def37733ac26911bc1b5aeb6c1b930f08e2da38ce7673cacb5c8a571"
+    }
+  },
+  "build": {
+    "command": "npm run build",
+    "exit_code": 0,
+    "modules": 459,
+    "vite_seconds_observed": 9.24,
+    "artifacts": {
+      "frontend\\dist\\index.html": "5f1bb7c9052eb94aa79c5178a6f78b635c1760be6e1525d1d812f3cae5c633a8",
+      "frontend\\dist\\assets\\AnalyticsDashboard-D3LAjGJ1.js": "9e0f80b301179ec03eb550f1af04a6fb011ceca9fe4a213db5386495fe7e0e77",
+      "frontend\\dist\\assets\\chart-state-Z7XhEDmT.js": "3e07a9666d4eac12e65067e665632bca9131e8acd2ac17e9353aa35dc70b412b",
+      "frontend\\dist\\assets\\charts-V-SFRo9a.js": "e3cc88706d014347b26357d8c43de25c04756faf7161ca1623b0f92306e13413",
+      "frontend\\dist\\assets\\Evaluation-DF2Z-Bs1.js": "bb09bed3ab44deef0c11a4992702432300d97b963359ccd440a01f18ef165f68",
+      "frontend\\dist\\assets\\index-C-FOnG3b.css": "52a0b933c318566b0ba0008bae01ca67a1a5f5bbe31734b793b449dab819797c",
+      "frontend\\dist\\assets\\index-DuMEoQ08.js": "0b1458ea70283628f0aa6e723072e6b305d89b9e850ada49cebe46179f264a67",
+      "frontend\\dist\\assets\\MachineLearning-FZg58DN8.js": "9889a441c45705b64abcdc0a70aea8c42447d84f79ae50be9a0c2bd5737fd0b8",
+      "frontend\\dist\\assets\\vendor-DiE6TtXu.js": "5b0e344037b22c002ff62146aafe35f2969965aff0702ff3099fd8db33851109"
+    }
+  },
+  "npm_ci": {
+    "exit_code": 0,
+    "packages_added_observed": 66,
+    "audited_observed": 67,
+    "known_vulnerabilities_reported": 0
+  },
+  "historical_evidence": {
+    "docs/resultados/README_ITER10.md": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "c5f1eef853b4e2b973ef502d27b1ec22222bc39f"
+    },
+    "docs/resultados/README_ITER11.md": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "543d7b38494adf5f54951be94200a36f87b325b6"
+    },
+    "docs/resultados/README_ITER12.md": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "fca3260f0d1a8b516f32023e9e74d8d53fba63b7"
+    },
+    "docs/resultados/iter05_semilla_202605.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "fbc63aa9158e7832da6507f3ff0c4e0562abbdff"
+    },
+    "docs/resultados/iter06_semilla_202606.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "712f3dc5e586d957ceb36a815f453a07cbf959e0"
+    },
+    "docs/resultados/iter07_verificacion_api.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "4ed28ac8d22bc22d22db7fa010ff965c54176589"
+    },
+    "docs/resultados/iter08_reporte_sintetico.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "8edeac06554c6a3a45a4a289db0a822cc254f845"
+    },
+    "docs/resultados/iter08_reporte_sintetico.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "a5045a71f03967290aec03c8c52009d577d2e20a"
+    },
+    "docs/resultados/iter08_reporte_sintetico.pdf": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "7e0acda289618698323fcc16c940a6f24ff83e07"
+    },
+    "docs/resultados/iter08_verificacion_api.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "40692834e50b85d1ba44f914bbc49099dc529acd"
+    },
+    "docs/resultados/iter09_auditoria_npm.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "aed5a58f177afb2f6d514bfb04774724b7726156"
+    },
+    "docs/resultados/iter09_auditoria_python_final.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "bd691569873fce65c2f97bf077ac19a609e4818b"
+    },
+    "docs/resultados/iter09_auditoria_python_inicial.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "deac4f526d26e18b3c5929f719630d11f8d8cf7b"
+    },
+    "docs/resultados/iter09_baseline_pg.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "a1f35b87bb2e8df418061903c14699bf42e25cb8"
+    },
+    "docs/resultados/iter09_baseline_pg.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "b95e2ca97c51b01a4182d3bc48a7dcee6993cb58"
+    },
+    "docs/resultados/iter09_baseline_pg_paired.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "bb6ba8c2dc7d465b016d54999bd835c03229fdec"
+    },
+    "docs/resultados/iter09_baseline_pg_paired.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "94002db8ecd87f384b7d4768f9cd19d39c366011"
+    },
+    "docs/resultados/iter09_baseline_sqlite.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "1d51eb0604b8d0618e5ed54544d31688274e3fcb"
+    },
+    "docs/resultados/iter09_baseline_sqlite.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "e5b53a22c30f09bfaeb603dc0c1c5242586d4448"
+    },
+    "docs/resultados/iter09_baseline_sqlite_paired.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "1f0890f37a83b0bb73a8d2813a564d8a842a4012"
+    },
+    "docs/resultados/iter09_baseline_sqlite_paired.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "0c506853c4f73dbe3c38233fae9017c9f0f926aa"
+    },
+    "docs/resultados/iter09_comparacion_pg.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "ec1228eab260ca8348b501160195c753bfb1f677"
+    },
+    "docs/resultados/iter09_comparacion_pg.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "744be3780035bb1b31b0b3a8265cb092277b4a1d"
+    },
+    "docs/resultados/iter09_comparacion_sqlite.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "805cb442a87f43ff957dec46e35265effa4438f9"
+    },
+    "docs/resultados/iter09_comparacion_sqlite.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "dc4a4c893d455c4a6524843d9ae4f2d5351ee164"
+    },
+    "docs/resultados/iter09_http_verificacion.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "fa228cb064ac67a0514137e988aec06cd951924b"
+    },
+    "docs/resultados/iter09_indices_observados.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "f1550ed053163d40ef32378e00baf979f6d03fac"
+    },
+    "docs/resultados/iter09_mediciones_pareadas.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "51e82b7dd6a65b8881d18a761848c464f4734d70"
+    },
+    "docs/resultados/iter09_optimized_pg_paired.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "bddee19695f908260f090588a7272bc5618172ba"
+    },
+    "docs/resultados/iter09_optimized_pg_paired.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "24b257a77659911f4c15588dd83720a31a08b725"
+    },
+    "docs/resultados/iter09_optimized_sqlite_paired.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "0c0926369833e66ae217133f38e8b021c69cd6e4"
+    },
+    "docs/resultados/iter09_optimized_sqlite_paired.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "5f64f04df9aed7203335b523a82831aa4c657686"
+    },
+    "docs/resultados/iter10_auditoria_npm.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "aa8f7d3c112239831e64b259e59e20d20225a14b"
+    },
+    "docs/resultados/iter10_auditoria_python_resolved.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "b978aa51cc2a85f8e66b92921bc0025107e670bb"
+    },
+    "docs/resultados/iter10_compose_smartir-iter10-9c8a60d4.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "bac2605c0238d8918ce5e717c378a272fd7e1700"
+    },
+    "docs/resultados/iter10_http_concurrent_run1.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "521aa2ffa1c0620114a1d8a2222fb1b0070bcf9e"
+    },
+    "docs/resultados/iter10_http_concurrent_run1.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "f8d4b6141212eb9c0f25c70dfe75466b484b0805"
+    },
+    "docs/resultados/iter10_integral_postgresql_cierre.browser.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "4970c8484a1b2a1a1318ad2a505603a7d55fc0d7"
+    },
+    "docs/resultados/iter10_integral_postgresql_cierre.dashboard.png": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "7d1844bf4f8f953c8edcf15ea2a704a2aa8e1379"
+    },
+    "docs/resultados/iter10_integral_postgresql_cierre.incidente.png": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "5dc1ed6c8ae67957fbc5a952c31a5e652969ce50"
+    },
+    "docs/resultados/iter10_integral_postgresql_cierre.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "470d6ec2a2497d8a8ba72466892002cf69fd1573"
+    },
+    "docs/resultados/iter10_integral_postgresql_cierre.reporte.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "b0d64a2d711fe3b85a6c7fef35575387406c6aff"
+    },
+    "docs/resultados/iter10_integral_postgresql_cierre.reporte.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "9bc6e429bca0b8c9b520f3a0cb4a1086ecda4720"
+    },
+    "docs/resultados/iter10_integral_postgresql_cierre.reporte.pdf": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "a6cbf7003255475907cdb40eabfe18efe727e3eb"
+    },
+    "docs/resultados/iter10_integral_postgresql_run5.browser.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "bc93dd70c4a74859d61b9bb50c584cc8f3635da1"
+    },
+    "docs/resultados/iter10_integral_postgresql_run5.dashboard.png": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "86aadd3a2d656f7cd2f2e326b023571fd8c4fd9f"
+    },
+    "docs/resultados/iter10_integral_postgresql_run5.incidente.png": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "a92d0fd751a77b29384385bcfa46c0057a12ca37"
+    },
+    "docs/resultados/iter10_integral_postgresql_run5.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "c0b9c698ac243b317db883f4cce280b929f5cfec"
+    },
+    "docs/resultados/iter10_integral_postgresql_run5.reporte.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "24ea974ee767bb6f08292651dbb2837495a9e230"
+    },
+    "docs/resultados/iter10_integral_postgresql_run5.reporte.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "f58d1990ad493e695855f07be2fe3818c9d262e6"
+    },
+    "docs/resultados/iter10_integral_postgresql_run5.reporte.pdf": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "c4b61ce749574583b00872ec84160cdbfde9e7da"
+    },
+    "docs/resultados/iter10_integral_sqlite_final.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "b411e6facac80d2f2800510b6c89849319a3c715"
+    },
+    "docs/resultados/iter10_integridad_git.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "3d5d965d25c404b6baa45d439be67a3012847944"
+    },
+    "docs/resultados/iter10_validacion_cierre.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "21998bee8cc694a9cb5e6f1a1b86dbd671cd089e"
+    },
+    "docs/resultados/iter10_validacion_final.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "f794e341ef74fc113b018d770b5b4121c62c07a2"
+    },
+    "docs/resultados/iter11_agent_http_postgresql_auditado.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "5e53bfc9239f548fa5983f72688ec1eac7f5f3e8"
+    },
+    "docs/resultados/iter11_agent_http_postgresql_auditado.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "17c68ff6785106f8c07be1e8a1d8d5e7530d9e4b"
+    },
+    "docs/resultados/iter11_agent_http_postgresql_cierre.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "e93da693d1a0a1a16e42d410fbea4404b1b68207"
+    },
+    "docs/resultados/iter11_agent_http_postgresql_cierre.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "32cb71a6ad28f4084febe7276785ba0c4bd87318"
+    },
+    "docs/resultados/iter11_agent_http_postgresql_run1.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "c4339c79487afd82239ad676ba0502b6b1773d5d"
+    },
+    "docs/resultados/iter11_agent_http_postgresql_run1.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "0c97fefafca3c40a0f8c0f9c03cd9186333b05dd"
+    },
+    "docs/resultados/iter11_agent_http_sqlite_auditado.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "0897927e74be528fceb1869231d69b2e6edb3dae"
+    },
+    "docs/resultados/iter11_agent_http_sqlite_auditado.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "135a9c6bc55600c15796b4ab4b514ee960771015"
+    },
+    "docs/resultados/iter11_agent_http_sqlite_cierre.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "e366b6964e33e73cdc0f364683b6e855d0b0bb2e"
+    },
+    "docs/resultados/iter11_agent_http_sqlite_cierre.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "9a1093901bd180cbcc519be04f8995d399b8ce0b"
+    },
+    "docs/resultados/iter11_agent_http_sqlite_run1.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "ffc26c59d66aaba9fb374ae373adb7aefcd42f1e"
+    },
+    "docs/resultados/iter11_agent_http_sqlite_run1.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "91192e6a5e0e2b8f7b2a8d5ba8179df9c6adcfc4"
+    },
+    "docs/resultados/iter11_compose_base_smartir-iter11-base-72e76ba9.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "11e911cdc6ac839c6db6fe56105675abdb415e0e"
+    },
+    "docs/resultados/iter11_compose_smartir-iter11-35cc7f68.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "a724afb373ab60111c1b6a782bf9c45e39f38177"
+    },
+    "docs/resultados/iter11_compose_smartir-iter11-a7ae65f3.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "9faf2592d5eb8684ff75408ac42f52e7ea62a17c"
+    },
+    "docs/resultados/iter11_compose_smartir-iter11-b573114f.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "0045ae2d0e094034863c319b6886a9acf08c597c"
+    },
+    "docs/resultados/iter11_validacion_cierre.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "3f52f819b0ed9923c84793f7b1d69b067ffc835c"
+    },
+    "docs/resultados/iter11_validacion_final.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "31bf6123c75c42c79a2ba2042e38a524ef4ba076"
+    },
+    "docs/resultados/iter12_compose_base_smartir-iter12-base-00547d69.json": {
+      "content_unchanged": true,
+      "comparison": "same_content_crlf_lf_difference_only",
+      "git_object": "7d6484981abf8d4d6363c7a426a62ead1b1a0f9c"
+    },
+    "docs/resultados/iter12_eve_SINTETICO_OFFLINE_motor_1.jsonl": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "7ca99b5752231dc2cf34e57b3bbd048e81c6f17f"
+    },
+    "docs/resultados/iter12_eve_SINTETICO_OFFLINE_motor_2.jsonl": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "8ce9383c290ddb5eb41736ab540bca2483da98ec"
+    },
+    "docs/resultados/iter12_pipeline_postgresql_final.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "89ad8906ab52e2e347b12df5939d45c2e6aa12de"
+    },
+    "docs/resultados/iter12_pipeline_postgresql_final.json": {
+      "content_unchanged": true,
+      "comparison": "same_content_crlf_lf_difference_only",
+      "git_object": "624b315a2f0e6df841b5c4f6e4f46c6ee7d18406"
+    },
+    "docs/resultados/iter12_pipeline_postgresql_interfaz.browser.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "849ce67cbf78903ba39d3e549dbee72ab6524ac8"
+    },
+    "docs/resultados/iter12_pipeline_postgresql_interfaz.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "bfd2d1c8659120a3f6328e104b858a4a86976086"
+    },
+    "docs/resultados/iter12_pipeline_postgresql_interfaz.evento.png": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "e03738042d4917e25315108b2ff871a8974394fc"
+    },
+    "docs/resultados/iter12_pipeline_postgresql_interfaz.json": {
+      "content_unchanged": true,
+      "comparison": "same_content_crlf_lf_difference_only",
+      "git_object": "65b8d9dd34b83bf32970fff573de74b0e2ef435b"
+    },
+    "docs/resultados/iter12_pipeline_sqlite_final.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "b20281dd30b1da439c1780adfcf55d4e640e58b5"
+    },
+    "docs/resultados/iter12_pipeline_sqlite_final.json": {
+      "content_unchanged": true,
+      "comparison": "same_content_crlf_lf_difference_only",
+      "git_object": "047df932fc70aeb10659817677ecdc89f4075543"
+    },
+    "docs/resultados/iter12_suricata803_offline_1.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "c894d38fea66b0506da4dd16f8b699decf6ce784"
+    },
+    "docs/resultados/iter12_suricata803_offline_2.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "dea7a303ba2ededb29b4efb83e50af34083d846d"
+    },
+    "docs/resultados/iter12_validacion_final.csv": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "7bb296d5d2549591f4b62381e626fb8d8506dc25"
+    },
+    "docs/resultados/iter12_validacion_final.json": {
+      "content_unchanged": true,
+      "comparison": "same_content_crlf_lf_difference_only",
+      "git_object": "b28d6004b5bdc3b5c559a00e664071a3593f7dcc"
+    }
+  },
+  "preserved_code_and_dependencies": {
+    "agent/.dockerignore": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "a56b139ddbcb720e0871530e110521688f7f2217"
+    },
+    "agent/Dockerfile": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "3296e6cf540fbadf87ca42cd55e55065aa682b54"
+    },
+    "agent/agent.env.example": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "6461f8a6c813a7618b0bf4f02dd3d81ed558cd31"
+    },
+    "agent/requirements.txt": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "cee32373de76728f86a67ebdbcaff698a306252c"
+    },
+    "agent/smartir_agent/__init__.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "73d745845b227c10d29660ef2296184e533e455e"
+    },
+    "agent/smartir_agent/__main__.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "dc59f45ea4a78f548b295a565be6ae4803321096"
+    },
+    "agent/smartir_agent/config.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "90eb038dda13bb6477b6d62db384c4b85b3f04a6"
+    },
+    "agent/smartir_agent/runner.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "9593039fed25b77982bfa39a26dda1833482e30b"
+    },
+    "agent/smartir_agent/store.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "3c3b36ba4c45af58ab022f56d34648d7941c639c"
+    },
+    "agent/smartir_agent/synthetic.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "90e55d3a55e1b726ebccefd69cedd0e0f5fd0c58"
+    },
+    "agent/smartir_agent/tailer.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "81c5ff32d17905255b69fa5bf8fa2f4a82e2d998"
+    },
+    "agent/smartir_agent/transport.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "9d658fdb47c8d6f70b3879b6b263de2a1e9193cd"
+    },
+    "backend/app/analytical_reports.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "38f96a4c4abaf1089b95c6e51d9f41663206914a"
+    },
+    "backend/app/analytics.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "a56590f74b6171378c118d8a40774a02c60ef61e"
+    },
+    "backend/app/correlation.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "877cd6ff0869a777922843f64929eee3f2f03dc4"
+    },
+    "backend/app/evaluation_data.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "6b4d13ea099a20cc3496387d14da39405a4c5d33"
+    },
+    "backend/app/evaluation_metrics.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "2d55f896769eb1478c421ddfba261de11302be54"
+    },
+    "backend/app/eve_import.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "7ecca92ce107ac6e64c92e3c97cfdc237983da24"
+    },
+    "backend/app/experiments.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "9b7177854227e5ba5344a753d4648f6637d0118c"
+    },
+    "backend/app/ingestion.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "d75978c44a8cda98a31d22b297110bab2199acfc"
+    },
+    "backend/app/lifecycle.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "72ea8dafdd2f7ffeaf86341ac58a5018f7022269"
+    },
+    "backend/app/ml_artifact.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "ad8fcbb2ce2964f6bf61433b706cb3d8bcbd39ad"
+    },
+    "backend/app/ml_data.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "7a49940f00516acf5faace133e01f2ad9f239a86"
+    },
+    "backend/app/ml_engine.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "0d51546230349a930b2c09c31f08ea0d70ce3f46"
+    },
+    "backend/app/models.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "e37868932e699390482e0823730ce0f57c9c7307"
+    },
+    "backend/app/reassessment.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "9b2c069762bd4b20b85d2c69f547da72189a6f24"
+    },
+    "backend/app/risk.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "2ad00e599038d42bedb7567989cc95c0210ca9a5"
+    },
+    "backend/app/schemas.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "2a0b48db5626505cd57b37820017e03a3981d72a"
+    },
+    "backend/app/suricata.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "e3f8b3482b300e2f2ade7cbe7634ad7895a35d05"
+    },
+    "backend/app/suricata_policy.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "1a549a0927028f3ca24aa578cd8f41869bcf4f72"
+    },
+    "backend/migrations/env.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "96abb39e94de09e93646786c6d787b1219756817"
+    },
+    "backend/migrations/versions/0001_existing.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "6dae9231e98fa578175b87287b3bf0d7a9337c9c"
+    },
+    "backend/migrations/versions/0002_auth.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "ddf768f95323aecdb2c5a4fa754dd0688e44fefa"
+    },
+    "backend/migrations/versions/0003_temporal.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "730c6a60d5121bbd253b00746fa9564907eb1368"
+    },
+    "backend/migrations/versions/0004_suricata.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "101edc169632d81665078cda95ce56874dc35584"
+    },
+    "backend/migrations/versions/0005_evaluation.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "668d52d7f33a81cb993616c78b8d882f5955f3d2"
+    },
+    "backend/migrations/versions/0006_ml.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "8375b6fefcb893399575d8c04284b8381ceea48b"
+    },
+    "backend/migrations/versions/0007_lifecycle.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "56841a7a7eda5ae54086dc205cf04fb7aa263c76"
+    },
+    "backend/migrations/versions/0008_analytics.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "0b1e3f4f7a64b45aba4449a04198af3b576fd0a1"
+    },
+    "backend/migrations/versions/0009_eve_service.py": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "e488652f672641bdb9432f500d573b2a8d1259e6"
+    },
+    "backend/requirements.txt": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "d503ff46c812d2463e58f1108bc8dcfc1815ae97"
+    },
+    "frontend/package-lock.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "570e8ff16b3d4924439d7ee4997ef6836a227aa9"
+    },
+    "frontend/package.json": {
+      "content_unchanged": true,
+      "comparison": "git_clean_object",
+      "git_object": "cd5ec33024398901735166185074dfc5ad654602"
+    }
+  },
+  "migration_head": "0009",
+  "new_migration": false,
+  "operational_data_read_or_written": false,
+  "live_capture": false,
+  "user_services_rebuilt": false,
+  "source_sha256": {
+    "frontend\\src\\AnalyticsDashboard.tsx": "9775e2cb05ec5f264b970eaa3c1122c8b99ba0886e2b213ad34a00bdbc87d60f",
+    "frontend\\src\\api.ts": "21f220d6a76ec5f15c2240ee8c2d1be8a734fc53a735deaca6798794efe7a0f5",
+    "frontend\\src\\App.tsx": "358a0097fcf1eb4fa4a462af8d2a22ad7fbdc4e93e55e306a950cea41a938d58",
+    "frontend\\src\\Evaluation.tsx": "086940aa752399c058f2dbbfa8e74c5faf66e6b4c0e900e33160d6c96dc301e9",
+    "frontend\\src\\IncidentLifecycle.tsx": "675ce8ab94a510eb9b94668864e8a82a527d3893bc353812fd4f997a18f8474c",
+    "frontend\\src\\MachineLearning.tsx": "c400230e8c7745116c86bcc5ba2670261e049881d6e350df66ad674a240d5c38",
+    "frontend\\src\\main.tsx": "132aeb7cd46202daf981d5169bb95b74138e3d87959ffe1ced664114bc6b897f",
+    "frontend\\src\\navigation.ts": "73941b082dd76960f59c7d98a52c3cadb14e804578917137ba8aac5bb6dca907",
+    "frontend\\src\\style.css": "c44235c438ab9c94e5cb1b92c4d9c9b80eb87b1675f911ed0bd66174259046da",
+    "frontend\\src\\SuricataEventDetails.tsx": "792c21f840720e01366a0259492a7500ea635acd4a24d50718b1ba3ebd2f89c6",
+    "frontend\\src\\types.ts": "a7b22af034be8eced9c79d2dffc8071736a412f18aa6515c33722f123800a36e",
+    "frontend\\src\\vite-env.d.ts": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+    "frontend\\src\\auth\\SessionProvider.tsx": "8a5bb6213a9f9f75a2b299f2ad3ee9f19b4d1314dd601302a300bd98684ecc82",
+    "frontend\\src\\components\\EvidenceViewer.tsx": "8b0928e81cd6c3a302e128ee9b384c943632145eea70d4398e0ff57cd32c435e",
+    "frontend\\src\\components\\IncidentDrawer.tsx": "d3172571eefaea7ab7506c68714e3b0d6ec00360c1faab0b3b5443261f5561b4",
+    "frontend\\src\\components\\IncidentFilters.tsx": "f80b622277899ef91249134a8c131944426113e1c45aa7fa74a21d7d20c76292",
+    "frontend\\src\\components\\IncidentTable.tsx": "25e8729d97fc5f0393cd6a6e6fe1d57eaa1c6974a74b191f0918a6fcf3570601",
+    "frontend\\src\\components\\Shell.tsx": "8e4c786187ed438df4acf541bd0d34fe76818b6dc55953b8e9d858741c3bb2e8",
+    "frontend\\src\\components\\ui.tsx": "545d2e44f4be968e31611b7f2b7991eaf114a75c0384539702bad141da515300",
+    "frontend\\src\\hooks\\useCohort.ts": "f3b09cf62e3f52e245a26bd771b3a48bd903a607b404832509bec4d544c1b2fe",
+    "frontend\\src\\pages\\Dashboard.tsx": "fe61bb70626e684ecca8c5c1dfee0d93065358a2ded19c85dcefa37842a57f11",
+    "frontend\\src\\pages\\ImportEvents.tsx": "f76d365157d2dddcf75a66160cb08ffed588036908f372df6005e6354887b216",
+    "frontend\\src\\pages\\Incidents.tsx": "ae5344e3ef531b211b5c1c3de3947adb4165cb7f7dd9857b87583e0058914fb3",
+    "frontend\\src\\pages\\Login.tsx": "f2d9d9d446c6ae26d540609a80da36af74f9a3c0990e586ad68511353a8c85f8",
+    "backend\\app\\security.py": "7ca6b2cee3762e88cd812d19787bdf45231a8287b0ace586d841cbf7239da4fa",
+    "backend\\app\\main.py": "d16dd66f29b20b9afa1af5c4602afa95e47d250c649626d1a9539b9e3eae9643",
+    "backend\\app\\abuse.py": "21f2936d65ae4f5f8ebef177669af57e25ee65a092178c2e6182a2b647b5922d",
+    "backend\\app\\web_session.py": "1b85e9a262d78743ad00de5b3fafd3595ef1ec3278d5f7dc27e4427d3edc927c",
+    "backend\\tests\\test_web_session.py": "8798b05d6704a0eaf52b5e3d2ae3e4689b87639d5f2656a01c567e0a4f8edd29",
+    "frontend\\vite.config.ts": "6cb4c509f603115e651c65cfa50c0074d971b8a68239f48bb8083dcaa39818d0",
+    "compose.yaml": "5fadd0c85ff34e8e0e6724d34b2c78b97444b407a609769f1a720e0973e32757",
+    "frontend\\tests\\frontend13.spec.ts": "155602a2b357f5e2aee54328ecffb4d614f0d873ecf6213a81379995576abd34",
+    "frontend\\tests\\frontend13.config.ts": "76b9583de1666c3e4471cab7d8c93deb8e49a07f97a75f490f62a5368717fc4f",
+    "frontend\\tests\\integral.spec.ts": "54af1e347cd60baa4867ff9e440316f6d8925c368257f3d788f91aaecb4b2099",
+    "frontend\\tests\\suricata12.spec.ts": "66f6b7d17bab18415159551f59a8697096fed382183a6a4ee8750b736d3bcc82",
+    "frontend\\tests\\vite.validation.ts": "8359f2659340d8f05e8b8e94d523bba5003b4a9422301bb58293bda1405475f2",
+    "validation\\run_frontend13.py": "ce1503d02dae53ad528630c5da4e8c3b0f816b0386df7dbafc57783f2acb957b",
+    "validation\\collect_frontend13.py": "83a9459bb8e407fe07e0c4534dbe0788e36e5c072ff05112950640b33b173fc6"
+  },
+  "evidence_sha256": {
+    "iter13_compose_base_smartir-iter13-base-55afa103.json": "56a2c20a8d2ef2fa13a276d1eb11b79432d105cb51e4e08116587180de2fc8aa",
+    "iter13_compose_base_smartir-iter13-base-a0d28dbf.json": "9c4678dad5f9c5119ecd246ac5e384e965c0a316d538a113ef0a1313ff93f36d",
+    "iter13_frontend_postgresql_capturas.analitica.png": "509803bab264b841709ba641e18a9afe8f28f8879ffd4987a4f9bae211eae2e0",
+    "iter13_frontend_postgresql_capturas.browser.json": "1c4019ce7d96ad8db7ea9c0e14fa8e766f66992fcde27a57a2838d58824f78e6",
+    "iter13_frontend_postgresql_capturas.dashboard.png": "f5e399813e9712c06ae3826cf2d17cf6184c1ac832f2f620ab7b6508733a4271",
+    "iter13_frontend_postgresql_capturas.evaluacion.png": "874492d4db9e439f5ad72dc95f58e1de5df9de1d2be1422de2aa0715785e14c6",
+    "iter13_frontend_postgresql_capturas.evidencia.png": "81835fb535078ac0c5321c24d940201776a39f3364cd34c7ce290ebe891ca583",
+    "iter13_frontend_postgresql_capturas.historial.png": "b425dad0a8753eb50b0521d14172388f395a357c0684b807ade370d7a2c08dd8",
+    "iter13_frontend_postgresql_capturas.importacion.png": "b0f5e9f8b2012e647572aa62ec52da6731a67cdac4c74a3639bedda180a365c6",
+    "iter13_frontend_postgresql_capturas.incidentes.png": "798c12b0415290578f62c7da05dee768b55ff33150cec5381507daf35be74861",
+    "iter13_frontend_postgresql_capturas.json": "4f5879f0abdf6b3bcec563de9a4034753a44e5c13ecb8bbd766c593ed05e77ae",
+    "iter13_frontend_postgresql_capturas.ml.png": "ebee7f3e6ca1df73ba658a7067a6ab2eb1e1b71a809d6822964ca044e72ee1b6",
+    "iter13_frontend_postgresql_capturas.movil.png": "27c4449bcbaa31222b1e9c9344e8a1bc027f5631cbccd056163602a7cdb21592",
+    "iter13_frontend_postgresql_cierre.analitica.png": "85ae18bf0080b586b9180fbbb41aa9b6f2c049a845479dc1bed7af2d5add8f3d",
+    "iter13_frontend_postgresql_cierre.browser.json": "aacf4f7900bcd55145ae1625b9a3b4d37242c6542b752f2dd73dae49d49be0e0",
+    "iter13_frontend_postgresql_cierre.dashboard.png": "c0bdd74e7efb8e718104183d6ff490bc2b9a868228abea9b69d48a7af80be468",
+    "iter13_frontend_postgresql_cierre.evaluacion.png": "2bd0f886bb3ad972b64f83e4a97c0c2d15f4fc44fbaf1a4c87fe1840c768a925",
+    "iter13_frontend_postgresql_cierre.evidencia.png": "bf19dd2913ad74b464e5efc9d0d8d293d4a584a445101cc177855d69c216ed13",
+    "iter13_frontend_postgresql_cierre.historial.png": "f89dfac4220dc47c17aa9e25bb4b1378552e297d94f9976fce96179bc260125f",
+    "iter13_frontend_postgresql_cierre.importacion.png": "b0f5e9f8b2012e647572aa62ec52da6731a67cdac4c74a3639bedda180a365c6",
+    "iter13_frontend_postgresql_cierre.incidentes.png": "fb2b62e629cd42be6069dbf362d5c3ec2a395c3e826878937fd089d294e586f5",
+    "iter13_frontend_postgresql_cierre.json": "f32ff8f273b0a1f62dd5c1e5f9691019a124746c3d12d254df01d57f483cde05",
+    "iter13_frontend_postgresql_cierre.ml.png": "c627c840cc240fc80745904b01c7042bdadaddf67f3542f44de7e1e16d6413ec",
+    "iter13_frontend_postgresql_cierre.movil.png": "55d73865fa8ddb2919f1ff9f80ac4656ac9b46be07bfdf362eaea3d718b09af8",
+    "iter13_frontend_postgresql_final.analitica.png": "f5a6e03b2308aced8984cdd0418dcbcd35d92b2f4a568f447aeb9b3c3094b73e",
+    "iter13_frontend_postgresql_final.browser.json": "aacf4f7900bcd55145ae1625b9a3b4d37242c6542b752f2dd73dae49d49be0e0",
+    "iter13_frontend_postgresql_final.dashboard.png": "00d1bc72e3b8c2011b7e5ecfb861bc35d21f3c6222c7f210e6716536a54c3307",
+    "iter13_frontend_postgresql_final.evaluacion.png": "e8d8e0048e5bd17b639bb255484ae6914d390db04da39ebcb12ee55cf27e681a",
+    "iter13_frontend_postgresql_final.evidencia.png": "2245f5a873dcf06fdb7a734d0d92466530a541bc28d0631dc14fbf7daad8d847",
+    "iter13_frontend_postgresql_final.historial.png": "325bdbd12ffe63eb925c4b1e73c2dad555d18a010cde0822f771f79ef6a1aaed",
+    "iter13_frontend_postgresql_final.importacion.png": "9c9b3bfaae449e3c7b3b5b9e72dd6c73aa0961653b2ee482756a555f9786c010",
+    "iter13_frontend_postgresql_final.incidentes.png": "57d204810ac93dd47de248b60e9b0a550048d98026a1c51861b63b257cf04d8b",
+    "iter13_frontend_postgresql_final.json": "908265cf5080f2a78ddf6ca142a13c4e6288e693fe85d54433de360e386fa175",
+    "iter13_frontend_postgresql_final.ml.png": "be2132e2ad1e5f7acfa52196c861a00a9161c6a2c96bd1c727786d97114e9adf",
+    "iter13_frontend_postgresql_final.movil.png": "8fb3444aaec9959a08177726345e3fdd9e2714b328425ca5b3fbdc95733cd184",
+    "iter13_frontend_postgresql_verificado.analitica.png": "4e4839e859fc24ec182878931b143db073371667b2b500b4a572407b70adc8f2",
+    "iter13_frontend_postgresql_verificado.browser.json": "1c4019ce7d96ad8db7ea9c0e14fa8e766f66992fcde27a57a2838d58824f78e6",
+    "iter13_frontend_postgresql_verificado.dashboard.png": "e708ba713080a76ca5c618f5c246472d10d4edfe8c7e52786118f6ae18829d45",
+    "iter13_frontend_postgresql_verificado.evaluacion.png": "89bce70ec148c32e3612664040703051e38c32910485bffae8cfdf1aeba58e85",
+    "iter13_frontend_postgresql_verificado.evidencia.png": "2e935d231383913afdd7ecc4acc6fd2a22e87f7fa5633207193aabbea515d422",
+    "iter13_frontend_postgresql_verificado.historial.png": "dda68c47b3e83b2d1922e876725a32d2314d0ac5a99eedcc24258e107f25bc31",
+    "iter13_frontend_postgresql_verificado.importacion.png": "099b69ec016433a867034f0e75b3e58ea34a4bf3f0e11148300c0eb36dd0450f",
+    "iter13_frontend_postgresql_verificado.incidentes.png": "ee322599a8e917f5f13b184cd51f3d32265fac2cf696e17beb6e0f4f5f4b6499",
+    "iter13_frontend_postgresql_verificado.json": "cd83921b6ab1ae2d545508eafbc20b8ac921014be8470b66809082fd8a2c769a",
+    "iter13_frontend_postgresql_verificado.ml.png": "0602f38533047d49262b2a042113de6c8c4e5711d42c3420617258ad6ca251b1",
+    "iter13_frontend_postgresql_verificado.movil.png": "27d1bac0b4399cdd1c76895f32e7920e1ba7e79acee6eca7b46f60d5192b949f",
+    "iter13_frontend_sqlite_cierre.analitica.png": "20a383d3bfad43808fbf74f1628e88c1dcdaeea35e7b1aebfef32cc51529fbb1",
+    "iter13_frontend_sqlite_cierre.browser.json": "aacf4f7900bcd55145ae1625b9a3b4d37242c6542b752f2dd73dae49d49be0e0",
+    "iter13_frontend_sqlite_cierre.dashboard.png": "c76ab55757a24898d12ff7fb7b01c0a501c63b63b25639288e07dd73c86c922f",
+    "iter13_frontend_sqlite_cierre.evaluacion.png": "1d20aa00948b20ee0e39d8fe0ed3404593c9e285ddcde86b4eb363c9450dc271",
+    "iter13_frontend_sqlite_cierre.evidencia.png": "40bc2238f45113940309cb9ebbb4ecedef81bf5ca500ae6e8513815f4de61e98",
+    "iter13_frontend_sqlite_cierre.historial.png": "aa09f98c972bfc61018ab593601925e6f0bed6833aa8ee6963b627058cdded37",
+    "iter13_frontend_sqlite_cierre.importacion.png": "b0f5e9f8b2012e647572aa62ec52da6731a67cdac4c74a3639bedda180a365c6",
+    "iter13_frontend_sqlite_cierre.incidentes.png": "73b7ffe3f528492daa22759b78ab44c335218a54e1624f5c8d9a4dd590114ae2",
+    "iter13_frontend_sqlite_cierre.json": "ee5a1150263d0e9c2120a101bad02190f19ad12d42bbc609bcdc5768be552693",
+    "iter13_frontend_sqlite_cierre.ml.png": "be873ff1661fb160bd56f4e935e8962e1588c66d583e4274cbe0aca272118ffb",
+    "iter13_frontend_sqlite_cierre.movil.png": "e0bdcdde1fdc36242efd9cedec1eac84519064053cc946cb33b285b73f0c01b8",
+    "iter13_frontend_sqlite_cuarta.analitica.png": "1dcf0e041d8605d3b00f9421eab88c19c0f35b2ed55b1646ca173a0a9b20cd7d",
+    "iter13_frontend_sqlite_cuarta.browser.json": "aacf4f7900bcd55145ae1625b9a3b4d37242c6542b752f2dd73dae49d49be0e0",
+    "iter13_frontend_sqlite_cuarta.dashboard.png": "dde79269800b4ce5b56278711eef52e5fc89d9758779d25364d4b075e9cd88e0",
+    "iter13_frontend_sqlite_cuarta.evaluacion.png": "b59f322fdabf0f0de3bba2acefec8fdc9984d36e14b0749fcf60880b8f217664",
+    "iter13_frontend_sqlite_cuarta.evidencia.png": "1fd2ef65d5df609a719fdae90e92ba14d42fe325c7903e1a29d61671e2a746df",
+    "iter13_frontend_sqlite_cuarta.historial.png": "8f54574f509b777a72777ed36f0d194d5cda199cca7f1b331769dd049cabb354",
+    "iter13_frontend_sqlite_cuarta.importacion.png": "5c1f3efd318877df533cbed7e1fd822512caadf4c00dfb7b0822484acf6b3c9f",
+    "iter13_frontend_sqlite_cuarta.incidentes.png": "64fd4feec4e542657d39b1067c796d0f8b899cb04244a942d6cb1ad97eda390f",
+    "iter13_frontend_sqlite_cuarta.json": "1ea50d91d0b04c92333ddbad8f2da2b79b6ac0f73a81f7a9c6f283cfe16a175d",
+    "iter13_frontend_sqlite_cuarta.ml.png": "0db61021cb486a02a85647b5786b734786ab707ffab781df0b7549ea4ed6cbc4",
+    "iter13_frontend_sqlite_cuarta.movil.png": "d6eec91232ff60452fe114d5ffe8d04f175ed70534ae424b3d5dd6c71b4a089b",
+    "iter13_frontend_sqlite_estable.analitica.png": "462753946ecfca318b4809e78b7b7e47eb405da158e552da1e7da2c037b4ab96",
+    "iter13_frontend_sqlite_estable.browser.json": "1c4019ce7d96ad8db7ea9c0e14fa8e766f66992fcde27a57a2838d58824f78e6",
+    "iter13_frontend_sqlite_estable.dashboard.png": "f99f331f6eb9404c8eedbb5713acaf5d5ee720e5be7de76b5595c41b0ab2f351",
+    "iter13_frontend_sqlite_estable.evaluacion.png": "c1a2b4a4ea6b91b9993eb9057342597439f2944d11859cbd1805bdd010086573",
+    "iter13_frontend_sqlite_estable.evidencia.png": "4c144793de201716d4e14e10e21a770e4dd86c5cb3404e0b4b82882f78b17179",
+    "iter13_frontend_sqlite_estable.historial.png": "e27ad07009150fc71fe4d99d9685e9ed2a5a652acc3d8ac906ef307ebcb70899",
+    "iter13_frontend_sqlite_estable.importacion.png": "099b69ec016433a867034f0e75b3e58ea34a4bf3f0e11148300c0eb36dd0450f",
+    "iter13_frontend_sqlite_estable.incidentes.png": "c1399bd8e5c7d7921c800890b653a99a64ff2a34a80e3f8ce9b82e7f92edd39f",
+    "iter13_frontend_sqlite_estable.json": "55a044656807d8164d113d2d19f47c9d045f0d1dc8315a4493a1d5d833c797d3",
+    "iter13_frontend_sqlite_estable.ml.png": "44d1b33905d2213675370ef129f3e07c01de82a67c3f198a52855688ac43736d",
+    "iter13_frontend_sqlite_estable.movil.png": "9721ddfcf69600bc9e2f0d023b594c9f24606cfd878910c5c26f41633398480c",
+    "iter13_frontend_sqlite_final.analitica.png": "cc134a7b7fa12caa7be45709fca0a728b6f89ebecbe8fdd068231a4b8ee4e0fd",
+    "iter13_frontend_sqlite_final.browser.json": "aacf4f7900bcd55145ae1625b9a3b4d37242c6542b752f2dd73dae49d49be0e0",
+    "iter13_frontend_sqlite_final.dashboard.png": "fd3b72391bfbe6526629fbaddbe2ad13727b116d530106e3521d53a6f0975cd2",
+    "iter13_frontend_sqlite_final.evaluacion.png": "308de521b0a6b5ca885161f075d017ebc78bb909dd914b6869d625a3a0d98e53",
+    "iter13_frontend_sqlite_final.evidencia.png": "9290f8cdab498ce507aa32d8cb0f015100fb6d5ce91cdd6354e04d60d47156cd",
+    "iter13_frontend_sqlite_final.historial.png": "1acf6e7092a61e694bb1cadff342a228c9b9f0ecc6b55debf10a27800534a4d5",
+    "iter13_frontend_sqlite_final.importacion.png": "5c1f3efd318877df533cbed7e1fd822512caadf4c00dfb7b0822484acf6b3c9f",
+    "iter13_frontend_sqlite_final.incidentes.png": "1653420c36c6970135ac1b235f8c19224955978b427acb806a1f54e14d5b2cf0",
+    "iter13_frontend_sqlite_final.json": "4b774cc4586b9187c6e27bbe3cb92a09c121de14b1db841f5a648207680409a8",
+    "iter13_frontend_sqlite_final.ml.png": "5f90a6d3c3828b352bf773680638cec8ce052f0be2a230a2fc326f9c97392d22",
+    "iter13_frontend_sqlite_final.movil.png": "9c98871abd41e4c86f9c7ffc3874aca7bf166be09b4a9684e7cbedf6a05ac8d7",
+    "iter13_integral_postgresql_final.browser.json": "4f539454475fc68eead2b95f6f89f849f0a791a1aef609b6969d3e821ac8d3a6",
+    "iter13_integral_postgresql_final.dashboard.png": "d6466be6a7b1392389dcee38adf477160d41b0a016937ea60aa9058ceeffb05a",
+    "iter13_integral_postgresql_final.incidente.png": "5e407607bda348625341a093c461d8875fb15296ac517891836673a0c18bb47a",
+    "iter13_integral_postgresql_final.json": "fb55850f925ed0f1e823f1bc1704e4d4c6bf9531a0c0b35776b9f66c02dbebf3",
+    "iter13_integral_postgresql_final.reporte.csv": "ba9bed2a2c155fca5969d32fabf22b62a99446328b729a236fc0fe4c8f6c7430",
+    "iter13_integral_postgresql_final.reporte.json": "9f8e76c1b7a84d674554eeb72177adbfb0c8609b3e38125de99d64d2c8089c9e",
+    "iter13_integral_postgresql_final.reporte.pdf": "5020806f4d613063446ebdb3aad8a1c8799e20fc554c912bdaeeb0c6702a2820",
+    "iter13_pipeline_postgresql_regresion.browser.json": "99155bafdd109862f8a891967688ef64df26eb2619deb5167e027a39dc78afac",
+    "iter13_pipeline_postgresql_regresion.csv": "be8ba102e42865caef225671bdccc57799e34afc56108a17c344089cf5a7301c",
+    "iter13_pipeline_postgresql_regresion.evento.png": "c2979ca0719f3ce86dba1069341d504f44ee2482ca6fe80a4fb9ec82053668a9",
+    "iter13_pipeline_postgresql_regresion.json": "19640f128c6d6be117d84480c89deab224ac79b151edc9100d7e862c27908cd0"
+  },
+  "limitations": [
+    "All browser/data fixtures are isolated and synthetic; no production/IDS validation.",
+    "Chromium only; one network failure is deliberately aborted to test retry, not a measured server outage.",
+    "JWT remains stateless; browser logout deletes cookie, does not revoke an already stolen copy.",
+    "Package audit is npm ci output only, not an external security audit.",
+    "Build/module/npm figures transcribed from actual successful tool output; JUnit is parsed directly.",
+    "Historical Git comparison uses clean filters; pre-existing JSON CRLF/LF differences are recorded explicitly, never rewritten. Raw source hashes may differ after CRLF conversion.",
+    "Evidence files from earlier successful iteration13 attempts remain marked as intermediate."
+  ]
+}

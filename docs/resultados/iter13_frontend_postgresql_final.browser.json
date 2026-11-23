@@ -1,0 +1,18 @@
+{
+  "browser": "149.0.7827.55",
+  "engine": "Chromium",
+  "cases": 6,
+  "checks": [
+    "cookie HttpOnly, sin almacenamiento JS, recarga, rutas y filtros preservados, panel y evidencia contextual, teclado/Escape",
+    "asignación/transición/acción, conflicto409 y recuperación, historial, módulos independientes y permiso administrador",
+    "analista: recarga válida, RBAC y rutas protegidas",
+    "observador: recarga válida, RBAC y rutas protegidas",
+    "escritorio1440/tablet820/móvil390 sin overflow de documento; diálogo acotado, foco/Escape; cuatro pares de contraste>=4.5",
+    "JWT cinco segundos: expira por reloj real/API, logout persistente,422 validación sin eco y429 real con Retry-After"
+  ],
+  "page_errors": [],
+  "synthetic": true,
+  "network": "real loopback API via same-origin Vite proxy",
+  "traces": false,
+  "credentials_saved": false
+}

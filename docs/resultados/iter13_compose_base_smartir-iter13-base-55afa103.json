@@ -1,0 +1,17 @@
+﻿{
+    "generated_at":  "2026-11-23T02:36:28.5405975+00:00",
+    "project":  "smartir-iter13-base-55afa103",
+    "health":  {
+                   "status":  "ok",
+                   "service":  "smartir-net"
+               },
+    "web_http":  200,
+    "migration":  "0009",
+    "postgresql":  "16.16",
+    "data_kind":  "new isolated test volume with one temporary observer fixture",
+    "browser_tested_in_this_compose":  false,
+    "scope":  "startup, migration, health and web HTTP; iteration13 also tests cookie login/restore/logout via web proxy. Browser uses independent isolated runner",
+    "web_proxy_cookie_login_restore_logout":  true,
+    "original_services_modified":  false,
+    "volumes_removed":  false
+}

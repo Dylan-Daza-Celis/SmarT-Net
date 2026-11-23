@@ -1,5 +1,7 @@
 # Guía de despliegue y conservación — iteración 10
 
+**Actualización13:** frontend y backend deben actualizarse juntos para las nuevas rutas /api/auth/session. El navegador usa /api del mismo origen, por proxy Vite; Compose configura SMARTIR_API_PROXY_TARGET=http://api:8000 en web. No se cambia head0009, credenciales ni volúmenes. Una recarga restaura identidad con cookie HttpOnly; mutaciones por cookie exigen Origin y cabecera CSRF. Dist requiere su propio proxy /api si se sirve fuera de Vite. [Configuración, contratos y límites de seguridad13](REDISENO_FRONTEND.md). No se presenta Vite/HTTP local como despliegue productivo.
+
 Ámbito: **prototipo local**, no receta de producción ni certificación de seguridad. Docker Desktop/Compose, PostgreSQL16, API FastAPI/SQLAlchemy/Alembic y React/TypeScript con Vite. Actualización11: head0009 agrega únicamente users.eve_only/defaultFalse para el agente restringido. En10 no se necesitaron migraciones nuevas; sus resultados se conservan como históricos. Configuración opcional y validación actual en [MONITOREO_CONTINUO_SURICATA](MONITOREO_CONTINUO_SURICATA.md).
 
 ## Variables y requisitos

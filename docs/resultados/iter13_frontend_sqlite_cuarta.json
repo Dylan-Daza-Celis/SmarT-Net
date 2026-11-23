@@ -1,0 +1,334 @@
+{
+  "generated_at": "2026-11-23T02:18:24.413666+00:00",
+  "database": "sqlite",
+  "transport": "real HTTP TCP loopback, Chromium and API processes",
+  "journey_checks": [
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 401
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import/eve?filename=synthetic.eve.jsonl&sensor_id=iter10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/f7e819f3-cd5c-4208-9f2f-44b3814b9a58",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/75b4f43c-3a6f-4ce1-a091-5ae2c2f73356/evidence",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/assignment",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/assignment",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/actions",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/actions",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/evaluations",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/events/import",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/evaluations",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/reevaluate",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/evaluations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/timeline",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/incidents/acc97428-1b14-4a88-b5f1-b6397441ed34/lifecycle",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/dashboard",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analytics/reports",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/0b917d36-35cc-4953-8152-9317173e314f",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/0b917d36-35cc-4953-8152-9317173e314f",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/reports/0b917d36-35cc-4953-8152-9317173e314f",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/datasets/synthetic",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/evaluation/experiments",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/experiments/dcb1a884-a2a6-4903-8d0e-467ca32036df",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/datasets/laboratory",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/evaluation/datasets/991741a0-011c-487e-8348-7d8fb1e3a24e/cases",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/runs/2db41ee3-0ab4-4afc-8cea-37cb553da9b7/predict",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/ml/train",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/comparisons",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 422
+    }
+  ],
+  "browser": {
+    "browser": "149.0.7827.55",
+    "engine": "Chromium",
+    "cases": 6,
+    "checks": [
+      "cookie HttpOnly, sin almacenamiento JS, recarga, rutas y filtros preservados, panel y evidencia contextual, teclado/Escape",
+      "asignación/transición/acción, conflicto409 y recuperación, historial, módulos independientes y permiso administrador",
+      "analista: recarga válida, RBAC y rutas protegidas",
+      "observador: recarga válida, RBAC y rutas protegidas",
+      "escritorio1440/tablet820/móvil390 sin overflow de documento; diálogo acotado, foco/Escape; cuatro pares de contraste>=4.5",
+      "JWT cinco segundos: expira por reloj real/API, logout persistente,422 validación sin eco y429 real con Retry-After"
+    ],
+    "page_errors": [],
+    "synthetic": true,
+    "network": "real loopback API via same-origin Vite proxy",
+    "traces": false,
+    "credentials_saved": false
+  },
+  "data_kind": "synthetic isolated fixtures; NOT live traffic",
+  "user_database_read_or_written": false,
+  "migration_head": "0009",
+  "credentials_saved": false
+}

@@ -6,3 +6,5 @@ docs/resultados/iter11*.csv -text whitespace=cr-at-eol
 docs/resultados/iter12*.csv -text whitespace=cr-at-eol
 docs/resultados/iter12*.json -text whitespace=cr-at-eol
 docs/resultados/iter12*.jsonl -text
+docs/resultados/iter13*.csv -text whitespace=cr-at-eol
+docs/resultados/iter13*.json -text whitespace=cr-at-eol
