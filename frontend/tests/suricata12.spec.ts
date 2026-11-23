@@ -12,15 +12,17 @@ test('EVE offline: criticidad de alerta y activo separadas, consulta por rol',as
   await page.getByLabel('Usuario',{exact:true}).fill(credentials[role][0]);
   await page.getByLabel('Contraseña',{exact:true}).fill(credentials[role][1]);
   await page.getByRole('button',{name:'Entrar',exact:true}).click();
-  await expect(page.getByRole('heading',{name:'Dashboard analítico',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Centro de operaciones',exact:true})).toBeVisible();
+  await page.goto('/#/incidents');
   await page.getByLabel('Desde UTC (incluido)').fill('2026-01-01T00:00');
   await page.getByLabel('Hasta UTC (excluido)').fill('2026-01-02T00:00');
   await page.getByLabel('Eje temporal').selectOption('event_timestamp');
   await page.getByLabel('Tipo de incidente',{exact:true}).fill('prueba_icmp');
   await page.getByRole('button',{name:'Aplicar filtros',exact:true}).click();
   await expect(page.getByText('1 incidentes · Página 1',{exact:true})).toBeVisible();
-  await page.getByRole('button',{name:'Detalle',exact:true}).click();
-  const detail=page.locator('section.panel').filter({has:page.getByRole('button',{name:'Cerrar detalle',exact:true})});
+  await page.getByRole('button',{name:/^Detalle/}).click();
+  const detail=page.getByRole('dialog');
+  await detail.getByRole('tab',{name:'Eventos y evidencias',exact:true}).click();
   const normalization=detail.locator('.event-normalization').first();
   await expect(normalization).toContainText('Prioridad Suricata original: 3 (ordinal; 1 es mayor prioridad, no porcentaje)');
   await expect(normalization).toContainText('Criticidad de la alerta derivada: 40/100 · Media');
@@ -34,6 +36,7 @@ test('EVE offline: criticidad de alerta y activo separadas, consulta por rol',as
    await expect(detail.getByRole('button',{name:'Guardar transición'})).toHaveCount(0);
    await expect(detail.getByRole('button',{name:'Asignar / reasignar / retirar'})).toHaveCount(0);
   }
+  await detail.getByRole('button',{name:/Cerrar detalle/}).click();
   await page.getByRole('button',{name:'Cerrar sesión',exact:true}).click();
  }
  expect(errors).toEqual([]);

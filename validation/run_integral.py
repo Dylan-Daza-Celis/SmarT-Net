@@ -17,9 +17,10 @@ def main():
     parser.add_argument('--database', choices=['sqlite', 'postgresql'], default='sqlite')
     parser.add_argument('--browser', action='store_true')
     parser.add_argument('--label', default='final')
+    parser.add_argument('--iteration', default='10', choices=['10','13'])
     args = parser.parse_args()
     if not args.label.replace('-', '').isalnum(): parser.error('Alphanumeric label required')
-    output = ROOT/'docs/resultados'/f'iter10_integral_{args.database}_{args.label}.json'
+    output = ROOT/'docs/resultados'/f'iter{args.iteration}_integral_{args.database}_{args.label}.json'
     if output.exists(): parser.error('Evidence exists; choose a new label, historical results are immutable')
     isolated = Isolated(args.database)
     start = time.perf_counter()

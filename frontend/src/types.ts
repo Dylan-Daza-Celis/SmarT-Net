@@ -1,0 +1,9 @@
+export type User={id:string;username:string;role:'administrador'|'analista'|'observador';eve_only?:boolean};
+export type EventView={id:string;source:string;event_timestamp:string;source_ip:string|null;message:string;severity:number;asset_criticality:number;asset_criticality_observed:boolean|null;adapter_metadata:Record<string,unknown>|null};
+export type Incident={id:string;created_at:string;revision:number;assigned_to_id:string|null;assignee:{id:string;username:string;active:boolean}|null;needs_review:boolean;event_type:string;source_ip:string|null;destination_ip:string|null;status:string;score:number;priority:string;event_count:number;explanation:{algorithm_version?:string;factors?:Record<string,{value:number;weight:number;contribution:number;observed:boolean;basis?:string}>;context?:{known:boolean;policy:string}};events_offset:number;events_limit:number;events:EventView[]};
+export type IncidentRow={id:string;event_type:string;score:number;priority:string;status:string;assignee:string|null;event_count:number;created_at:string;needs_review:boolean};
+export type Metric={value:number|null;unit:string;status:string;reason:string|null;valid?:number;total?:number};
+export type Dashboard={filters:Record<string,string|null>;totals:Record<string,number>;distributions:Record<string,{name:string;count:number}[]>;trends:{date:string;events:number;incidents:number;critical:number}[];response_metrics:Record<string,Metric>;limitations:string[];provenance:{reason:string};incidents:{items:IncidentRow[];total:number;offset:number;limit:number}};
+export type Filters={start:string;end:string;time_basis:string;priority:string;event_type:string;status:string;assignee:string;source:string};
+export const statuses=['Nuevo','Asignado','En análisis','En respuesta','Resuelto','Cerrado'];
+export const incidentTypes=['acceso_no_autorizado','malware','dos','escaneo','uso_indebido','exfiltracion','desconocido','prueba_icmp'];

@@ -1,0 +1,6 @@
+import type {IncidentRow} from '../types';
+import {Badge,Empty,date} from './ui';
+export default function IncidentTable({items,onDetail}:{items:IncidentRow[];onDetail:(id:string)=>void}){
+ if(!items.length)return <Empty title="No hay incidentes para estos filtros.">Amplíe el periodo o cambie las condiciones de búsqueda.</Empty>;
+ return <div className="table-scroll" tabIndex={0} role="region" aria-label="Tabla de incidentes"><table className="incident-table"><thead><tr><th>Incidente / tipo</th><th>Prioridad / score</th><th>Estado</th><th>Responsable</th><th>Eventos</th><th>Creación UTC</th><th><span className="sr-only">Abrir</span></th></tr></thead><tbody>{items.map(i=><tr key={i.id}><td><strong>{i.event_type.replace(/_/g,' ')}</strong><span className="row-id">#{i.id.slice(0,8)}{i.needs_review?' · Pendiente de revisión':''}</span></td><td><Badge>{i.priority}</Badge><span className="score">{i.score}<small>/100</small></span></td><td><Badge kind="state">{i.status}</Badge></td><td>{i.assignee??<span className="muted">Sin responsable</span>}</td><td>{i.event_count}</td><td className="date-cell">{date(i.created_at)}</td><td><button className="button-quiet" onClick={()=>onDetail(i.id)}>Detalle<span className="sr-only"> de {i.id.slice(0,8)}</span></button></td></tr>)}</tbody></table></div>;
+}

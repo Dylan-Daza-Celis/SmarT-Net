@@ -21,6 +21,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--source-dir',type=Path,required=True)
     parser.add_argument('--database',choices=['sqlite','postgresql'],default='sqlite');parser.add_argument('--label',default='final')
     parser.add_argument('--browser',action='store_true')
+    parser.add_argument('--iteration',choices=['12','13'],default='12')
     args=parser.parse_args()
     if not re.fullmatch('[a-zA-Z0-9_-]{1,30}',args.label):parser.error('Invalid label')
     directory=args.source_dir.resolve()
@@ -32,7 +33,7 @@ def main():
     assert provenance['source_pcap_sha256']==hashlib.sha256(make_pcap()).hexdigest()
     assert provenance['source_alerts_sha256']==hashlib.sha256(body).hexdigest()
     assert len(original)==4 and all(r['src_ip']=='192.0.2.10' and r['dest_ip']=='198.51.100.20' and r['alert']['signature_id']==9900012 for r in original)
-    target=ROOT/'docs/resultados'/f'iter12_pipeline_{args.database}_{args.label}.json'
+    target=ROOT/'docs/resultados'/f'iter{args.iteration}_pipeline_{args.database}_{args.label}.json'
     if target.exists():parser.error('Evidence exists; choose another label')
     instance=Isolated(args.database);start=time.perf_counter()
     with instance.running(),httpx.Client(base_url=instance.base_url,trust_env=False,timeout=30) as client:
