@@ -1,0 +1,10 @@
+# Logger fragment, not an additive --include: use tools/suricata_alerts_config.py.
+eve-log:
+  enabled: yes
+  filetype: regular
+  filename: smartir-alerts.json
+  threaded: false
+  buffer-size: 0
+  filemode: 600
+  types:
+    - alert

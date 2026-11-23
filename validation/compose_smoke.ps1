@@ -1,9 +1,9 @@
-param([string]$ExpectedHead = '0009')
+param([string]$ExpectedHead = '0009', [ValidatePattern('^\d{2}$')][string]$Iteration = '11')
 $ErrorActionPreference = 'Stop'
 $taskRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 Set-Location -LiteralPath $taskRoot
-$project = 'smartir-iter11-base-' + [guid]::NewGuid().ToString('N').Substring(0,8)
-$evidence = Join-Path $taskRoot "docs/resultados/iter11_compose_base_$project.json"
+$project = "smartir-iter$Iteration-base-" + [guid]::NewGuid().ToString('N').Substring(0,8)
+$evidence = Join-Path $taskRoot "docs/resultados/iter${Iteration}_compose_base_$project.json"
 # Ephemeral values for a NEW empty volume only. Never read or edit the user's .env.
 $priorDb = $env:DB_PASSWORD
 $priorJwt = $env:JWT_SECRET

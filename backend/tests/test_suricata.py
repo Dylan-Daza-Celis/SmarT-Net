@@ -92,7 +92,7 @@ def test_permissions_and_six_synthetic_categories(api, headers, role):
     with session() as db:
         event_id = db.scalar(select(Event.id))
     assert client.get(f"/api/events/{event_id}").status_code == 401
-    assert client.get(f"/api/events/{event_id}", headers=h).json()["adapter_metadata"]["adapter_version"] == "suricata-eve-v1"
+    assert client.get(f"/api/events/{event_id}", headers=h).json()["adapter_metadata"]["adapter_version"] == "suricata-eve-v2"
     assert len(client.get(f"/api/events/{event_id}/evidence",headers=h).json()) == 1
 
 

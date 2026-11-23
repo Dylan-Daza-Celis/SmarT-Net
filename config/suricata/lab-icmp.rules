@@ -1,0 +1,2 @@
+# SYNTHETIC OFFLINE LAB ONLY. SID 9900012 is an example, not the user's actual SID.
+alert icmp any any -> any any (msg:"SMARTIR WSL2 LAB ICMP TEST"; itype:8; priority:3; sid:9900012; rev:1;)

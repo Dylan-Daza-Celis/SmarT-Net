@@ -7,8 +7,9 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_valida
 from .correlation import normalize_ip
 from .ingestion import ImportRecord
 from .schemas import EventIn
+from .suricata_policy import alert_criticality, classification
 
-ADAPTER_VERSION = "suricata-eve-v1"
+ADAPTER_VERSION = "suricata-eve-v2"
 FINGERPRINT_VERSION = "suricata-eve-fp-v1"
 # EVE contains the human-readable category, not necessarily a classtype shortname.
 # Exfiltration uses an explicit custom category: generic information leaks are ambiguous.
@@ -112,10 +113,11 @@ def adapt_line(raw_bytes, *, sensor_id, filename, import_id, line_number):
         raise EveLineError("invalid_fields", [".".join(map(str, e["loc"])) for e in exc.errors()]) from exc
     except (ValueError, UnicodeError, RecursionError, OverflowError) as exc:
         raise EveLineError("invalid_json_or_timestamp") from exc
-    category = (eve.alert.category or "").strip().casefold()
-    kind = CATEGORY_MAP.get(category, "desconocido")
+    interpreted = classification(eve.alert.category, eve.alert.signature, eve.proto, CATEGORY_MAP)
+    kind = interpreted['type']
     severity = eve.alert.severity
-    normalized_severity = 50 if severity is None else (100 if severity <= 1 else 70 if severity == 2 else 40 if severity == 3 else 10)
+    criticality = alert_criticality(severity)
+    normalized_severity = criticality['value']
     event = EventIn(source=f"suricata:{sensor_id}", event_timestamp=timestamp,
         source_ip=eve.src_ip, destination_ip=eve.dest_ip, event_type=kind,
         severity=normalized_severity, message=eve.alert.signature or "Suricata alert")
@@ -123,8 +125,11 @@ def adapt_line(raw_bytes, *, sensor_id, filename, import_id, line_number):
         "source_port": eve.src_port, "destination_port": eve.dest_port, "protocol": eve.proto,
         "signature": eve.alert.signature, "signature_id": eve.alert.signature_id,
         "category": eve.alert.category, "suricata_severity": severity,
-        "classification": {"type": kind, "matched": kind != "desconocido",
-                           "policy": "exact_category_v1"},
+        "input_event_type": eve.event_type, "original_timestamp": eve.timestamp,
+        "category_status": "missing" if "category" not in parsed['alert'] else
+            "null" if eve.alert.category is None else "empty" if not eve.alert.category.strip() else "provided",
+        "classification": interpreted,
+        "alert_criticality": criticality,
         "severity_policy": "priority_0_1_100_2_70_3_40_4plus_10_missing_50",
         "severity_defaulted": severity is None,
         "asset_criticality": {"value": 50, "observed": False, "policy": "unknown_default_50"}}

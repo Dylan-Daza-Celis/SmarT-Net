@@ -1,0 +1,22 @@
+%YAML 1.1
+---
+# SYNTHETIC OFFLINE LAB ONLY. No live interface or production configuration.
+vars:
+  address-groups:
+    HOME_NET: any
+    EXTERNAL_NET: any
+default-log-dir: .
+outputs:
+  - eve-log:
+      enabled: yes
+      filetype: regular
+      filename: eve-general.json
+      threaded: false
+      buffer-size: 0
+      types:
+        - alert
+        - flow
+logging:
+  outputs:
+    - console:
+        enabled: yes

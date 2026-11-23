@@ -1,0 +1,2 @@
+# Configuration helper only, not a new application service.
+PyYAML>=6.0.3,<7

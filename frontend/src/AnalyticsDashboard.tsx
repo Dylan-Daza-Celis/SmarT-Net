@@ -10,7 +10,7 @@ type Run={id:string;created_at:string;data_kind:string;status:string;models:{mod
 type Props={request:(path:string,init?:RequestInit)=>Promise<any>;download:(path:string)=>Promise<void>;writer:boolean;researcher:boolean;refreshKey:number;onDetail:(id:string)=>void};
 const palette=['#6cc7fa','#8be5b0','#ffd16c','#fa8a9e'];
 const states=['Nuevo','Asignado','En análisis','En respuesta','Resuelto','Cerrado'];
-const types=['acceso_no_autorizado','malware','dos','escaneo','uso_indebido','exfiltracion','desconocido'];
+const types=['acceso_no_autorizado','malware','dos','escaneo','uso_indebido','exfiltracion','desconocido','prueba_icmp'];
 const metricNames:Record<string,string>={time_to_assignment:'Tiempo hasta asignación',time_to_response:'Tiempo hasta inicio de respuesta',time_to_resolution:'Tiempo hasta resolución',mttd:'MTTD documental',mttr:'MTTR documental'};
 function initial():Filter{const end=new Date(),start=new Date(end.getTime()-30*86400000);return {start:start.toISOString().slice(0,16),end:end.toISOString().slice(0,16),time_basis:'incident_created',priority:'',event_type:'',status:'',assignee:'',source:''}}
 function parameters(f:Filter){const q=new URLSearchParams();Object.entries(f).forEach(([k,v])=>{if(v)q.set(k,k==='start'||k==='end'?v+':00Z':v)});return q}
