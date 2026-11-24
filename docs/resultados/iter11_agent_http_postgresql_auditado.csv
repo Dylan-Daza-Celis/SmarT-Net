@@ -1,6 +1,0 @@
-seq,id,start,end,start_line,end_line,records,attempts,imported,duplicates,discarded
-1,dfe1ee43-c7b6-4de1-a58b-97daa5f1bd4d,0,904,1,3,3,1,3,0,0
-2,d0cb9a87-654b-495d-bba4-8e8cd4b1631c,904,1809,4,6,3,1,3,0,0
-3,77f90436-c76e-48c1-9f10-b89ee5cb97aa,1809,2712,7,9,3,1,3,0,0
-4,1ea12b5a-50fd-4df6-ae33-379fcb54c1da,2712,3045,10,12,3,1,0,1,2
-5,75fc3797-e53c-4c2b-abc8-08d99d83657c,0,907,1,3,3,3,3,0,0

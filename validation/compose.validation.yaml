@@ -1,8 +1,0 @@
-# Only with a NEW project name, via compose_smoke.ps1. Existing projects are untouched.
-services:
-  api:
-    ports: !override
-      - "127.0.0.1:58010:8000"
-  web:
-    ports: !override
-      - "127.0.0.1:55180:5173"

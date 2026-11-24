@@ -1,3 +1,0 @@
-database,tests,failures,errors,skipped,duration_seconds
-sqlite,198,0,0,0,138.407
-pg,198,0,0,0,191.988

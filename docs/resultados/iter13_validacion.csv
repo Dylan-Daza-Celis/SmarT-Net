@@ -1,7 +1,0 @@
-suite,cases,failures,errors,skipped,duration_seconds
-sqlite,211,0,0,0,134.862
-pg,211,0,0,0,207.123
-browser_sqlite,6,0,0,0,not_recorded
-browser_postgresql,6,0,0,0,not_recorded
-browser_integral,1,0,0,0,not_recorded
-browser_suricata,1,0,0,0,not_recorded
