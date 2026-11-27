@@ -1,5 +1,10 @@
 # SmartIR-Net — entrega académica
 
+## Guía de instalación completa
+
+La instalación reproducible en Windows 11 con Docker, WSL2, Ubuntu, Suricata y el agente Windows, sus verificaciones de extremo a extremo y recuperación de errores están en [docs/GUIA_INSTALACION_COMPLETA.md](docs/GUIA_INSTALACION_COMPLETA.md).
+
+
 Prototipo de gestión y priorización de incidentes de seguridad de redes académicas, implementado con React/TypeScript, FastAPI/Python, PostgreSQL y Suricata. El agente Windows lee eventos EVE JSON de un sensor Suricata en Ubuntu WSL2 y los envía a la API. Los eventos se normalizan, correlacionan y priorizan mediante un modelo ponderado explicable. Se conservan historial de incidentes y reportes.
 
 ## Estructura de la entrega
