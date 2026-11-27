@@ -1,7 +1,16 @@
-param([Parameter(Mandatory=$true)][string]$Config,[string]$RequestedAt)
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$Config,
+    [string]$RequestedAt
+)
 . "$PSScriptRoot\common.ps1"
 $c=Read-LabConfig $Config
-$lock=$null;$agent=$null;$unitOwned=$false;$composeOwned=$false;$healthy=$false;$lastFailure=$null
+$lock = $null
+$agent = $null
+$unitOwned = $false
+$composeOwned = $false
+$healthy = $false
+$lastFailure = $null
 $stage='initialize'
 $stop=Join-Path $c.runtime 'stop.request'
 $agentStop=Join-Path $c.runtime 'agent-stop.request'
@@ -22,7 +31,12 @@ try {
     Record 'starting'
     $stage='docker_info'
     $dockerDeadline=[DateTimeOffset]::UtcNow.AddSeconds([int]$c.docker_wait_seconds)
-    do { $dockerCode=Invoke-LabNative { & docker info }; if ($dockerCode -eq 0 -or (Test-Path $stop)) {break}; if ([DateTimeOffset]::UtcNow -ge $dockerDeadline) {break};Start-Sleep -Seconds 2 } while ($true)
+    do {
+        $dockerCode = Invoke-LabNative { & docker info }
+        if ($dockerCode -eq 0 -or (Test-Path $stop)) { break }
+        if ([DateTimeOffset]::UtcNow -ge $dockerDeadline) { break }
+        Start-Sleep -Seconds 2
+    } while ($true)
     if ($dockerCode -ne 0) { throw 'docker_unavailable' }
     if (Test-Path $stop) {Record 'cancelled_before_compose';return}
     # Never stop services that were already running when this supervisor started.
@@ -42,7 +56,10 @@ try {
     do { $healthy=Test-LabHttp ($c.api+'/health'); if ($healthy -and (Test-LabHttp $c.web)) { break }; Start-Sleep -Seconds 2 } while ([DateTimeOffset]::UtcNow -lt $deadline -and -not (Test-Path $stop))
     if (-not $healthy -or -not (Test-LabHttp $c.web) -or (Test-Path $stop)) { throw 'services_not_ready' }
     $stage='suricata_unit'
-    if (-not (Test-LabUnit $c)) { Invoke-LabUnit $c 'start';$unitOwned=$true }
+    if (-not (Test-LabUnit $c)) {
+        Invoke-LabUnit $c 'start'
+        $unitOwned = $true
+    }
     $eveDeadline=[DateTimeOffset]::UtcNow.AddSeconds(30)
     while (-not (Test-Path -LiteralPath $c.eve -PathType Leaf) -and [DateTimeOffset]::UtcNow -lt $eveDeadline -and -not (Test-Path $stop)) {Start-Sleep -Seconds 1}
     if (-not (Test-LabUnit $c) -or -not (Test-Path -LiteralPath $c.eve -PathType Leaf)) { throw 'sensor_not_ready' }
@@ -71,6 +88,7 @@ finally {
     if ($agent -and -not $agent.HasExited) { New-Item -ItemType File -Force -Path $agentStop | Out-Null; while (-not $agent.WaitForExit(60000)) { Record 'agent_shutdown_pending_no_force_kill' } }
     if ($unitOwned) { try { Invoke-LabUnit $c 'stop' } catch { Record 'sensor_stop_failed' } }
     if ($composeOwned -and $c.stop_owned_compose) { try { Invoke-LabCompose $c -Command @('stop') } catch { Record 'compose_stop_failed' } }
-    Record 'supervisor_stopped';$lock.Dispose()
+    Record 'supervisor_stopped'
+    $lock.Dispose()
 }
 if ($lastFailure) {exit 1}
